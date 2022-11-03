@@ -1,0 +1,43 @@
+- link:
+    ~/.zshrc: .zshrc
+    ~/.config: .config
+    ~/.gitconfig: .gitconfig
+    ~/.tmux.conf: .gitconfig
+
+- shell:
+  -
+    command: xcode-select --install
+    stdout: true
+  -
+    command: brew update
+    stdout: true
+  -
+    command: brew tap homebrew/cask-fonts
+    stdout: true
+  -
+    command: brew install --cask font-hack-nerd-font
+    stdout: true
+  -
+    command: brew install lua 
+    stdout: true
+  -
+    command: brew install ripgrep 
+    stdout: true
+  -
+    command: brew install tmux 
+    stdout: true
+  -
+    command: brew install nvim 
+    stdout: true
+  -
+    command: brew install node 
+    stdout: true
+  -
+    command: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+    stdout: true
+    description: Installing oh-my-zsh
+  -
+    command: npm i -g vscode-langservers-extracted 
+    stdout: true
+    description: Installing vscode language server
+

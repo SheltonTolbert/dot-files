@@ -1,0 +1,7 @@
+# This is Git's per-user configuration file.
+[user]
+	name = Shelton Tolbert
+	email = 60357311+SheltonTolbert@users.noreply.github.com
+# Please adapt and uncomment the following lines:
+#	name = Shelton Tolbert
+#	email = tolbert.shelton@gmail.com
