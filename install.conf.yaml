@@ -2,7 +2,7 @@
     ~/.zshrc: .zshrc
     ~/.config: .config
     ~/.gitconfig: .gitconfig
-    ~/.tmux.conf: .gitconfig
+    ~/.tmux.conf: .tmux.conf
 
 - shell:
   -
