@@ -1,3 +1,4 @@
 #!/bin/zsh
 
-./install --only link
+chmod a+x ~/.dotfiles/install
+sh ~/.dotfiles/install --only link
