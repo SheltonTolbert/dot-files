@@ -8,6 +8,8 @@
 	<true/>
 	<key>Default Bookmark Guid</key>
 	<string>A21A842D-45EB-4DE7-B618-3E8F80DB9FE7</string>
+	<key>DisableFullscreenTransparency</key>
+	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
@@ -234,13 +236,13 @@
 				<key>Alpha Component</key>
 				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.12103271484375</real>
+				<real>0.0379638671875</real>
 				<key>Color Space</key>
 				<string>sRGB</string>
 				<key>Green Component</key>
-				<real>0.099111050367355347</real>
+				<real>0.034013916636763626</real>
 				<key>Red Component</key>
-				<real>0.0806884765625</real>
+				<real>0.030694449320435524</real>
 			</dict>
 			<key>Background Image Mode</key>
 			<integer>2</integer>
@@ -264,7 +266,7 @@
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>17.809403244992524</real>
+			<real>5.8865724604180523</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Alpha Component</key>
@@ -1525,7 +1527,7 @@
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>1</integer>
 	<key>UseLionStyleFullscreen</key>
-	<false/>
+	<true/>
 	<key>UseMetal</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>

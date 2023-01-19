@@ -130,7 +130,8 @@ alias cdendra="cd ~/repos/dscout/apps/dendra"
 
 alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh"
-alias recent="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias mondays="git for-each-ref --count=30 --sort=-committerdate refs/heads/ --format='%(refname:short)'"
+alias lint="yarn lint --quiet"
 
 export ZSHCONFIG=~/.zshrc
 export VIMCONFIG=~/.config/nvim

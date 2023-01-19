@@ -67,6 +67,7 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 Plug 'markvincze/panda-vim'
 Plug 'mhartington/oceanic-next'
 Plug 'srcery-colors/srcery-vim'
+Plug 'ayu-theme/ayu-vim'
 "Syntax Highlighting"
 Plug 'elixir-editors/vim-elixir'
 "Utils"
@@ -115,20 +116,23 @@ call plug#end()
 syntax on 
 filetype plugin indent on
 colorscheme OceanicNext
-hi diffAdded ctermfg=black ctermbg=green guibg=NONE 
-hi diffRemoved ctermfg=black ctermbg=197 cterm=NONE guifg=black guibg=NONE 
+
+" different diff highlight colors
+"hi diffAdded ctermfg=black ctermbg=green guibg=NONE 
+"hi diffRemoved ctermfg=black ctermbg=197 cterm=NONE guifg=black guibg=NONE 
 
 set completeopt=menu,menuone,noselect
+set termguicolors
 
 "Transparent background"
-hi Normal guibg=none ctermbg=none
-hi LineNr guibg=none ctermbg=none
-hi Folded guibg=none ctermbg=none
-hi NonText guibg=none ctermbg=none
-hi SpecialKey guibg=none ctermbg=none
-hi VertSplit guibg=none ctermbg=none
-hi SignColumn guibg=none ctermbg=none
-hi EndOfBuffer guibg=none ctermbg=none
+"hi Normal guibg=none ctermbg=none
+"hi LineNr guibg=none ctermbg=none
+"hi Folded guibg=none ctermbg=none
+"hi NonText guibg=none ctermbg=none
+"hi SpecialKey guibg=none ctermbg=none
+"hi VertSplit guibg=none ctermbg=none
+"hi SignColumn guibg=none ctermbg=none
+"hi EndOfBuffer guibg=none ctermbg=none
 
 let g:neoformat_try_node_exe = 1
 
@@ -148,6 +152,7 @@ nnoremap <leader>ft :NvimTreeToggle<CR>
 nnoremap <leader>fc :Neoformat<CR>
 nnoremap <leader>k :lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>sss :source $MYVIMRC<CR>
+
 
 "===================================================================================="
 "LSP config"
@@ -199,4 +204,3 @@ EOF
 
 "autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js Neoformat"
 autocmd BufWritePost *.ex,*.exs :MixFormat
-
