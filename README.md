@@ -1,6 +1,6 @@
 ### **dot-files:** 
     
-    [this is mostly for me, but it's for you too](https://www.youtube.com/watch?v=RQZW98gtLb4)
+[this is mostly for me, but it's for you too](https://www.youtube.com/watch?v=RQZW98gtLb4)
 
 #### installation
 
