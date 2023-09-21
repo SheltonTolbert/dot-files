@@ -1,0 +1,142 @@
+-- inputs:
+-- .ex module and a test to run
+-- prompt with: Can you audit this file for potential issues, optimizations, or improvements?
+-- step through the improvements and implement them
+-- run the test to verify the improvements
+-- repeat until all improvements are implemented
+
+-- Are there code paths that are not tested?
+constants = {USER_ROLE = "user", SYSTEM_ROLE = "system"}
+prompt_library = {
+    ["Generate a Commit Message"] = {
+        strategy = "inline",
+        description = "Generate a commit message",
+        opts = {
+            index = 10,
+            is_default = true,
+            is_slash_cmd = true,
+            short_name = "gen_commit",
+            auto_submit = true
+        },
+        prompts = {
+            {
+                role = constants.USER_ROLE,
+                content = function()
+                    return string.format(
+                        [[You are an expert at following the Conventional Commit specification. Given the git diff listed below, please generate a commit message for me:
+
+```diff
+%s
+```
+]],
+                        vim.fn.system("git diff --no-ext-diff --staged")
+                    )
+                end,
+                opts = {
+                    contains_code = true
+                }
+            }
+        }
+    },
+    ["Generate a PR description"] = {
+        strategy = "inline",
+        description = "Generate a PR description",
+        opts = {
+            index = 10,
+            is_default = true,
+            is_slash_cmd = true,
+            short_name = "gen_pr",
+            auto_submit = true
+        },
+        prompts = {
+            {
+                role = constants.USER_ROLE,
+                content = function()
+                    return string.format(
+                        [[You are an expert at following the Conventional github pull request description specification. Given the github pull request template, jira ticket, and git diff listed below, please generate a pull request description for me:
+**Jira ticket**
+```
+%s
+```
+**Pull request template**
+```markdown
+%s
+```
+
+**Branch diff**
+```diff
+%s
+```
+]],
+                        vim.fn.system(
+                            "echo $(git rev-parse --abbrev-ref HEAD | awk -F'-' '{print $NF}' | xargs -t -I{} jira issues view SQUAL-{})"
+                        ),
+                        vim.fn.system("cat ~/.config/github/templates/pull_request_template.md"),
+                        vim.fn.system("git log -p main..$(git branch --show-current) 2>&1")
+                    )
+                end,
+                opts = {
+                    contains_code = true
+                }
+            }
+        }
+    }
+}
+
+require("codecompanion").setup(
+    {
+        prompt_library = prompt_library,
+        display = {
+            action_palette = {
+                width = 95,
+                height = 10,
+                prompt = "Prompt ", -- Prompt used for interactive LLM calls
+                provider = "telescope", -- default|telescope|mini_pick
+                opts = {
+                    show_default_actions = true, -- Show the default actions in the action palette?
+                    show_default_prompt_library = true -- Show the default prompt library in the action palette?
+                }
+            },
+            diff = {
+                enabled = false
+            }
+        },
+        chat = {
+            agents = {
+                ["my_agent"] = {
+                    description = "A custom agent combining tools",
+                    system_prompt = "Describe what the agent should do",
+                    tools = {
+                        "cmd_runner",
+                        "editor"
+                        -- Add your own tools or reuse existing ones
+                    }
+                }
+            },
+            tools = {
+                ["my_tool"] = {
+                    description = "Run a custom task",
+                    callback = function(command)
+                        -- Perform the custom task here
+                        return "Tool result"
+                    end
+                }
+            }
+        },
+        opts = {
+            log_level = "DEBUG"
+        },
+        adapters = {
+            gemini = function()
+                return require("codecompanion.adapters").extend(
+                    "gemini",
+                    {
+                        env = {
+                            api_key = "cmd:echo $GEMINI_API_KEY"
+                        }
+                    }
+                )
+            end
+        }
+    }
+)

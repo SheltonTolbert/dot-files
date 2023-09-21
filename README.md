@@ -14,4 +14,4 @@
 
 #### keeping up to date
 
-- run `~/.dotfiles/update` to update sym-links. this skips the dependency installiation step
+- run `~/.dotfiles/update` to update sym-links. this skips the dependency installation step

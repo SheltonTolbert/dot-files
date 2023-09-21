@@ -1,0 +1,17 @@
+jira:
+  - name: repo1
+    url: https://github.com/user/repo1
+  - name: repo2
+    url: https://github.com/user/repo2
+git:
+  - name: repo1
+    url: https://github.com/user/repo1
+  - name: repo2
+    url: https://github.com/user/repo2
+ollama:
+  - default-model: codeqwen
+open-ai:
+  - name: repo1
+    url: https://github.com/user/repo1
+  - name: repo2
+    url: https://github.com/user/repo2

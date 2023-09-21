@@ -1,1 +1,4 @@
-./.config/nvim/pack/
+.config/nvim/pack/
+.config/nvim/lsp/elixir-ls
+.config/github-copilot/
+.config/zsh/.zsh_secrets

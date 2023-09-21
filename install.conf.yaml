@@ -3,6 +3,8 @@
     ~/.config: .config
     ~/.gitconfig: .gitconfig
     ~/.tmux.conf: .tmux.conf
+    ~/.wezterm.lua: .wezterm.lua
+    ~/.aerospace.toml: .aerospace.toml
 
 - shell:
   -
@@ -49,3 +51,11 @@
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     stdout: true
     description: Installing Vim Plug for nvim
+  -
+    command: brew install --cask nikitabobko/tap/aerospace
+    stdout: true
+    description: Installing Aerospace for macos
+  -
+    command: curl -sfL https://raw.githubusercontent.com/ducaale/xh/master/install.sh | sh
+    stdout: true
+    description: Installing curl replacement xh
