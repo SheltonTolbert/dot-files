@@ -27,7 +27,7 @@
 "===================================================================================="
 
 set exrc
-set relativenumber
+"set relativenumber
 set nu
 set nohlsearch
 set noerrorbells
@@ -58,11 +58,13 @@ EOF
 "===================================================================================="
 
 call plug#begin('~/.vim.plugged')
+"Fzf.lua"
+Plug 'ibhagwan/fzf-lua', {'branch': 'main'}
 "Git blame"
 Plug 'APZelos/blamer.nvim'
 "Telescope" 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim'
 "Themes"
 Plug 'markvincze/panda-vim'
 Plug 'mhartington/oceanic-next'
@@ -75,6 +77,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'jiaoshijie/undotree'
 Plug 'tpope/vim-fugitive'
+Plug 'knsh14/vim-github-link'
 "LSP"
 Plug 'neovim/nvim-lspconfig'
 "js/ts"
@@ -107,32 +110,40 @@ Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 "AutoCloseTags for react and html"
 Plug 'alvan/vim-closetag'
+" Org Mode"
+Plug 'nvim-orgmode/orgmode'
+"Github"
+Plug 'ldelossa/litee.nvim'
+Plug 'ldelossa/gh.nvim', { 'requires': ['ldelossa/litee.nvim'] }
+Plug 'pwntester/octo.nvim'
+
 call plug#end()
 
 "===================================================================================="
 "Post-Plugin Settings"
 "===================================================================================="
 
-syntax on 
+syntax enable
 filetype plugin indent on
 colorscheme OceanicNext
 
-" different diff highlight colors
-"hi diffAdded ctermfg=black ctermbg=green guibg=NONE 
-"hi diffRemoved ctermfg=black ctermbg=197 cterm=NONE guifg=black guibg=NONE 
+" different diff highlight colors"
+"hi diffAdded ctermfg=black ctermbg=green guibg=NONE "
+"hi diffRemoved ctermfg=black ctermbg=197 cterm=NONE guifg=black guibg=NONE "
 
 set completeopt=menu,menuone,noselect
 set termguicolors
 
+
 "Transparent background"
-"hi Normal guibg=none ctermbg=none
-"hi LineNr guibg=none ctermbg=none
-"hi Folded guibg=none ctermbg=none
-"hi NonText guibg=none ctermbg=none
-"hi SpecialKey guibg=none ctermbg=none
-"hi VertSplit guibg=none ctermbg=none
-"hi SignColumn guibg=none ctermbg=none
-"hi EndOfBuffer guibg=none ctermbg=none
+"hi Normal guibg=none ctermbg=none"
+"hi LineNr guibg=none ctermbg=none"
+"hi Folded guibg=none ctermbg=none"
+"hi NonText guibg=none ctermbg=none"
+"hi SpecialKey guibg=none ctermbg=none"
+"hi VertSplit guibg=none ctermbg=none"
+"hi SignColumn guibg=none ctermbg=none"
+"hi EndOfBuffer guibg=none ctermbg=none"
 
 let g:neoformat_try_node_exe = 1
 
@@ -146,13 +157,17 @@ nnoremap <leader>p :Files<CR>
 nnoremap <leader>v :vsp<CR>
 nnoremap <leader>h :sp<CR>
 nnoremap <leader>b :Buffers<CR>
+nnoremap <leader>gh :FzfLua register_ui_select <CR>
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fw <cmd>lua require('telescope.builtin').grep_string()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>ft :NvimTreeToggle<CR>
 nnoremap <leader>fc :Neoformat<CR>
 nnoremap <leader>k :lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>sss :source $MYVIMRC<CR>
-
+vnoremap <Leader>y "+y"
+nnoremap <Leader>yy :let @+=getline('.')<CR>
 
 "===================================================================================="
 "LSP config"
@@ -163,11 +178,7 @@ lua << EOF
 local lspconfig = require("lspconfig")
 
 require("ss_swizzle")
-require('nvim-treesitter.configs').setup({
-    highlight = {
-        enable = true 
-        }
-    })
+require("gpt")
 
 EOF
 
@@ -204,3 +215,93 @@ EOF
 
 "autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js Neoformat"
 autocmd BufWritePost *.ex,*.exs :MixFormat
+
+lua << EOF
+    function get_file(file_string)
+      -- if file string starts with './'
+      if string.find(file_string, '^./') then
+        -- remove './'
+        return vim.fn.findfile(string.gsub(file_string, './', ''), ".;")
+      end
+      return vim.fn.findfile(file_string)
+    end
+
+    function better_gf()
+      -- Get the file string under the cursor and expand it to get the full path. strip the file string of quotes y semicolons
+      local file_string = vim.fn.expand("<cWORD>"):gsub("'", ""):gsub('"', ""):gsub(";", "")
+
+      -- get the absolute path of the file string under the cursor using finddir
+      local path = vim.fn.finddir(file_string)
+
+      -- use getfile to get the full path of the file, if there is one
+      local file = get_file(file_string)
+
+      -- get list of all files in path, filter out files that do not contain path as a substring
+      local dir_files = vim.fn.globpath(path, "**/*", true, true)
+
+      -- if there is a file, open it in the current buffer
+      if file ~= "" then
+        vim.cmd("e " .. file)
+      elseif #dir_files > 0 then
+        require("telescope.builtin").find_files({cwd = path})
+      end
+
+    end
+
+    -- if the current file is a js, ts, jsx, or tsx file, map the better_gf function to gf
+      vim.api.nvim_set_keymap('n', 'gf', ':lua better_gf()<CR>', { noremap = true, silent = true })
+EOF
+
+"===================================================================================="
+"Github Setup"
+"===================================================================================="
+
+
+lua << EOF
+
+
+require('litee.lib').setup()
+require('litee.gh').setup({
+  -- deprecated, around for compatability for now.
+  jump_mode   = "invoking",
+  -- remap the arrow keys to resize any litee.nvim windows.
+  map_resize_keys = false,
+  -- do not map any keys inside any gh.nvim buffers.
+  disable_keymaps = false,
+  -- the icon set to use.
+  icon_set = "default",
+  -- any custom icons to use.
+  icon_set_custom = nil,
+  -- whether to register the @username and #issue_number omnifunc completion
+  -- in buffers which start with .git/
+  git_buffer_completion = true,
+  -- defines keymaps in gh.nvim buffers.
+  keymaps = {
+      -- when inside a gh.nvim panel, this key will open a node if it has
+      -- any futher functionality. for example, hitting <CR> on a commit node
+      -- will open the commit's changed files in a new gh.nvim panel.
+      open = "<CR>",
+      -- when inside a gh.nvim panel, expand a collapsed node
+      expand = "zo",
+      -- when inside a gh.nvim panel, collpased and expanded node
+      collapse = "zc",
+      -- when cursor is over a "#1234" formatted issue or PR, open its details
+      -- and comments in a new tab.
+      goto_issue = "gd",
+      -- show any details about a node, typically, this reveals commit messages
+      -- and submitted review bodys.
+      details = "d",
+      -- inside a convo buffer, submit a comment
+      submit_comment = "<C-s>",
+      -- inside a convo buffer, when your cursor is ontop of a comment, open
+      -- up a set of actions that can be performed.
+      actions = "<C-a>",
+      -- inside a thread convo buffer, resolve the thread.
+      resolve_thread = "<C-r>",
+      -- inside a gh.nvim panel, if possible, open the node's web URL in your
+      -- browser. useful particularily for digging into external failed CI
+      -- checks.
+      goto_web = "gx"
+  }
+})
+EOF
