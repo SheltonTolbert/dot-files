@@ -1,0 +1,69 @@
+
+# 2023-06-11 18:11:49.246057
++what is the github cli?
+
+# 2023-06-11 21:11:44.019878
++how can I concat two strings in lua?
+
+# 2023-06-13 10:17:24.604324
++what is the error in the following query \
+
+# 2023-06-13 10:17:57.440560
++with media_survey_questions as (
+
+# 2023-06-13 10:18:00.090190
++    select screeners.id as screener_id from screeners 
+
+# 2023-06-13 10:18:02.820494
++    join salesforce.dscout_account__c a on screeners.account_id = a.dscout_id__c
+
+# 2023-06-13 10:18:11.054872
++    where auto_screener_id is not null
+
+# 2023-06-13 10:18:15.773268
++    and account_id != 2 
+
+# 2023-06-13 10:18:23.148440
++    and (status = 'launched' or status = 'closed')
+
+# 2023-06-13 10:18:32.190258
++    and a.subscription_tier__c is not null)
+
+# 2023-06-13 10:18:41.504745
++select concat(round((CAST(t1.multi_select as numeric) / t2.total) * 100, 2), '%') as percentage
+
+# 2023-06-13 10:18:43.359396
++from (
+
+# 2023-06-13 10:18:44.078618
++    select count(*) as multi_select, questions.screener_id from questions where type = 'MultipleQuestion'
+
+# 2023-06-13 10:18:48.818781
++    join media_survey_questions on questions.screener_id = media_survey_questions.screener_id
+
+# 2023-06-13 10:18:49.021889
++) as t1
+
+# 2023-06-13 10:18:49.303217
++cross join (
+
+# 2023-06-13 10:18:49.692329
++    select count(*) as total, questions.screener_id from questions
+
+# 2023-06-13 10:18:50.032590
++    join media_survey_questions on questions.screener_id = media_survey_questions.screener_id
+
+# 2023-06-13 10:18:50.212514
++) as t2;
+
+# 2023-06-13 15:41:51.860321
++exit
+
+# 2023-06-20 12:16:24.731306
++a one paragraph outro for a lunch and learn on command line tooling
+
+# 2023-06-22 10:41:13.142402
++who are you?
+
+# 2023-06-22 10:41:23.013393
++how do I center a div?

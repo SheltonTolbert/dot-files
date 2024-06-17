@@ -41,7 +41,7 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
-set scrolloff=8
+set scrolloff=24
 set noshowmode
 set signcolumn=yes
 set hidden
@@ -115,7 +115,12 @@ Plug 'nvim-orgmode/orgmode'
 "Github"
 Plug 'ldelossa/litee.nvim'
 Plug 'ldelossa/gh.nvim', { 'requires': ['ldelossa/litee.nvim'] }
-Plug 'pwntester/octo.nvim'
+"TPope"
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dadbod'
+Plug 'tpope/vim-dispatch'
+"Tmux navigation"
+Plug 'christoomey/vim-tmux-navigator'
 
 call plug#end()
 
@@ -136,14 +141,14 @@ set termguicolors
 
 
 "Transparent background"
-"hi Normal guibg=none ctermbg=none"
-"hi LineNr guibg=none ctermbg=none"
-"hi Folded guibg=none ctermbg=none"
-"hi NonText guibg=none ctermbg=none"
-"hi SpecialKey guibg=none ctermbg=none"
-"hi VertSplit guibg=none ctermbg=none"
-"hi SignColumn guibg=none ctermbg=none"
-"hi EndOfBuffer guibg=none ctermbg=none"
+hi Normal guibg=none ctermbg=none
+hi LineNr guibg=none ctermbg=none
+hi Folded guibg=none ctermbg=none
+hi NonText guibg=none ctermbg=none
+hi SpecialKey guibg=none ctermbg=none
+hi VertSplit guibg=none ctermbg=none
+hi SignColumn guibg=none ctermbg=none
+hi EndOfBuffer guibg=none ctermbg=none
 
 let g:neoformat_try_node_exe = 1
 
@@ -164,10 +169,21 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 nnoremap <leader>ft :NvimTreeToggle<CR>
 nnoremap <leader>fc :Neoformat<CR>
+nnoremap <leader>db :DB postgresql:dscout_development<CR>
 nnoremap <leader>k :lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>sss :source $MYVIMRC<CR>
 vnoremap <Leader>y "+y"
 nnoremap <Leader>yy :let @+=getline('.')<CR>
+nnoremap <leader>yfp :let @+ = expand('%:p')<CR>
+vnoremap <silent> <leader>lg :call GitLogL()<CR>
+
+"Binding functions" 
+
+function! GitLogL()
+    let range = line("'<") . "," . line("'>")
+    let command = "git log -L" . range
+    call system(command)
+endfunction
 
 "===================================================================================="
 "LSP config"
@@ -190,11 +206,6 @@ require("nvim-tree").setup({
   sort_by = "case_sensitive",
   view = {
     adaptive_size = true,
-    mappings = {
-      list = {
-        { key = "u", action = "dir_up" },
-      },
-    },
   },
   renderer = {
     group_empty = true,

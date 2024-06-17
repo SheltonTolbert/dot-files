@@ -1,0 +1,19 @@
+# /Users/sheltontolbert/.config/tmuxinator/dev.yml
+
+name: dev
+root: ~/repos/dscout
+
+windows:
+  - servers:
+      layout: tiled
+      # Synchronize all panes of this window, can be enabled before or after the pane commands run.
+      # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
+      # synchronize: after
+      panes:
+        - cd ./apps/axon; axon
+        - cd ./apps/dendra; yarn start
+        - cd ./apps/soma; soma
+        -
+
+  - dendra: cd./app/dendra
+  - axon: cd./app/axon

@@ -1,0 +1,18 @@
+# /Users/sheltontolbert/.config/tmuxinator/dev-test.yml
+
+name: dev-test
+root: ~/repos/dscout/
+
+windows:
+  - servers:
+      layout: tiled
+
+      panes:
+        - cd ./apps/axon; axon
+        - cd ./apps/soma; soma
+        - cd ./apps/dendra; yarn start
+        - 
+
+  - dendra:  cd ./apps/dendra; vim
+
+  - axon:  cd ./apps/axon; vim
