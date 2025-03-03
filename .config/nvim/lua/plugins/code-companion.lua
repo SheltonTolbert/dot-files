@@ -6,8 +6,44 @@
 -- repeat until all improvements are implemented
 
 -- Are there code paths that are not tested?
+
 constants = {USER_ROLE = "user", SYSTEM_ROLE = "system"}
 prompt_library = {
+    ["Commit workflow"] = {
+        strategy = "chat",
+        description = "Generate a commit message",
+        opts = {
+            index = 10,
+            is_default = true,
+            is_slash_cmd = true,
+            short_name = "gen_chat_commit",
+            auto_submit = true
+        },
+        prompts = {
+            {
+                role = constants.USER_ROLE,
+                content = function()
+                    vim.g.codecompanion_auto_tool_mode = true
+                    return string.format(
+                        [[You are an expert at following the Conventional Commit specification. 
+
+Given the git diff listed below, please generate a commit message for me.
+Then use the using the @editor tool to write the commit message to the file <file>%s</file>
+
+```diff
+%s
+```
+]],
+                        vim.fn.system("~/.dotfiles/scripts/commit_dir.sh"),
+                        vim.fn.system("git diff --no-ext-diff --staged")
+                    )
+                end,
+                opts = {
+                    contains_code = true
+                }
+            }
+        }
+    },
     ["Generate a Commit Message"] = {
         strategy = "inline",
         description = "Generate a commit message",

@@ -1,16 +1,25 @@
 #!/bin/bash
 
-# nvim --headless -c "echomsg 'Hello, world!'" -c "qa!"
+BRANCH_NAME="$(git branch --show-current)"
+LAST_COMMIT="$(git log --format="%H" main..$BRANCH_NAME | head -n 1)"
+TMP_DIR="$HOME/.tmp"
+FILE="$TMP_DIR"/"$(echo "$LAST_COMMIT" | sed 's/\//-/g')"
 
-touch ~/.tmp/commitout
+# Check if the file exists and args does not contain --force
+if [ -f $FILE ]; then
+  if [ "$1" == "--force" ]; then
+    rm "$FILE"
+  else
+    cat "$FILE"
+    exit 0
+  fi
+fi
 
-nvim --headless \
+nvim  --headless \
 --cmd ":luafile ~/.config/nvim/lua/plugins/code-companion/hooks.lua" \
--c ":e ~/.tmp/commitout" \
+-c ":edit $FILE" \
 -c "normal! v" \
--c ":CodeCompanion /gen_commit" \
+-c ":CodeCompanion /gen_commit " \
 > /dev/null 2>&1
 
-cat ~/.tmp/commitout
-
-
+cat "$FILE"
