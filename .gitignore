@@ -1,4 +1,7 @@
-.config/nvim/pack/
-.config/nvim/lsp/elixir-ls
-.config/github-copilot/
-.config/zsh/.zsh_secrets
+src/.config/nvim/pack/
+src/.config/nvim/lsp/elixir-ls
+src/.config/github-copilot/
+src/.config/zsh/.zsh_secrets
+src/.config/yarn
+src/.config/.jira
+*.DS_Store

@@ -1,0 +1,29 @@
+export ZSH="/Users/sheltontolbert/.oh-my-zsh"
+
+export PATH=/opt/homebrew/bin:$PATH
+
+ASDF_DIR="$HOME/.bin"
+ASDF_DATA_DIR=/Users/sheltontolbert/.asdf
+
+export PATH="$ASDF_DATA_DIR/shims:$PATH"
+
+
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+export EDITOR="nvim"
+export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export PATH="/Users/sheltontolbert/.local/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin
+export PATH=$PATH:$ASDF_DIR
+export PATH=$ASDF_DIR:$PATH
+export PATH=$PATH:~/repos/zig
+export GOPATH=$HOME/go
+
+export SHELCORP="192.168.0.111"
+
+export ZSHCONFIG=~/.zshrc
+export VIMCONFIG=~/.config/nvim
+export VIMDATA=~/.local/share/nvim
+export ML_PATH=~/repos/handson-ml/ml
+

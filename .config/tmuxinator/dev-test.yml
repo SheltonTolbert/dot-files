@@ -1,9 +1,0 @@
-# /Users/sheltontolbert/.config/tmuxinator/dev-test.yml
-
-name: dev-test
-root: ~/repos/dscout/
-
-windows:
-  - dendra:  cd ./apps/dendra; vim
-
-  - axon:  cd ./apps/axon; vim

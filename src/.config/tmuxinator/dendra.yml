@@ -1,0 +1,8 @@
+---
+name: dendra
+project_root: "/Users/sheltontolbert/repos/dscout/apps/dendra"
+windows:
+- zsh:
+    layout: b803,183x90,0,0,6
+    panes:
+    - cd /Users/sheltontolbert/repos/dscout/apps/dendra

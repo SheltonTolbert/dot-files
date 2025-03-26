@@ -1,0 +1,8 @@
+---
+name: obsidian
+project_root: "/Users/sheltontolbert/.vaults/Primary/Work"
+windows:
+- zsh:
+    layout: b805,183x90,0,0,8
+    panes:
+    - cd /Users/sheltontolbert/.vaults/Primary/Work

@@ -1,0 +1,192 @@
+# Robots =======================================================================
+function ask() {
+  local input
+  if [ -t 0 ]; then
+    input="$1"
+  else
+    input=$(cat)
+  fi
+
+  input=$(echo "$input" | sed 's/"/\\"/g')
+
+#  curl -s http://192.168.0.126:11434/api/generate -d "{
+#  \"model\": \"llama3.2\",
+#  \"stream\": false,
+#  \"prompt\": \"$input\",
+#  \"options\": {
+#    \"num_ctx\": 4096
+#  }
+#}" | jq -j ".response" | glow
+
+  $input | ssh shell@192.168.126 -t "ollama run deepseek-r1 \"$input\"" | glow
+}
+
+# Jira =========================================================================
+function mixdump(){
+  $1 | grep .exs | grep -v '\]' | grep -v '(test)'
+}
+
+# migrated
+function sprint_issue_branches() {
+  jira issue list --plain --columns KEY,SUMMARY \
+  -q 'project IS NOT EMPTY and Assignee = "Shelton Tolbert" and (status = "To Do" or status = "In Progress" or status = "In Code Review" or status = "Ready For QA" or status = "In QA")' \
+  | sed '1d' \
+}
+
+function jira_query() {
+  user=$(jira me)
+  domain=$(echo $user | cut -d'@' -f2 | cut -d'.' -f1)
+  token=$JIRA_API_TOKEN
+  projectIdOrKey=$1
+
+  #endpoints
+  # project/<project_id>/properties
+  # issuetypescheme/project?projectId=<projectId>
+
+  curl --request GET \
+  --url "https://$domain.atlassian.net/rest/api/3/issuetypescheme/project?projectId=$projectIdOrKey" \
+  --user "$user:$token" \
+  --header 'Accept: application/json'
+}
+
+function current_branch_issue() {
+  git rev-parse --abbrev-ref HEAD | awk -F'-' '{print $(NF-1)"-"$NF}'
+}
+
+function current_branch_project() {
+  current_branch_issue | awk -F'-' '{print $1}'
+}
+
+function jira_move_issue() {
+  status=$1
+
+  if [ -z "$status" ]; then
+    echo "Please provide a status to move the issue to"
+    return 1
+  elif [ "$status" != "To Do" ] && [ "$status" != "In Progress" ] && [ "$status" != "In Code Review" ] && [ "$status" != "Ready For QA" ] && [ "$status" != "In QA" ]; then
+    echo "Invalid status provided. Please provide a valid status"
+    return 1
+  fi
+
+  jira issue move $(current_branch_issue) --status $status
+}
+
+# Function to find git branches that contain the key (case-insensitive)
+# migrated
+function find_branches_for_key() {
+  local key=$1
+  # Get all branches and filter them case-insensitively with grep
+  branches=$(git branch --list | grep -i "$key" | sed 's/^..//')  # Clean the output of git branch
+  echo "$branches"
+}
+
+# Function to process the list, match the keys to git branches, and return formatted output
+# migrated
+function process_keys_and_branches() {
+  while IFS=$'\t' read -r key summary; do
+    branches=$(find_branches_for_key "$key")
+    if [ -z "$branches" ]; then
+      branches="No branches found"
+    fi
+    # Print key, summary, and branches (handling multiple branches)
+    echo -e "$key\t$summary\t$branches"
+  done
+}
+
+# Main logic to handle user interaction with fzf and vim
+# migrated
+process_and_checkout() {
+  # Generate the summary and process it
+  output=$(sprint_issue_branches | process_keys_and_branches)
+
+  # Pipe the output to fzf for user selection
+  selected=$(echo "$output" | fzf)
+
+  # Extract the key from the selected output
+  key=$(echo "$selected" | awk '{print $1}')
+  branches=$(echo "$selected" | sed 's/.*\t\(.*\)$/\1/')
+  echo $branches
+
+#  # If branches are available, checkout the selected branch
+ if [[ "$branches" != "No branches found" && "$branches" != "" ]]; then
+    branch_count=$(echo "$branches" | tr ',' '\n' | wc -l)
+    # If multiple branches are found, use fzf to select one
+    if [ "$branch_count" -gt 1 ]; then
+      branch_to_checkout=$(echo "$branches" | tr ',' '\n' | fzf)
+      git checkout "$branch_to_checkout"
+    else
+      # If only one branch is found, checkout that branch directly
+      git checkout "$(echo "$branches" | tr ',' '\n' | head -n 1)"
+    fi
+ else
+     # If no branch is found, request input for the summary and handle the branch creation
+  summary=$(echo "$selected" | tr '[:upper:]' '[:lower:]' | sed 's/^\S*\t\(.*\)\t.*/\1/' | sed 's/ /-/g' | awk '{print $2}')
+
+  # Request input, with the summary pre-populated
+  echo "$summary" > ~/.tmp/summary.txt
+  vim ~/.tmp/summary.txt  # Make sure to save the file before quitting Vim
+
+  # Use the user input or fallback to the pre-populated summary
+  final_summary=$(cat ~/.tmp/summary.txt)
+  rm ~/.tmp/summary.txt
+
+  # Create a new branch name by transforming the key and the summary
+  new_branch=$(echo "$final_summary-$key" | tr '[:upper:]' '[:lower:]' | sed 's/ /-/g')
+
+  # Create the new branch and checkout
+  git checkout -b "$new_branch"
+fi
+}
+
+# migrated
+function jbranch() {
+  process_and_checkout
+}
+
+# migrated
+function sprint_issues() {
+  jira sprint list --plain --current --columns KEY,SUMMARY -q 'Assignee = "Shelton Tolbert" and (status = "To Do" or status = "In Progress" or status = "In Code Review" or status = "Ready For QA" or status = "In QA")' \
+  | sed '1d'
+}
+
+function jiraq() {
+  curl -s \
+   -u shelton.tolbert@dscout.com:$JIRA_API_TOKEN \
+   -X GET \
+   -H "Content-Type: application/json" \
+   https://dscout.atlassian.net/rest/api/3/issue/REX-2515 | jq
+}
+
+# migrated
+function issue() {
+  current_branch_issue | xargs -t -I{} jira issues view {}
+}
+
+#Github =========================================================================
+
+# migrated
+function sbranch() {
+  # Add flag for pr status
+  git for-each-ref --count="${1:-10}" --sort=-committerdate refs/heads/ --format='%(refname:short)' \
+  | fzf \
+  | xargs -t -I {} git checkout {}
+}
+
+# migrated
+function commit() {
+  git commit -m "$*"
+}
+
+#Neovim =========================================================================
+
+function vim() {
+    command nvim "$@"
+    clear
+}
+
+#Terminal =======================================================================
+
+function chpwd() {
+    emulate -L zsh
+    clear
+}

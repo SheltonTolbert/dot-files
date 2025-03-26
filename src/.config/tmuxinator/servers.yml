@@ -1,0 +1,8 @@
+---
+name: servers
+project_root: "/Users/sheltontolbert"
+windows:
+- zsh:
+    layout: b7ff,183x90,0,0,2
+    panes:
+    - cd /Users/sheltontolbert

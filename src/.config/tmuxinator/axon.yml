@@ -1,0 +1,8 @@
+---
+name: axon
+project_root: "/Users/sheltontolbert/repos/dscout/apps/axon"
+windows:
+- zsh:
+    layout: b804,183x90,0,0,7
+    panes:
+    - cd /Users/sheltontolbert/repos/dscout/apps/axon

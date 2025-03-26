@@ -1,0 +1,9 @@
+---
+name: config
+project_root: "/Users/sheltontolbert/.dotfiles/src/.config"
+windows:
+- zsh:
+    layout: 89f3,183x90,0,0[183x68,0,0,1,183x21,0,69,5]
+    panes:
+    - cd /Users/sheltontolbert/.dotfiles/src/.config
+    - cd /Users/sheltontolbert
