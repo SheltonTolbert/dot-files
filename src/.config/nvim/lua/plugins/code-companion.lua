@@ -148,7 +148,7 @@ We'll repeat this cycle until the tests pass. Ensure no deviations from these st
 ```
 ]],
                         vim.fn.system(
-                            "echo $(git rev-parse --abbrev-ref HEAD | awk -F'-' '{print $NF}' | xargs -t -I{} jira issues view SQUAL-{})"
+                            "echo $(git rev-parse --abbrev-ref HEAD | awk -F'-' '{print $(NF-1)\"-\"$NF}' | xargs -t -I{} jira issues view {})"
                         ),
                         vim.fn.system("cat ~/.config/github/templates/pull_request_template.md"),
                         vim.fn.system("git log -p main..$(git branch --show-current) 2>&1")
