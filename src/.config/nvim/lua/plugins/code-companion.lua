@@ -167,6 +167,14 @@ require("codecompanion").setup(
         prompt_library = prompt_library,
         strategies = {
           chat = {
+            tools = {
+              ["vectorcode"] = {
+                description = "Run VectorCode to retrieve the project context.",
+                callback = require("vectorcode.integrations").codecompanion.chat.make_tool({
+                  -- your options goes here
+                }),
+              }
+            },
             slash_commands = {
               ["file"] = {
                 -- Location to the slash command in CodeCompanion

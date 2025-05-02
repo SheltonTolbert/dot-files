@@ -6,6 +6,9 @@ vim.call('plug#begin')
 -- "Dashboard"
 Plug 'github/copilot.vim'
 
+-- "Devdocs"
+Plug 'luckasRanarison/nvim-devdocs'
+
 Plug 'nvim-lua/plenary.nvim'
 -- Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
@@ -24,6 +27,7 @@ Plug 'nvim-telescope/telescope.nvim'
 
 -- "LLM"
 Plug 'olimorris/codecompanion.nvim'
+Plug 'Davidyz/VectorCode'
 
 -- "Octo"
 -- Plug 'pwntester/octo.nvim'
@@ -46,6 +50,7 @@ Plug 'jiaoshijie/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'knsh14/vim-github-link'
 Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
 
 -- "LSP"
 Plug 'neovim/nvim-lspconfig'
@@ -110,6 +115,9 @@ Plug 'christoomey/vim-tmux-navigator'
 -- "Navigator"
 Plug('ray-x/guihua.lua', { ['do'] = 'cd lua/fzy && make' })
 Plug 'ray-x/navigator.lua'
+
+-- "Layout"
+Plug('shortcuts/no-neck-pain.nvim', { ['tag'] = '*' })
 
 vim.call('plug#end')
 
