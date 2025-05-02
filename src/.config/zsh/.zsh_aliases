@@ -26,11 +26,9 @@ alias screenshots="open ~/Documents/Screenshots"
 
 # Terminal ===================================================
 alias c="clear"
-alias config="~/.dotfiles/scripts/config.sh"
-alias dotfiles="vim ~/.dotfiles"
-alias vimconfig="vim ~/.dotfiles/.config/nvim"
-alias dev='tmuxinator start dev'
+alias config="~/.dotfiles/src/scripts/config.sh"
 alias statuskey="echo '\nconflicted: 󰈸\nahead: \nbehind: \ndiverged: 󰓁\nup_to_date: \nuntracked: \nstashed: 󰸐\nmodified: 󰧼\nrenamed: 󱀐\ndeleted: '"
+alias tmuxinit="ls ~/.config/tmuxinator | sed 's/\.[^.]*$//' | xargs -I{} -n1 tmuxinator s {} --attach false"
 
 # Services
 alias gpt="~/repos/gpt-cli/gpt.py"

@@ -22,8 +22,13 @@ export GOPATH=$HOME/go
 
 export SHELCORP="192.168.0.111"
 
+export CONFIG_DIR=~/.config
 export ZSHCONFIG=~/.zshrc
 export VIMCONFIG=~/.config/nvim
 export VIMDATA=~/.local/share/nvim
 export ML_PATH=~/repos/handson-ml/ml
+
+if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
+    export TERM=xterm-256color
+fi
 
