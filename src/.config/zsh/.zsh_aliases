@@ -5,21 +5,16 @@ alias cache="~/.dotfiles/scripts/cache.sh"
 # AI stuff =========================================================
 alias chat="vim -c \"CodeCompanionChat gemini\" -c \"silent bd1\""
 alias gcm="vim -c \"CodeCompanion /commit\" -c \"silent bd1\""
+
+# SHELCORP =========================================================
 alias shel="~/repos/shel_os/apps/control/main.sh"
 
 # Work =========================================================
-alias soma="bundle exec rails s"
-alias somag="RAILS_ENV=glia bundle exec rails s"
-alias axon="iex -S mix phx.server"
-alias axong="MIX_ENV=glia mix ecto.reset; MIX_ENV=glia iex -S mix phx.server"
-alias dendrag="yarn webpack --config webpack.dev.js && /bin/cp -rf assets ../soma/public/ && /bin/cp -rf assets ../axon/priv/static/ && yarn start"
-
-alias dscout="cd ~/repos/dscout"
-alias dscoutd="cd ~/repos/dscout/apps/dendra; yarn start"
-alias dscouta="cd ~/repos/dscout/apps/axon; mix phx.server"
-alias dscouts="cd ~/repos/dscout/apps/soma; bundle exec puma"
-alias dendrad="cd ~/repos/dscout/apps/dendra; vim .;"
-alias lint="yarn lint --quiet"
+DSCOUT_DIR="~/repos/dscout"
+alias dscout="cd $DSCOUT_DIR"
+alias axon="$DSCOUT_DIR/bin/axon"
+alias axong="$DSCOUT_DIR/bin/axon"
+alias dendra="$DSCOUT_DIR/bin/dendra"
 
 # OS =========================================================
 alias screenshots="open ~/Documents/Screenshots"
@@ -31,46 +26,22 @@ alias statuskey="echo '\nconflicted: 󰈸\nahead: \nbehind: \ndiverged: �
 alias tmuxinit="ls ~/.config/tmuxinator | sed 's/\.[^.]*$//' | xargs -I{} -n1 tmuxinator s {} --attach false"
 
 # Services
-alias gpt="~/repos/gpt-cli/gpt.py"
 alias issues='jira issues list -a$(jira me) -s"To Do"'
+alias my_issues="jira sprint list --plain --current --columns KEY,SUMMARY,STATUS -q \"Assignee = 'Shelton Tolbert' and (status != 'Duplicate' and status != 'Won\'t Do' and status != 'Done')\""
 
 # Git
-alias mondays="git for-each-ref --count="${1:-10}" --sort=-committerdate refs/heads/ --format='%(refname:short)' "
 alias push="git branch --show-current | xargs -t git push origin"
 alias fpush="git branch --show-current | xargs -t -I {} git push origin {} --force-with-lease"
 alias co="git checkout"
-alias gstash="git stash"
 alias gpopc="git reset --soft HEAD^"
-alias gpops="git stash pop"
 
 
-alias my_issues="jira sprint list --plain --current --columns KEY,SUMMARY,STATUS -q \"Assignee = 'Shelton Tolbert' and (status != 'Duplicate' and status != 'Won\'t Do' and status != 'Done')\""
-alias flo="~/repos/flo/flo"
-
-#
 # scripts ======================================================
-alias karma_focus="~/.dotfiles/scripts/karma_focus.sh"
 alias cache="~/.dotfiles/scripts/cache.sh"
 
 # AI stuff =========================================================
 alias chat="vim -c \"CodeCompanionChat gemini\" -c \"silent bd1\""
 alias gcm="vim -c \"CodeCompanion /commit\" -c \"silent bd1\""
-# :CodeCompanion <your prompt>
-# "'<,'>CodeCompanion /tests -- see the prompt library https://codecompanion.olimorris.dev/configuration/prompt-library.html
-# Add a jsdoc :CodeCompanion Add a jsdoc for this component
-# Work =========================================================
-alias soma="bundle exec rails s"
-alias somag="RAILS_ENV=glia bundle exec rails s"
-alias axon="iex -S mix phx.server"
-alias axong="MIX_ENV=glia mix ecto.reset; MIX_ENV=glia iex -S mix phx.server"
-alias dendrag="yarn webpack --config webpack.dev.js && /bin/cp -rf assets ../soma/public/ && /bin/cp -rf assets ../axon/priv/static/ && yarn start"
-
-alias dscout="cd ~/repos/dscout"
-alias dscoutd="cd ~/repos/dscout/apps/dendra; yarn start"
-alias dscouta="cd ~/repos/dscout/apps/axon; mix phx.server"
-alias dscouts="cd ~/repos/dscout/apps/soma; bundle exec puma"
-alias dendrad="cd ~/repos/dscout/apps/dendra; vim .;"
-alias lint="yarn lint --quiet"
 
 # OS =========================================================
 alias screenshots="open ~/Documents/Screenshots"
@@ -79,14 +50,3 @@ alias screenshots="open ~/Documents/Screenshots"
 alias gpt="~/repos/gpt-cli/gpt.py"
 alias issues='jira issues list -a$(jira me) -s"To Do"'
 
-# Git
-alias mondays="git for-each-ref --count="${1:-10}" --sort=-committerdate refs/heads/ --format='%(refname:short)' "
-alias push="git branch --show-current | xargs -t git push origin"
-alias fpush="git branch --show-current | xargs -t -I {} git push origin {} --force-with-lease"
-alias co="git checkout"
-alias gstash="git stash"
-alias gpopc="git reset --soft HEAD^"
-alias gpops="git stash pop"
-
-alias my_issues="jira sprint list --plain --current --columns KEY,SUMMARY,STATUS -q \"Assignee = 'Shelton Tolbert' and (status != 'Duplicate' and status != 'Won\'t Do' and status != 'Done')\""
-alias flo="~/repos/flo/flo"
