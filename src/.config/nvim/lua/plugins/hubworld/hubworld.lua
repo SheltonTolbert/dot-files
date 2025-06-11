@@ -91,7 +91,7 @@ function M.list_projects()
     }, M.config)
   else
     vim.notify(
-    "Hubworld: Telescope.nvim integration not available for project list view. Please ensure Telescope is installed and loaded.",
+      "Hubworld: Telescope.nvim integration not available for project list view. Please ensure Telescope is installed and loaded.",
       vim.log.levels.ERROR)
     -- Consider adding a vim.ui.select fallback here for non-Telescope users
     return
@@ -104,7 +104,7 @@ function M.create_project()
     local ok, err = pcall(hubworld_telescope_integration.create_project, {}, M.config)
     if not ok then
       vim.notify(
-      "Hubworld: Error using Telescope for project creation: " .. tostring(err) .. "\nFalling back to basic prompts.",
+        "Hubworld: Error using Telescope for project creation: " .. tostring(err) .. "\nFalling back to basic prompts.",
         vim.log.levels.WARN)
       -- Fall-through to basic prompts if Telescope UI fails or isn't available
     else
@@ -118,7 +118,7 @@ function M.create_project()
 
     vim.ui.input({
       prompt = "Project path: ",
-      default = M.config.default_project_path .. "/" .. name
+      default = vim.fn.getcwd() .. "/" -- Use current working directory
     }, function(path)
       if not path or path == "" then return end
 
@@ -225,4 +225,3 @@ function M.save_project_session()
 end
 
 return M
-

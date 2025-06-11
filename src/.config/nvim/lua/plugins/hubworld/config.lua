@@ -125,4 +125,3 @@ function M.save_project_session(config_path, project_name)
 end
 
 return M
-
