@@ -1,4 +1,4 @@
-src/.config/raycast
+src/.config/raycast/
 src/.config/nvim/pack/
 src/.config/nvim/lsp/elixir-ls
 src/.config/github-copilot/
