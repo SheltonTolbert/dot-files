@@ -4,18 +4,19 @@ vim.g.mapleader = " "
 -- Define key mappings
 local map = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true}
-
-quickfix = require("telescope.builtin").quickfix
+local quickfix = require("telescope.builtin").quickfix
 
 -- local copilotChatActions = require("CopilotChat.actions")
 
 -- Normal mode mappings
+map("n", "<leader>o", ":vertical :G<CR>", opts)
+
 map("n", "<leader>p", ":Files<CR>", opts)
 map("n", "<leader>v", ":vsp<CR>", opts)
 map("n", "<leader>h", ":sp<CR>", opts)
--- map("n", "<leader>co", ":copen<CR>", opts)
+map("n", "<leader>co", ":copen<CR>", opts)
 
-map("n", "<leader>co", ":lua quickfix()<CR>", opts)
+-- map("n", "<leader>co", ":lua quickfix()<CR>", opts)
 map("n", "<leader>cd", ":call setqflist([])<CR>", opts)
 map("n", "<leader>b", ":Buffers<CR>", opts)
 map("n", "ml", ":lua list_marked_files()<CR>", opts)
@@ -46,15 +47,12 @@ map(
 
 --
 map("n", "<leader>ft", ":NvimTreeToggle<CR>", opts)
-map("n", "<leader>fc", ":Neoformat<CR>", opts)
+map("n", "<leader>fc", ":lua vim.lsp.buf.format()<CR>", opts)
 map("n", "<leader>k", ":lua custom_diagnostics()<CR>", opts)
 map("n", "<leader>K", ":lua pretty_diagnostics()<CR>", opts)
 map("n", "<leader>sss", "luafile ~/.config/nvim/lua/config/functions.lua<CR>", opts)
 map("n", "<Leader>yy", ':let @+=getline(".")<CR>', opts)
 map("n", "<leader>yfp", ':let @+ = expand("%:p")<CR>', opts)
-vim.keymap.set('n', '<leader>db', function()
-  vim.api.nvim_feedkeys(':DB postgresql:dscout_development ', 'n', false)
-end, { desc = 'Query dscout_development' })
 
 -- LLM
 map("n", "<leader>ai", ":CodeCompanionActions<CR>", opts)

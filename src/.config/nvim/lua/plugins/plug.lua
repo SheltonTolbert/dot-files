@@ -10,10 +10,17 @@ Plug 'github/copilot.vim'
 Plug 'luckasRanarison/nvim-devdocs'
 
 Plug 'nvim-lua/plenary.nvim'
--- Plug 'CopilotC-Nvim/CopilotChat.nvim'
 
--- "Dashboard"
+-- "Testing"
+-- Plug 'nvim-lua/plenary.nvim'
+Plug 'antoinemadec/FixCursorHold.nvim'
+Plug 'nvim-neotest/nvim-nio'
+Plug 'nvim-neotest/neotest'
+Plug 'jfpedroza/neotest-elixir'
+
+-- "UI"
 Plug 'glepnir/dashboard-nvim'
+Plug 'rcarriga/nvim-notify'
 
 -- "Fzf.lua"
 Plug('ibhagwan/fzf-lua', { branch = 'main' })
@@ -21,18 +28,19 @@ Plug('ibhagwan/fzf-lua', { branch = 'main' })
 -- "Git blame"
 Plug 'APZelos/blamer.nvim'
 
--- "Telescope" 
+-- "Telescope"
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 -- "LLM"
+Plug 'ravitemer/codecompanion-history.nvim'
 Plug 'olimorris/codecompanion.nvim'
-Plug 'Davidyz/VectorCode'
+Plug 'ravitemer/mcphub.nvim'
 
 -- "Octo"
 -- Plug 'pwntester/octo.nvim'
 -- Plug 'nvim-tree/nvim-web-devicons'
-    
+
 -- "Themes"
 Plug 'markvincze/panda-vim'
 Plug 'mhartington/oceanic-next'
@@ -45,7 +53,7 @@ Plug 'sainnhe/gruvbox-material'
 -- Plug 'elixir-editors/vim-elixir'
 
 -- "Utils"
-Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate'} )
+Plug('nvim-treesitter/nvim-treesitter', { ['do'] = ':TSUpdate' })
 Plug 'jiaoshijie/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'knsh14/vim-github-link'
@@ -62,7 +70,7 @@ Plug 'jose-elias-alvarez/typescript.nvim'
 Plug 'pmizio/typescript-tools.nvim'
 
 -- "File Tree"
-Plug 'kyazdani42/nvim-web-devicons' 
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua' -- "optional, for file icons"
 
 -- "Fonts"
@@ -102,7 +110,7 @@ Plug 'nvim-orgmode/orgmode'
 
 -- "Github"
 Plug 'ldelossa/litee.nvim'
-Plug('ldelossa/gh.nvim', { requires = {'ldelossa/litee.nvim'} })
+Plug('ldelossa/gh.nvim', { requires = { 'ldelossa/litee.nvim' } })
 
 -- "TPope"
 Plug 'tpope/vim-surround'

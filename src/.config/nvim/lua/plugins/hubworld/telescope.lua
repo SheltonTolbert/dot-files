@@ -7,18 +7,35 @@ local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
+local project_module = require("plugins.hubworld.project") -- Renamed for clarity from 'project'
 
-local project = require("plugins.hubworld.project")
 local M = {}
+
+-- Internal check for Telescope library
+local has_telescope_lib, telescope_lib = pcall(require, "telescope")
+local pickers_lib, finders_lib, conf_lib, actions_lib, action_state_lib
+
+if has_telescope_lib then
+  pickers_lib = require("telescope.pickers")
+  finders_lib = require("telescope.finders")
+  conf_lib = require("telescope.config").values
+  actions_lib = require("telescope.actions")
+  action_state_lib = require("telescope.actions.state")
+end
+
+-- Function to check if Telescope integration is usable
+function M.is_available()
+  return has_telescope_lib
+end
 
 -- Setup telescope extension
 function M.setup()
-  if not has_telescope then
-    vim.notify("Hubworld: Telescope.nvim is required for UI features", vim.log.levels.ERROR)
+  if not M.is_available() then
+    -- Silently return; hubworld.lua can notify if needed
     return
   end
   
-  telescope.register_extension({
+  telescope_lib.register_extension({
     exports = {
       hubworld = M.project_list,
     }
@@ -27,7 +44,7 @@ end
 
 -- Display project list with telescope
 function M.project_list(opts, hubworld_config)
-  if not has_telescope then
+  if not M.is_available() then
     vim.notify("Hubworld: Telescope.nvim is required for UI features", vim.log.levels.ERROR)
     return
   end
@@ -35,11 +52,11 @@ function M.project_list(opts, hubworld_config)
   opts = opts or {}
   
   -- Get all projects
-  local projects = project.get_all_projects(hubworld_config.projects_file)
+  local projects_data = project_module.get_all_projects(hubworld_config.projects_file)
   
   -- Create finder for projects
-  local finder = finders.new_table({
-    results = projects,
+  local finder = finders_lib.new_table({
+    results = projects_data,
     entry_maker = function(entry)
       local display = entry.name
       if entry.is_git then
@@ -64,16 +81,16 @@ function M.project_list(opts, hubworld_config)
   -- Create picker
   pickers.new(opts, {
     prompt_title = "Hubworld Projects",
-    finder = finder,
-    sorter = conf.generic_sorter(opts),
+    finder = finder, -- This should be finders_lib
+    sorter = conf_lib.generic_sorter(opts),
     attach_mappings = function(prompt_bufnr, map)
       -- Switch to selected project
-      actions.select_default:replace(function()
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
+      actions_lib.select_default:replace(function()
+        local selection = action_state_lib.get_selected_entry()
+        actions_lib.close(prompt_bufnr)
         
         if selection and selection.value then
-          project.switch_project(
+          project_module.switch_project(
             hubworld_config.projects_file, 
             selection.value.name, 
             hubworld_config.auto_save_session
@@ -83,8 +100,8 @@ function M.project_list(opts, hubworld_config)
       
       -- Add custom mappings
       map("i", "<C-d>", function()
-        local selection = action_state.get_selected_entry()
-        actions.close(prompt_bufnr)
+        local selection = action_state_lib.get_selected_entry()
+        actions_lib.close(prompt_bufnr)
         
         if selection and selection.value then
           -- Confirm deletion
@@ -92,7 +109,7 @@ function M.project_list(opts, hubworld_config)
             prompt = "Delete project " .. selection.value.name .. "? (y/N): ",
           }, function(input)
             if input and input:lower() == "y" then
-              project.delete_project(hubworld_config.projects_file, selection.value.name)
+              project_module.delete_project(hubworld_config.projects_file, selection.value.name)
               vim.notify("Project deleted: " .. selection.value.name, vim.log.levels.INFO)
             end
           end)
@@ -106,8 +123,9 @@ end
 
 -- Create a new project with telescope prompt
 function M.create_project(opts, hubworld_config)
-  if not has_telescope then
-    vim.notify("Hubworld: Telescope.nvim is required for UI features", vim.log.levels.ERROR)
+  if not M.is_available() then
+    -- hubworld.lua will pcall this and handle the error for fallback
+    error("Hubworld: Telescope.nvim is not available for create_project UI.") 
     return
   end
   
@@ -135,7 +153,7 @@ function M.create_project(opts, hubworld_config)
         local init = init_git and init_git:lower() == "y"
         
         -- Create project
-        local success = project.create_project(
+        local success = project_module.create_project(
           hubworld_config.projects_file,
           name,
           path,
@@ -149,8 +167,8 @@ function M.create_project(opts, hubworld_config)
           vim.ui.input({
             prompt = "Switch to the new project? (Y/n): ",
           }, function(switch)
-            if not switch or switch == "" or switch:lower() ~= "n" then
-              project.switch_project(
+            if not switch or switch == "" or switch:lower() == "y" then -- Corrected logic
+              project_module.switch_project(
                 hubworld_config.projects_file,
                 name,
                 hubworld_config.auto_save_session
@@ -162,5 +180,6 @@ function M.create_project(opts, hubworld_config)
     end)
   end)
 end
+
 
 return M

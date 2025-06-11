@@ -16,7 +16,7 @@
 "brew install --cask font-hack-nerd-font"
 "
 "The Elixir Lsp requires specifying an absolute path. This should "
-"be set in the require'lspconfig'.elixirls.setup() call in ./lau/ss_swizzle.lau"
+"be set in the require'lspconfig'.elixirls.setup() call in ./lau/main.lau"
 "
 "# Lsp dependencies"
 "
@@ -25,6 +25,6 @@
 
 lua << EOF
 
-require("ss_swizzle")
+require("main")
 
 EOF

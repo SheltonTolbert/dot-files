@@ -4,7 +4,7 @@ local display = require("config.code_companion.display")
 local adapters = require("config.code_companion.adapters")
 local strategies = require("config.code_companion.strategies")
 
-local LOG_LEVEL = "TRACE"
+local LOG_LEVEL = "DEBUG"
 
 require("codecompanion").setup(
   {

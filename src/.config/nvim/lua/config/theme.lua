@@ -46,7 +46,3 @@ extend_hl('DiffAdd', { bg = 'green', ctermbg = 0, ctermfg = 15 })
 extend_hl('DiffChange', { bg = 'blue', ctermbg = 0, ctermfg = 15 })
 extend_hl('DiffDelete', { bg = 'red', ctermbg = 0, ctermfg = 15 })
 extend_hl('DiffText', { bg = '#2f3f4c', fg = '#ffffff', ctermbg = 0, ctermfg = 15 })
-
--- Neoformat configuration
-vim.g.neoformat_try_node_exe = 1
-

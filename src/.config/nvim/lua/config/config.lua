@@ -1,4 +1,6 @@
-vim.lsp.set_log_level("info")
+-- Override default Neovim nofity with a notify.nvim
+-- vim.notify = require("notify")
+-- vim.lsp.set_log_level("info")
 
 vim.diagnostic.config({virtual_text = true, source = false})
 -- Set line numbers

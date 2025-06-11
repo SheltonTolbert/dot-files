@@ -45,7 +45,7 @@ function M.run_command(cmd, callback)
   end
 
   local function on_exit(_, exit_code, _)
-    -- When commands like "gh pr checkout" succeed but write to stderr, 
+    -- When commands like "gh pr checkout" succeed but write to stderr,
     -- they often still return exit code 0. We'll consider this a success.
     if exit_code ~= 0 then
       vim.schedule(function()
@@ -76,7 +76,7 @@ end
 function M.list_pull_requests()
   -- Run the GitHub CLI command to get pull requests
   local command = M.config.github_cli_path ..
-  " pr list --search 'review-requested:@me' --json number,title,author,state,url | jq"
+      " pr list --search 'review-requested:@me' --json number,title,author,state,url | jq"
 
   vim.notify("Fetching pull requests...", vim.log.levels.INFO)
 
@@ -109,7 +109,6 @@ function M.list_pull_requests()
     M.show_pr_selection(pull_requests)
   end)
 end
-
 
 -- Show pull requests in telescope
 function M.show_pr_selection(pull_requests)
@@ -168,22 +167,33 @@ end
 
 -- Checkout the selected pull request
 function M.checkout_pull_request(pr_data)
+  local useGH = true
   local pr_number = pr_data.number
   local command = M.config.github_cli_path .. " pr checkout " .. pr_number
 
   vim.notify("Checking out PR #" .. pr_number .. "...", vim.log.levels.INFO)
 
-  M.run_command(command, function(output, error_output)
-    if error_output and error_output ~= "" then
-      vim.notify("Error checking out PR: " .. error_output, vim.log.levels.ERROR)
+  if useGH then
+    -- Execute :GHOpenPR <pr_number> command if available
+    if vim.fn.exists(":GHOpenPR") == 0 then
+      vim.notify("GHOpenPR command not found. Please ensure gh.nvim is installed.", vim.log.levels.ERROR)
       return
     end
+    vim.cmd("GHOpenPR " .. pr_number)
+    return
+  else
+    M.run_command(command, function(output, error_output)
+      if error_output and error_output ~= "" then
+        vim.notify("Error checking out PR: " .. error_output, vim.log.levels.ERROR)
+        return
+      end
 
-    vim.notify("Successfully checked out PR #" .. pr_number, vim.log.levels.INFO)
+      vim.notify("Successfully checked out PR #" .. pr_number, vim.log.levels.INFO)
 
-    -- After checkout, get the changed files
-    M.get_changed_files(pr_number)
-  end)
+      -- After checkout, get the changed files
+      M.get_changed_files(pr_number)
+    end)
+  end
 end
 
 -- Get files changed in the pull request
@@ -360,10 +370,10 @@ function M.enhance_nvimtree_for_pr_review()
     vim.notify("NvimTree events API not available", vim.log.levels.ERROR)
     return
   end
-  
+
   -- Get Event enum from API
   local Event = api.events.Event
-  
+
   -- Store the original open function to restore later
   if not M.original_open_func then
     M.original_open_func = api.node.open.edit
@@ -380,7 +390,7 @@ function M.enhance_nvimtree_for_pr_review()
       end)
     end
   end)
-  
+
   -- We'll also handle node opening by overriding the edit function
   api.node.open.edit = function(node)
     if M.current_pr_files and node and node.absolute_path then
@@ -388,7 +398,7 @@ function M.enhance_nvimtree_for_pr_review()
       M.open_diff(node.absolute_path)
       return
     end
-    
+
     -- Otherwise use the original function
     if M.original_open_func then
       M.original_open_func(node)
@@ -484,4 +494,3 @@ end
 _G.code_review = M
 
 return M
-
