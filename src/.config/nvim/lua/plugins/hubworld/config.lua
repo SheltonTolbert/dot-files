@@ -102,14 +102,27 @@ function M.save_project_session(config_path, project_name)
   -- Get current buffers
   local buffers = {}
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    local name = vim.api.nvim_buf_get_name(buf)
-    if name and name ~= "" and vim.api.nvim_buf_is_loaded(buf) then
-      -- Convert to relative path if it's within the project directory
-      local project_path = data.projects[project_name].path
-      if name:sub(1, #project_path) == project_path then
-        name = name:sub(#project_path + 2) -- +2 to remove the slash
+    local buf_full_path = vim.api.nvim_buf_get_name(buf)
+    if buf_full_path and buf_full_path ~= "" and vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+      local project_path_val = data.projects[project_name].path
+
+      -- Normalize project_path_val to not have a trailing slash for consistent comparison
+      if project_path_val:sub(-1) == '/' then project_path_val = project_path_val:sub(1, -2) end
+      -- Add Windows path separator if necessary
+      if project_path_val:sub(-1) == '\\' then project_path_val = project_path_val:sub(1, -2) end
+
+      local path_to_store = buf_full_path
+      -- Check if buf_full_path starts with project_path_val and the next char is a separator
+      if buf_full_path:find(project_path_val .. "/", 1, true) == 1 then -- Unix separator
+          path_to_store = buf_full_path:sub(#project_path_val + 2)
+      elseif buf_full_path:find(project_path_val .. "\\", 1, true) == 1 then -- Windows separator
+          path_to_store = buf_full_path:sub(#project_path_val + 2)
       end
-      table.insert(buffers, name)
+
+      -- Only add if path_to_store is not empty (e.g. if it was the project root itself and we made it empty)
+      if path_to_store ~= "" then
+          table.insert(buffers, path_to_store)
+      end
     end
   end
 

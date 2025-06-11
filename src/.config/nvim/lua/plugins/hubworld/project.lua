@@ -112,33 +112,58 @@ function M.switch_project(config_path, name, auto_save)
   -- Save current project session if auto_save is enabled
   if auto_save and data.last_project and data.last_project ~= name then
     config.save_project_session(config_path, data.last_project)
+    vim.notify("Hubworld: Session saved for " .. data.last_project, vim.log.levels.INFO)
   end
 
   -- Change to project directory
-  vim.cmd("cd " .. vim.fn.fnameescape(project.path))
+  vim.cmd("silent! lcd " .. vim.fn.fnameescape(project.path)) -- Use lcd to be window-local if preferred, or cd for global
+  vim.notify("Switched to project: " .. name .. " at " .. project.path, vim.log.levels.INFO)
 
   -- Close all buffers
-  vim.cmd("silent! %bdelete!")
+  -- Close all listed buffers, except the new one we might create if list is empty
+  local current_buffers = vim.api.nvim_list_bufs()
+  for _, buf_id in ipairs(current_buffers) do
+    if vim.bo[buf_id].buflisted and vim.api.nvim_buf_is_loaded(buf_id) then
+      -- Avoid deleting the buffer if it's the only one and unmodifiable, etc.
+      -- A simple approach is to open a new empty buffer first, then delete others.
+      -- However, for now, let's try to delete them directly. If issues arise, we can refine.
+      pcall(vim.cmd, "silent! bdelete! " .. buf_id)
+    end
+  end
 
   -- Open previously opened buffers
-  for _, buf in ipairs(project.last_opened_buffers) do
-    local buf_path = buf
-    -- If it's not an absolute path, make it relative to the project path
-    if not vim.fn.filereadable(buf) and not vim.fn.isdirectory(buf) then
-      buf_path = project.path .. "/" .. buf
-    end
+  local buffers_opened = 0
+  if project.last_opened_buffers and #project.last_opened_buffers > 0 then
+    for _, saved_buf_path in ipairs(project.last_opened_buffers) do
+      local path_to_open = saved_buf_path
+      -- Check if it's an absolute path (simple check, might need refinement for Windows)
+      if not (saved_buf_path:sub(1,1) == "/" or saved_buf_path:match("^[A-Za-z]:\\")) then
+        path_to_open = project.path .. "/" .. saved_buf_path
+      end
+      
+      -- Ensure the path is clean (e.g. no double slashes if project.path had a trailing one)
+      path_to_open = vim.fn.simplify(path_to_open)
 
-    if vim.fn.filereadable(buf_path) then
-      vim.cmd("edit " .. vim.fn.fnameescape(buf_path))
+      if vim.fn.filereadable(path_to_open) == 1 then
+        vim.cmd("silent edit " .. vim.fn.fnameescape(path_to_open))
+        buffers_opened = buffers_opened + 1
+      else
+        vim.notify("Hubworld: Could not find buffer to restore: " .. path_to_open, vim.log.levels.WARN)
+      end
     end
   end
 
   -- TODO: Restore window layout
 
+  -- If no buffers were opened (e.g., new project or all paths invalid), open a new empty buffer
+  if buffers_opened == 0 then
+    vim.cmd("silent enew")
+    vim.notify("Hubworld: No previous buffers to restore, opened a new buffer.", vim.log.levels.INFO)
+  end
+
   -- Update last project
   config.set_last_project(config_path, name)
 
-  vim.notify("Switched to project: " .. name, vim.log.levels.INFO)
   return true
 end
 
