@@ -1,10 +1,12 @@
 # scripts ======================================================
 alias karma_focus="~/.dotfiles/scripts/karma_focus.sh"
 alias cache="~/.dotfiles/scripts/cache.sh"
+alias notes="vim ~/.vaults/Primary/Work"
 
 # AI stuff =========================================================
 alias chat="vim -c \"CodeCompanionChat gemini\" -c \"silent bd1\""
 alias gcm="vim -c \"CodeCompanion /commit\" -c \"silent bd1\""
+alias suggest="gh copilot suggest"
 
 # SHELCORP =========================================================
 alias shel="~/repos/shel_os/apps/control/main.sh"
@@ -34,7 +36,6 @@ alias push="git branch --show-current | xargs -t git push origin"
 alias fpush="git branch --show-current | xargs -t -I {} git push origin {} --force-with-lease"
 alias co="git checkout"
 alias gpopc="git reset --soft HEAD^"
-
 
 # scripts ======================================================
 alias cache="~/.dotfiles/scripts/cache.sh"
