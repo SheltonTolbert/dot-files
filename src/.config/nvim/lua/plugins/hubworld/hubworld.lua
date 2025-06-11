@@ -10,6 +10,28 @@ M.config = {
   default_project_path = vim.fn.expand("~/projects"), -- Default path for creating new projects
   telescope_theme = "dropdown",
   auto_save_session = true,
+  list_view = {      -- Configuration for the project list view
+    git = {
+      status = true, -- true to show git status, false to hide it.
+      symbols = {    -- Symbols for overall project git status
+        clean = "✓",   -- Symbol for a clean git repository
+        dirty = "✗",   -- Symbol for a dirty git repository
+        unknown = "?", -- Symbol for when git status is unknown or not a repo
+      }
+    },
+    symbols = {
+      active = "➜",  -- Symbol for the currently active project in the list
+    },
+    show_path = true,  -- true to show the project path, false to hide it.
+  }
+}
+M.config.integrations = {
+  nvimtree = {
+    enabled = true,          -- Enable NvimTree integration
+    auto_change_root = true, -- Automatically change NvimTree's root on project switch
+    auto_focus = false,        -- Automatically focus NvimTree after changing root
+    auto_reload = true,        -- Automatically reload NvimTree after changing root (can be useful if focus is false)
+  }
 }
 
 -- Initialize the plugin
@@ -25,10 +47,36 @@ function M.setup(opts)
   M._create_commands() -- This also creates keymaps now
 
   -- Attempt to load and setup our Telescope integration
-  local telescope_ok, telescope_mod = pcall(require, "plugins.hubworld.telescope")
-  if telescope_ok and telescope_mod.is_available and telescope_mod:is_available() then
-    telescope_mod.setup()
-    hubworld_telescope_integration = telescope_mod -- Store for later use
+  M._setup_telescope_integration()
+
+  -- Setup integrations
+  M._setup_integrations()
+
+  -- Autocommand to clear last_project on Neovim exit
+  vim.api.nvim_create_autocmd("VimLeavePre", {
+    group = vim.api.nvim_create_augroup("HubworldVimLeave", { clear = true }),
+    pattern = "*",
+    callback = function()
+      local config_module = require("plugins.hubworld.config")
+      local data = config_module.read_config(M.config.projects_file)
+      if data and data.last_project then
+        data.last_project = nil
+        config_module.write_config(M.config.projects_file, data)
+        -- No notification needed here as Neovim is exiting
+      end
+    end,
+  })
+
+  -- Auto-set project if current directory matches a known project on startup
+  M._auto_set_project_on_startup()
+end
+
+-- Helper function to setup Telescope integration
+function M._setup_telescope_integration()
+  local ok, mod = pcall(require, "plugins.hubworld.telescope")
+  if ok and mod.is_available and mod:is_available() then
+    mod.setup()
+    hubworld_telescope_integration = mod
   else
     vim.notify("Hubworld: Telescope.nvim not found or not available. UI will use basic prompts.", vim.log.levels.WARN)
   end
@@ -86,9 +134,13 @@ end
 -- List projects
 function M.list_projects()
   if hubworld_telescope_integration then
+    local config_module = require("plugins.hubworld.config")
+    local current_config = config_module.read_config(M.config.projects_file)
+    local current_project_name = current_config and current_config.last_project or nil
+
     hubworld_telescope_integration.project_list({
       theme = M.config.telescope_theme
-    }, M.config)
+    }, M.config, current_project_name)
   else
     vim.notify(
       "Hubworld: Telescope.nvim integration not available for project list view. Please ensure Telescope is installed and loaded.",
@@ -222,6 +274,36 @@ function M.save_project_session()
   if success then
     vim.notify("Hubworld: Session saved for project: " .. data.last_project, vim.log.levels.INFO)
   end
+end
+
+-- Auto-set project if current directory matches a known project on startup
+function M._auto_set_project_on_startup()
+  local config_module = require("plugins.hubworld.config")
+  local data = config_module.read_config(M.config.projects_file)
+
+  if not data or not data.projects then
+    return
+  end
+
+  local current_cwd = vim.fn.expand(vim.loop.cwd()) -- Normalize CWD
+
+  for project_name, project_details in pairs(data.projects) do
+    local project_path = vim.fn.expand(project_details.path) -- Normalize stored path
+    if project_path == current_cwd then
+      if data.last_project ~= project_name then -- Only update if it's different
+        data.last_project = project_name
+        config_module.write_config(M.config.projects_file, data)
+        vim.notify("Hubworld: Automatically set active project to '" .. project_name .. "' based on current directory.", vim.log.levels.INFO)
+      end
+      return -- Found and set, no need to check further
+    end
+  end
+end
+
+-- Helper function to setup integrations
+function M._setup_integrations()
+  local nvimtree_integration = require("plugins.hubworld.integrations.nvimtree")
+  nvimtree_integration.setup(M.config) -- Pass the main Hubworld config
 end
 
 return M

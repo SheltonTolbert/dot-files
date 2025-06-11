@@ -116,7 +116,7 @@ function M.switch_project(config_path, name, auto_save)
   end
 
   -- Change to project directory
-  vim.cmd("silent! lcd " .. vim.fn.fnameescape(project.path)) -- Use lcd to be window-local if preferred, or cd for global
+  vim.cmd("silent! cd " .. vim.fn.fnameescape(project.path)) -- Use global cd
   vim.notify("Switched to project: " .. name .. " at " .. project.path, vim.log.levels.INFO)
 
   -- Close all buffers
@@ -131,38 +131,72 @@ function M.switch_project(config_path, name, auto_save)
     end
   end
 
-  -- Open previously opened buffers
-  local buffers_opened = 0
-  if project.last_opened_buffers and #project.last_opened_buffers > 0 then
-    for _, saved_buf_path in ipairs(project.last_opened_buffers) do
-      local path_to_open = saved_buf_path
-      -- Check if it's an absolute path (simple check, might need refinement for Windows)
-      if not (saved_buf_path:sub(1,1) == "/" or saved_buf_path:match("^[A-Za-z]:\\")) then
-        path_to_open = project.path .. "/" .. saved_buf_path
+  -- Restore window layout if available, otherwise fall back to simple buffer list
+  local panes_restored = false
+  if project.last_opened_panes and #project.last_opened_panes > 0 then
+    vim.cmd("silent tabonly") -- Close all other windows in the current tab
+    local active_win_id_to_set = nil
+
+    for i, pane_info in ipairs(project.last_opened_panes) do
+      local path_to_open = pane_info.buffer_path
+      if not (path_to_open:sub(1,1) == "/" or path_to_open:match("^[A-Za-z]:\\")) then
+        path_to_open = project.path .. "/" .. path_to_open
       end
-      
-      -- Ensure the path is clean (e.g. no double slashes if project.path had a trailing one)
       path_to_open = vim.fn.simplify(path_to_open)
+
+      if i > 1 then -- For subsequent panes, create a split
+        vim.cmd("silent split") -- Default to horizontal split, can be made smarter
+      end
 
       if vim.fn.filereadable(path_to_open) == 1 then
         vim.cmd("silent edit " .. vim.fn.fnameescape(path_to_open))
-        buffers_opened = buffers_opened + 1
+        if pane_info.is_active then
+          active_win_id_to_set = vim.api.nvim_get_current_win()
+        end
       else
-        vim.notify("Hubworld: Could not find buffer to restore: " .. path_to_open, vim.log.levels.WARN)
+        vim.notify("Hubworld: Could not find buffer for pane: " .. path_to_open, vim.log.levels.WARN)
+        vim.cmd("silent enew") -- Open an empty buffer in the split if file not found
       end
     end
+
+    if active_win_id_to_set then
+      vim.api.nvim_set_current_win(active_win_id_to_set)
+    end
+    vim.cmd("redraw!") -- Redraw to ensure UI updates correctly
+    panes_restored = true
   end
 
-  -- TODO: Restore window layout
+  -- Fallback: If panes were not restored, use the old buffer list logic
+  if not panes_restored then
+    local buffers_opened = 0
+    if project.last_opened_buffers and #project.last_opened_buffers > 0 then
+      for _, saved_buf_path in ipairs(project.last_opened_buffers) do
+        local path_to_open = saved_buf_path
+        if not (saved_buf_path:sub(1,1) == "/" or saved_buf_path:match("^[A-Za-z]:\\")) then
+          path_to_open = project.path .. "/" .. saved_buf_path
+        end
+        path_to_open = vim.fn.simplify(path_to_open)
 
-  -- If no buffers were opened (e.g., new project or all paths invalid), open a new empty buffer
-  if buffers_opened == 0 then
-    vim.cmd("silent enew")
-    vim.notify("Hubworld: No previous buffers to restore, opened a new buffer.", vim.log.levels.INFO)
+        if vim.fn.filereadable(path_to_open) == 1 then
+          vim.cmd("silent edit " .. vim.fn.fnameescape(path_to_open))
+          buffers_opened = buffers_opened + 1
+        else
+          vim.notify("Hubworld: Could not find buffer to restore: " .. path_to_open, vim.log.levels.WARN)
+        end
+      end
+    end
+
+    if buffers_opened == 0 then
+      vim.cmd("silent enew")
+      vim.notify("Hubworld: No previous buffers to restore, opened a new buffer.", vim.log.levels.INFO)
+    end
   end
 
   -- Update last project
   config.set_last_project(config_path, name)
+
+  -- Fire an autocommand to notify other plugins/user configs about the switch
+  vim.cmd("doautocmd User HubworldProjectSwitched")
 
   return true
 end

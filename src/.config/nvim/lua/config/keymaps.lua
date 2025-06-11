@@ -14,6 +14,7 @@ map("n", "<leader>o", ":vertical :G<CR>", opts)
 map("n", "<leader>p", ":Files<CR>", opts)
 map("n", "<leader>v", ":vsp<CR>", opts)
 map("n", "<leader>h", ":sp<CR>", opts)
+map("n", "<leader>hw", ":Hubworld<CR>", opts)
 map("n", "<leader>co", ":copen<CR>", opts)
 
 -- map("n", "<leader>co", ":lua quickfix()<CR>", opts)

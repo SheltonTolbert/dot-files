@@ -43,7 +43,7 @@ function M.setup()
 end
 
 -- Display project list with telescope
-function M.project_list(opts, hubworld_config)
+function M.project_list(opts, hubworld_config, current_project_name)
   if not M.is_available() then
     vim.notify("Hubworld: Telescope.nvim is required for UI features", vim.log.levels.ERROR)
     return
@@ -59,16 +59,30 @@ function M.project_list(opts, hubworld_config)
     results = projects_data,
     entry_maker = function(entry)
       local display = entry.name
-      if entry.is_git then
-        local status_symbol = "🔄"
+      local list_view_config = hubworld_config.list_view or {}
+      local git_config = list_view_config.git or { status = true, symbols = { clean = "✓", dirty = "✗", unknown = "?" } }
+      local symbols_config = list_view_config.symbols or { active = "➜" }
+      local show_path_config = list_view_config.show_path == nil and true or list_view_config.show_path
+
+      -- Add an indicator for the current project
+      if current_project_name and entry.name == current_project_name then
+        display = (symbols_config.active or "➜") .. " " .. display
+      end
+
+      if git_config.status and entry.is_git then
+        local git_symbols = git_config.symbols or { clean = "✓", dirty = "✗", unknown = "?" }
+        local status_symbol = git_symbols.unknown or "?"
         if entry.git_status == "clean" then
-          status_symbol = "✓"
+          status_symbol = git_symbols.clean or "✓"
         elseif entry.git_status == "dirty" then
-          status_symbol = "✗"
+          status_symbol = git_symbols.dirty or "✗"
         end
         display = display .. " [" .. status_symbol .. "]"
       end
-      display = display .. " (" .. entry.path .. ")"
+
+      if show_path_config then
+        display = display .. " (" .. entry.path .. ")"
+      end
 
       return {
         value = entry,
@@ -182,4 +196,3 @@ function M.create_project(opts, hubworld_config)
 end
 
 return M
-
