@@ -2,7 +2,7 @@
 
 CONFIG_DIR="$(cd "$HOME/.config" && pwd )"
 
-if [ ! -d $CONFIG_DIR ]; then
+if [ ! -d "$CONFIG_DIR" ]; then
   echo "Directory $CONFIG_DIR does not exist."
   exit 1
 fi
@@ -23,7 +23,7 @@ export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS'
   '
 
 MENU_HEADER="Config"
-selected=$( ls -a $CONFIG_DIR | grep -vE '^\.$|^\.\.$|^\.DS_Store$' | fzf --query="$QUERY" --header="$MENU_HEADER" --no-clear)
+selected=$( ls -a "$CONFIG_DIR" | grep -vE '^\.$|^\.\.$|^\.DS_Store$' | fzf --query="$QUERY" --header="$MENU_HEADER" --no-clear)
 
 if [ -z "$selected" ]; then
   echo "No config selected."
