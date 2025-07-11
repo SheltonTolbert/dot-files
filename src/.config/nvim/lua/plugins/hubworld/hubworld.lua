@@ -6,6 +6,7 @@ local hubworld_telescope_integration = nil -- To store the loaded telescope modu
 
 -- Plugin configuration with default values
 M.config = {
+  show_notifications = false, -- Master switch for informational/warning notifications
   projects_file = vim.fn.stdpath("data") .. "/hubworld_projects.json",
   default_project_path = vim.fn.expand("~/projects"), -- Default path for creating new projects
   telescope_theme = "dropdown",
@@ -25,6 +26,16 @@ M.config = {
     show_path = true,  -- true to show the project path, false to hide it.
   }
 }
+
+M.config.notes = {
+  central_notes_root = vim.fn.stdpath("state") .. "/hubworld/notes", -- Central root for all notes
+  branch_note_filename = "branch_notes.md",       -- Filename for branch-specific notes
+  project_collections_dirname = "project_notes", -- Subdirectory for project note collections
+}
+M.config.worktrees = {
+  worktrees_dirname = ".worktrees", -- Subdirectory within the project's central state dir for storing worktrees
+}
+
 M.config.integrations = {
   nvimtree = {
     enabled = true,          -- Enable NvimTree integration
@@ -109,6 +120,10 @@ function M._create_commands()
       M.switch_project()
     elseif opts.args == "save" then
       M.save_project_session()
+    elseif opts.args == "notes" then
+      M.manage_notes()
+    elseif opts.args == "worktrees" then
+      M.manage_worktrees()
     else
       M.list_projects()
     end
@@ -116,7 +131,7 @@ function M._create_commands()
     nargs = '?',
     desc = 'Hubworld project management',
     complete = function(_, _, _)
-      return { "list", "create", "delete", "switch", "save" }
+      return { "list", "create", "delete", "switch", "save", "notes", "worktrees" }
     end,
   })
 
@@ -304,6 +319,34 @@ end
 function M._setup_integrations()
   local nvimtree_integration = require("plugins.hubworld.integrations.nvimtree")
   nvimtree_integration.setup(M.config) -- Pass the main Hubworld config
+end
+
+-- Custom notification wrapper
+-- Shows ERROR messages always, other levels based on M.config.show_notifications
+function M.notify(message, level, opts)
+  level = level or vim.log.levels.INFO
+  opts = opts or {}
+  if level == vim.log.levels.ERROR or M.config.show_notifications then
+    vim.notify(message, level, opts)
+  end
+end
+
+-- Manage project notes
+function M.manage_notes()
+  if hubworld_telescope_integration then
+    hubworld_telescope_integration.notes_picker({}, M.config)
+  else
+    vim.notify("Hubworld: Telescope.nvim integration is required for managing notes.", vim.log.levels.ERROR)
+  end
+end
+
+-- Manage project worktrees
+function M.manage_worktrees()
+  if hubworld_telescope_integration then
+    hubworld_telescope_integration.worktrees_picker({}, M.config)
+  else
+    M.notify("Hubworld: Telescope.nvim integration is required for managing worktrees.", vim.log.levels.ERROR)
+  end
 end
 
 return M

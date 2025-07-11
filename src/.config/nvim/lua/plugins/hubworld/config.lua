@@ -5,34 +5,38 @@ local M = {}
 
 -- Read the project configuration from file
 function M.read_config(config_path)
-  local file = io.open(config_path, "r")
-  if not file then
-    return nil
-  end
+    local file = io.open(config_path, "r")
+    if not file then
+        return nil -- Silently return if file doesn't exist (e.g., first run)
+    end
 
-  local content = file:read("*all")
-  file:close()
+    local content = file:read("*all")
+    file:close()
 
-  local ok, data = pcall(vim.fn.json_decode, content)
-  if not ok then
-    vim.notify("Hubworld: Failed to parse configuration file", vim.log.levels.ERROR)
-    return { projects = {}, last_project = nil }
-  end
+    if content == "" or content == nil then -- Handle empty file case
+        return { projects = {}, last_project = nil } 
+    end
 
-  return data
+    local ok, data = pcall(vim.fn.json_decode, content)
+    if not ok then
+        require("plugins.hubworld.hubworld").notify("Hubworld: Failed to parse configuration file: " .. config_path, vim.log.levels.ERROR)
+        return { projects = {}, last_project = nil } -- Return a default structure on error
+    end
+
+    return data
 end
 
 -- Write the project configuration to file
 function M.write_config(config_path, data)
   local file = io.open(config_path, "w")
   if not file then
-    vim.notify("Hubworld: Failed to open configuration file for writing", vim.log.levels.ERROR)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Failed to open configuration file for writing: " .. config_path, vim.log.levels.ERROR)
     return false
   end
 
   local ok, json_str = pcall(vim.fn.json_encode, data)
   if not ok then
-    vim.notify("Hubworld: Failed to encode configuration data", vim.log.levels.ERROR)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Failed to encode configuration data to JSON", vim.log.levels.ERROR)
     file:close()
     return false
   end

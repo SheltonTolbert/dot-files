@@ -5,7 +5,7 @@ local config = require("plugins.hubworld.config")
 local M = {}
 
 -- Check if a path is a git repository
-function M.is_git_repo(path)
+function M.is_git_repo(path) -- Exported for notes_manager
   local git_dir = path .. "/.git"
   local stat = vim.loop.fs_stat(git_dir)
   return stat and stat.type == "directory"
@@ -28,16 +28,18 @@ function M.get_git_status(path)
 end
 
 -- Create a new project
-function M.create_project(config_path, name, path, init_git)
+function M.create_project(config_path, name, path, init_git, non_interactive)
   -- Validate inputs
-  if not name or name == "" then
-    vim.notify("Hubworld: Project name cannot be empty", vim.log.levels.ERROR)
-    return false
-  end
-
-  if not path or path == "" then
-    vim.notify("Hubworld: Project path cannot be empty", vim.log.levels.ERROR)
-    return false
+  if not non_interactive then -- Skip these checks if called non-interactively for a note collection
+    if not name or name == "" then
+      require("plugins.hubworld.hubworld").notify("Hubworld: Project name cannot be empty", vim.log.levels.ERROR)
+      return false
+    end
+    
+    if not path or path == "" then
+      require("plugins.hubworld.hubworld").notify("Hubworld: Project path cannot be empty", vim.log.levels.ERROR)
+      return false
+    end
   end
 
   -- Expand path
@@ -51,25 +53,29 @@ function M.create_project(config_path, name, path, init_git)
     -- Directory doesn't exist, create it
     create_dir = true
   elseif stat.type ~= "directory" then
-    vim.notify("Hubworld: Path exists but is not a directory", vim.log.levels.ERROR)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Path exists but is not a directory: " .. path, vim.log.levels.ERROR)
     return false
   end
 
   -- Create directory if needed
   if create_dir then
     local ok = vim.fn.mkdir(path, "p")
-    if ok ~= 1 then
-      vim.notify("Hubworld: Failed to create directory", vim.log.levels.ERROR)
-      return false
+    if tonumber(ok) ~= 1 and tonumber(ok) ~= 0 then -- mkdir returns 0 on success with Neovim Lua API, 1 with vim.fn
+      -- For vim.fn.mkdir, success is 1. Let's assume it might return string "0" or number 0 for failure with some vim.fn versions.
+      -- A more robust check might be needed if behavior varies wildly, but this covers common cases.
+      if not non_interactive then
+        require("plugins.hubworld.hubworld").notify("Hubworld: Failed to create directory " .. path, vim.log.levels.ERROR)
+      end
+      return false -- Silently fail if non_interactive for notes
     end
   end
 
   -- Initialize git repository if requested
   local is_git = M.is_git_repo(path)
-  if init_git and not is_git then
+  if init_git and not is_git and not non_interactive then -- Don't init git for note collections
     local ok, result = M.init_git_repo(path)
     if not ok then
-      vim.notify("Hubworld: Failed to initialize git repository: " .. result, vim.log.levels.ERROR)
+      require("plugins.hubworld.hubworld").notify("Hubworld: Failed to initialize git repository: " .. result, vim.log.levels.ERROR)
       return false
     end
     is_git = true
@@ -92,7 +98,7 @@ end
 function M.delete_project(config_path, name)
   local data = config.read_config(config_path)
   if not data or not data.projects[name] then
-    vim.notify("Hubworld: Project not found", vim.log.levels.ERROR)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Project '" .. name .. "' not found in configuration.", vim.log.levels.ERROR)
     return false
   end
 
@@ -103,7 +109,7 @@ end
 function M.switch_project(config_path, name, auto_save)
   local data = config.read_config(config_path)
   if not data or not data.projects[name] then
-    vim.notify("Hubworld: Project not found", vim.log.levels.ERROR)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Project '" .. name .. "' not found for switching.", vim.log.levels.ERROR)
     return false
   end
 
@@ -112,12 +118,12 @@ function M.switch_project(config_path, name, auto_save)
   -- Save current project session if auto_save is enabled
   if auto_save and data.last_project and data.last_project ~= name then
     config.save_project_session(config_path, data.last_project)
-    vim.notify("Hubworld: Session saved for " .. data.last_project, vim.log.levels.INFO)
+    require("plugins.hubworld.hubworld").notify("Hubworld: Session saved for " .. data.last_project, vim.log.levels.INFO)
   end
 
   -- Change to project directory
   vim.cmd("silent! cd " .. vim.fn.fnameescape(project.path)) -- Use global cd
-  vim.notify("Switched to project: " .. name .. " at " .. project.path, vim.log.levels.INFO)
+  require("plugins.hubworld.hubworld").notify("Switched to project: " .. name .. " at " .. project.path, vim.log.levels.INFO)
 
   -- Close all buffers
   -- Close all listed buffers, except the new one we might create if list is empty
@@ -154,7 +160,7 @@ function M.switch_project(config_path, name, auto_save)
           active_win_id_to_set = vim.api.nvim_get_current_win()
         end
       else
-        vim.notify("Hubworld: Could not find buffer for pane: " .. path_to_open, vim.log.levels.WARN)
+        require("plugins.hubworld.hubworld").notify("Hubworld: Could not find buffer for pane: " .. path_to_open, vim.log.levels.WARN)
         vim.cmd("silent enew") -- Open an empty buffer in the split if file not found
       end
     end
@@ -181,14 +187,14 @@ function M.switch_project(config_path, name, auto_save)
           vim.cmd("silent edit " .. vim.fn.fnameescape(path_to_open))
           buffers_opened = buffers_opened + 1
         else
-          vim.notify("Hubworld: Could not find buffer to restore: " .. path_to_open, vim.log.levels.WARN)
+          require("plugins.hubworld.hubworld").notify("Hubworld: Could not find buffer to restore: " .. path_to_open, vim.log.levels.WARN)
         end
       end
     end
 
     if buffers_opened == 0 then
       vim.cmd("silent enew")
-      vim.notify("Hubworld: No previous buffers to restore, opened a new buffer.", vim.log.levels.INFO)
+      require("plugins.hubworld.hubworld").notify("Hubworld: No previous buffers to restore, opened a new buffer.", vim.log.levels.INFO)
     end
   end
 
