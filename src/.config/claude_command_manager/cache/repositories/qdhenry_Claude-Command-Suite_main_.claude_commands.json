@@ -1,0 +1,2430 @@
+{
+  "repository": {
+    "owner": "qdhenry",
+    "repo": "Claude-Command-Suite",
+    "branch": "main",
+    "path": ".claude/commands",
+    "url": "https://github.com/qdhenry/Claude-Command-Suite",
+    "commands": [
+      {
+        "name": "add-changelog",
+        "path": ".claude/commands/deploy/add-changelog.md",
+        "description": "",
+        "content": "",
+        "size": 1880,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "changelog-demo-command",
+        "path": ".claude/commands/deploy/changelog-demo-command.md",
+        "description": "",
+        "content": "",
+        "size": 219,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "ci-setup",
+        "path": ".claude/commands/deploy/ci-setup.md",
+        "description": "",
+        "content": "",
+        "size": 8591,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "containerize-application",
+        "path": ".claude/commands/deploy/containerize-application.md",
+        "description": "",
+        "content": "",
+        "size": 3261,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "hotfix-deploy",
+        "path": ".claude/commands/deploy/hotfix-deploy.md",
+        "description": "",
+        "content": "",
+        "size": 8566,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "prepare-release",
+        "path": ".claude/commands/deploy/prepare-release.md",
+        "description": "",
+        "content": "",
+        "size": 8973,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "rollback-deploy",
+        "path": ".claude/commands/deploy/rollback-deploy.md",
+        "description": "",
+        "content": "",
+        "size": 10636,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-automated-releases",
+        "path": ".claude/commands/deploy/setup-automated-releases.md",
+        "description": "",
+        "content": "",
+        "size": 4005,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-kubernetes-deployment",
+        "path": ".claude/commands/deploy/setup-kubernetes-deployment.md",
+        "description": "",
+        "content": "",
+        "size": 3279,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "all-tools",
+        "path": ".claude/commands/dev/all-tools.md",
+        "description": "",
+        "content": "",
+        "size": 1064,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "architecture-scenario-explorer",
+        "path": ".claude/commands/dev/architecture-scenario-explorer.md",
+        "description": "",
+        "content": "",
+        "size": 15652,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "clean-branches",
+        "path": ".claude/commands/dev/clean-branches.md",
+        "description": "",
+        "content": "",
+        "size": 7366,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "code-permutation-tester",
+        "path": ".claude/commands/dev/code-permutation-tester.md",
+        "description": "",
+        "content": "",
+        "size": 13397,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "code-review",
+        "path": ".claude/commands/dev/code-review.md",
+        "description": "",
+        "content": "",
+        "size": 2134,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "code-to-task",
+        "path": ".claude/commands/dev/code-to-task.md",
+        "description": "",
+        "content": "",
+        "size": 16329,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "debug-error",
+        "path": ".claude/commands/dev/debug-error.md",
+        "description": "",
+        "content": "",
+        "size": 4692,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "directory-deep-dive",
+        "path": ".claude/commands/dev/directory-deep-dive.md",
+        "description": "",
+        "content": "",
+        "size": 1210,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "explain-code",
+        "path": ".claude/commands/dev/explain-code.md",
+        "description": "",
+        "content": "",
+        "size": 6671,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "fix-issue",
+        "path": ".claude/commands/dev/fix-issue.md",
+        "description": "",
+        "content": "",
+        "size": 3237,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "generate-linear-worklog",
+        "path": ".claude/commands/dev/generate-linear-worklog.md",
+        "description": "",
+        "content": "",
+        "size": 4238,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "git-status",
+        "path": ".claude/commands/dev/git-status.md",
+        "description": "",
+        "content": "",
+        "size": 1343,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "prime",
+        "path": ".claude/commands/dev/prime.md",
+        "description": "",
+        "content": "",
+        "size": 1593,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "refactor-code",
+        "path": ".claude/commands/dev/refactor-code.md",
+        "description": "",
+        "content": "",
+        "size": 4411,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "ultra-think",
+        "path": ".claude/commands/dev/ultra-think.md",
+        "description": "",
+        "content": "",
+        "size": 4717,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "create-architecture-documentation",
+        "path": ".claude/commands/docs/create-architecture-documentation.md",
+        "description": "",
+        "content": "",
+        "size": 3622,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "create-onboarding-guide",
+        "path": ".claude/commands/docs/create-onboarding-guide.md",
+        "description": "",
+        "content": "",
+        "size": 3374,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "doc-api",
+        "path": ".claude/commands/docs/doc-api.md",
+        "description": "",
+        "content": "",
+        "size": 7006,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "generate-api-documentation",
+        "path": ".claude/commands/docs/generate-api-documentation.md",
+        "description": "",
+        "content": "",
+        "size": 3633,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "migration-guide",
+        "path": ".claude/commands/docs/migration-guide.md",
+        "description": "",
+        "content": "",
+        "size": 7418,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "troubleshooting-guide",
+        "path": ".claude/commands/docs/troubleshooting-guide.md",
+        "description": "",
+        "content": "",
+        "size": 8890,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "commit",
+        "path": ".claude/commands/orchestration/commit.md",
+        "description": "",
+        "content": "",
+        "size": 6227,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "find",
+        "path": ".claude/commands/orchestration/find.md",
+        "description": "",
+        "content": "",
+        "size": 5134,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "log",
+        "path": ".claude/commands/orchestration/log.md",
+        "description": "",
+        "content": "",
+        "size": 7074,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "move",
+        "path": ".claude/commands/orchestration/move.md",
+        "description": "",
+        "content": "",
+        "size": 4762,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "remove",
+        "path": ".claude/commands/orchestration/remove.md",
+        "description": "",
+        "content": "",
+        "size": 6532,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "report",
+        "path": ".claude/commands/orchestration/report.md",
+        "description": "",
+        "content": "",
+        "size": 6420,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "resume",
+        "path": ".claude/commands/orchestration/resume.md",
+        "description": "",
+        "content": "",
+        "size": 6905,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "start",
+        "path": ".claude/commands/orchestration/start.md",
+        "description": "",
+        "content": "",
+        "size": 4426,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "status",
+        "path": ".claude/commands/orchestration/status.md",
+        "description": "",
+        "content": "",
+        "size": 4754,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync",
+        "path": ".claude/commands/orchestration/sync.md",
+        "description": "",
+        "content": "",
+        "size": 6315,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "add-performance-monitoring",
+        "path": ".claude/commands/performance/add-performance-monitoring.md",
+        "description": "",
+        "content": "",
+        "size": 35155,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "implement-caching-strategy",
+        "path": ".claude/commands/performance/implement-caching-strategy.md",
+        "description": "",
+        "content": "",
+        "size": 15549,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-build",
+        "path": ".claude/commands/performance/optimize-build.md",
+        "description": "",
+        "content": "",
+        "size": 5041,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-bundle-size",
+        "path": ".claude/commands/performance/optimize-bundle-size.md",
+        "description": "",
+        "content": "",
+        "size": 10216,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-database-performance",
+        "path": ".claude/commands/performance/optimize-database-performance.md",
+        "description": "",
+        "content": "",
+        "size": 18550,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "performance-audit",
+        "path": ".claude/commands/performance/performance-audit.md",
+        "description": "",
+        "content": "",
+        "size": 2955,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-cdn-optimization",
+        "path": ".claude/commands/performance/setup-cdn-optimization.md",
+        "description": "",
+        "content": "",
+        "size": 19777,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "system-behavior-simulator",
+        "path": ".claude/commands/performance/system-behavior-simulator.md",
+        "description": "",
+        "content": "",
+        "size": 17470,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "add-package",
+        "path": ".claude/commands/project/add-package.md",
+        "description": "",
+        "content": "",
+        "size": 3664,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "create-feature",
+        "path": ".claude/commands/project/create-feature.md",
+        "description": "",
+        "content": "",
+        "size": 4231,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "init-project",
+        "path": ".claude/commands/project/init-project.md",
+        "description": "",
+        "content": "",
+        "size": 3459,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "milestone-tracker",
+        "path": ".claude/commands/project/milestone-tracker.md",
+        "description": "",
+        "content": "",
+        "size": 10100,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "pac-configure",
+        "path": ".claude/commands/project/pac-configure.md",
+        "description": "",
+        "content": "",
+        "size": 4781,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "pac-create-epic",
+        "path": ".claude/commands/project/pac-create-epic.md",
+        "description": "",
+        "content": "",
+        "size": 4320,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "pac-create-ticket",
+        "path": ".claude/commands/project/pac-create-ticket.md",
+        "description": "",
+        "content": "",
+        "size": 5130,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "pac-update-status",
+        "path": ".claude/commands/project/pac-update-status.md",
+        "description": "",
+        "content": "",
+        "size": 5065,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "pac-validate",
+        "path": ".claude/commands/project/pac-validate.md",
+        "description": "",
+        "content": "",
+        "size": 5210,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "project-health-check",
+        "path": ".claude/commands/project/project-health-check.md",
+        "description": "",
+        "content": "",
+        "size": 7375,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "project-timeline-simulator",
+        "path": ".claude/commands/project/project-timeline-simulator.md",
+        "description": "",
+        "content": "",
+        "size": 16947,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "project-to-linear",
+        "path": ".claude/commands/project/project-to-linear.md",
+        "description": "",
+        "content": "",
+        "size": 5136,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "add-authentication-system",
+        "path": ".claude/commands/security/add-authentication-system.md",
+        "description": "",
+        "content": "",
+        "size": 3507,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "dependency-audit",
+        "path": ".claude/commands/security/dependency-audit.md",
+        "description": "",
+        "content": "",
+        "size": 3619,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "security-audit",
+        "path": ".claude/commands/security/security-audit.md",
+        "description": "",
+        "content": "",
+        "size": 2528,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "security-hardening",
+        "path": ".claude/commands/security/security-hardening.md",
+        "description": "",
+        "content": "",
+        "size": 3468,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "create-database-migrations",
+        "path": ".claude/commands/setup/create-database-migrations.md",
+        "description": "",
+        "content": "",
+        "size": 45657,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "design-database-schema",
+        "path": ".claude/commands/setup/design-database-schema.md",
+        "description": "",
+        "content": "",
+        "size": 26646,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "design-rest-api",
+        "path": ".claude/commands/setup/design-rest-api.md",
+        "description": "",
+        "content": "",
+        "size": 41150,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "implement-graphql-api",
+        "path": ".claude/commands/setup/implement-graphql-api.md",
+        "description": "",
+        "content": "",
+        "size": 45863,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "migrate-to-typescript",
+        "path": ".claude/commands/setup/migrate-to-typescript.md",
+        "description": "",
+        "content": "",
+        "size": 3469,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "modernize-deps",
+        "path": ".claude/commands/setup/modernize-deps.md",
+        "description": "",
+        "content": "",
+        "size": 1228,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-development-environment",
+        "path": ".claude/commands/setup/setup-development-environment.md",
+        "description": "",
+        "content": "",
+        "size": 3633,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-formatting",
+        "path": ".claude/commands/setup/setup-formatting.md",
+        "description": "",
+        "content": "",
+        "size": 1278,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-linting",
+        "path": ".claude/commands/setup/setup-linting.md",
+        "description": "",
+        "content": "",
+        "size": 1719,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-monitoring-observability",
+        "path": ".claude/commands/setup/setup-monitoring-observability.md",
+        "description": "",
+        "content": "",
+        "size": 3554,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-monorepo",
+        "path": ".claude/commands/setup/setup-monorepo.md",
+        "description": "",
+        "content": "",
+        "size": 3607,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-rate-limiting",
+        "path": ".claude/commands/setup/setup-rate-limiting.md",
+        "description": "",
+        "content": "",
+        "size": 59860,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "business-scenario-explorer",
+        "path": ".claude/commands/simulation/business-scenario-explorer.md",
+        "description": "",
+        "content": "",
+        "size": 10409,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "constraint-modeler",
+        "path": ".claude/commands/simulation/constraint-modeler.md",
+        "description": "",
+        "content": "",
+        "size": 14882,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "decision-tree-explorer",
+        "path": ".claude/commands/simulation/decision-tree-explorer.md",
+        "description": "",
+        "content": "",
+        "size": 14462,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "digital-twin-creator",
+        "path": ".claude/commands/simulation/digital-twin-creator.md",
+        "description": "",
+        "content": "",
+        "size": 13851,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "future-scenario-generator",
+        "path": ".claude/commands/simulation/future-scenario-generator.md",
+        "description": "",
+        "content": "",
+        "size": 13235,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "market-response-modeler",
+        "path": ".claude/commands/simulation/market-response-modeler.md",
+        "description": "",
+        "content": "",
+        "size": 15713,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "simulation-calibrator",
+        "path": ".claude/commands/simulation/simulation-calibrator.md",
+        "description": "",
+        "content": "",
+        "size": 13706,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "timeline-compressor",
+        "path": ".claude/commands/simulation/timeline-compressor.md",
+        "description": "",
+        "content": "",
+        "size": 15554,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:a11y",
+        "path": ".claude/commands/svelte/svelte:a11y.md",
+        "description": "",
+        "content": "",
+        "size": 2552,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:component",
+        "path": ".claude/commands/svelte/svelte:component.md",
+        "description": "",
+        "content": "",
+        "size": 1829,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:debug",
+        "path": ".claude/commands/svelte/svelte:debug.md",
+        "description": "",
+        "content": "",
+        "size": 1681,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:migrate",
+        "path": ".claude/commands/svelte/svelte:migrate.md",
+        "description": "",
+        "content": "",
+        "size": 1985,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:optimize",
+        "path": ".claude/commands/svelte/svelte:optimize.md",
+        "description": "",
+        "content": "",
+        "size": 2563,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:scaffold",
+        "path": ".claude/commands/svelte/svelte:scaffold.md",
+        "description": "",
+        "content": "",
+        "size": 2337,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook-migrate",
+        "path": ".claude/commands/svelte/svelte:storybook-migrate.md",
+        "description": "",
+        "content": "",
+        "size": 4372,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook-mock",
+        "path": ".claude/commands/svelte/svelte:storybook-mock.md",
+        "description": "",
+        "content": "",
+        "size": 5391,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook-setup",
+        "path": ".claude/commands/svelte/svelte:storybook-setup.md",
+        "description": "",
+        "content": "",
+        "size": 2852,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook-story",
+        "path": ".claude/commands/svelte/svelte:storybook-story.md",
+        "description": "",
+        "content": "",
+        "size": 3552,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook-troubleshoot",
+        "path": ".claude/commands/svelte/svelte:storybook-troubleshoot.md",
+        "description": "",
+        "content": "",
+        "size": 4425,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:storybook",
+        "path": ".claude/commands/svelte/svelte:storybook.md",
+        "description": "",
+        "content": "",
+        "size": 1529,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:test-coverage",
+        "path": ".claude/commands/svelte/svelte:test-coverage.md",
+        "description": "",
+        "content": "",
+        "size": 1966,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:test-fix",
+        "path": ".claude/commands/svelte/svelte:test-fix.md",
+        "description": "",
+        "content": "",
+        "size": 2302,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:test-setup",
+        "path": ".claude/commands/svelte/svelte:test-setup.md",
+        "description": "",
+        "content": "",
+        "size": 2274,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "svelte:test",
+        "path": ".claude/commands/svelte/svelte:test.md",
+        "description": "",
+        "content": "",
+        "size": 1782,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "bidirectional-sync",
+        "path": ".claude/commands/sync/bidirectional-sync.md",
+        "description": "",
+        "content": "",
+        "size": 7200,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "bulk-import-issues",
+        "path": ".claude/commands/sync/bulk-import-issues.md",
+        "description": "",
+        "content": "",
+        "size": 11294,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "cross-reference-manager",
+        "path": ".claude/commands/sync/cross-reference-manager.md",
+        "description": "",
+        "content": "",
+        "size": 4871,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "issue-to-linear-task",
+        "path": ".claude/commands/sync/issue-to-linear-task.md",
+        "description": "",
+        "content": "",
+        "size": 7102,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "linear-task-to-issue",
+        "path": ".claude/commands/sync/linear-task-to-issue.md",
+        "description": "",
+        "content": "",
+        "size": 7724,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-automation-setup",
+        "path": ".claude/commands/sync/sync-automation-setup.md",
+        "description": "",
+        "content": "",
+        "size": 15876,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-conflict-resolver",
+        "path": ".claude/commands/sync/sync-conflict-resolver.md",
+        "description": "",
+        "content": "",
+        "size": 5405,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-issues-to-linear",
+        "path": ".claude/commands/sync/sync-issues-to-linear.md",
+        "description": "",
+        "content": "",
+        "size": 4443,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-linear-to-issues",
+        "path": ".claude/commands/sync/sync-linear-to-issues.md",
+        "description": "",
+        "content": "",
+        "size": 5383,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-pr-to-task",
+        "path": ".claude/commands/sync/sync-pr-to-task.md",
+        "description": "",
+        "content": "",
+        "size": 8331,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sync-status",
+        "path": ".claude/commands/sync/sync-status.md",
+        "description": "",
+        "content": "",
+        "size": 10597,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "task-from-pr",
+        "path": ".claude/commands/sync/task-from-pr.md",
+        "description": "",
+        "content": "",
+        "size": 5351,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "architecture-review",
+        "path": ".claude/commands/team/architecture-review.md",
+        "description": "",
+        "content": "",
+        "size": 3923,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "decision-quality-analyzer",
+        "path": ".claude/commands/team/decision-quality-analyzer.md",
+        "description": "",
+        "content": "",
+        "size": 13256,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "dependency-mapper",
+        "path": ".claude/commands/team/dependency-mapper.md",
+        "description": "",
+        "content": "",
+        "size": 9593,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "estimate-assistant",
+        "path": ".claude/commands/team/estimate-assistant.md",
+        "description": "",
+        "content": "",
+        "size": 12765,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "issue-triage",
+        "path": ".claude/commands/team/issue-triage.md",
+        "description": "",
+        "content": "",
+        "size": 11959,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "memory-spring-cleaning",
+        "path": ".claude/commands/team/memory-spring-cleaning.md",
+        "description": "",
+        "content": "",
+        "size": 1307,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "migration-assistant",
+        "path": ".claude/commands/team/migration-assistant.md",
+        "description": "",
+        "content": "",
+        "size": 6813,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "retrospective-analyzer",
+        "path": ".claude/commands/team/retrospective-analyzer.md",
+        "description": "",
+        "content": "",
+        "size": 8393,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "session-learning-capture",
+        "path": ".claude/commands/team/session-learning-capture.md",
+        "description": "",
+        "content": "",
+        "size": 2250,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "sprint-planning",
+        "path": ".claude/commands/team/sprint-planning.md",
+        "description": "",
+        "content": "",
+        "size": 4348,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "standup-report",
+        "path": ".claude/commands/team/standup-report.md",
+        "description": "",
+        "content": "",
+        "size": 5446,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "team-workload-balancer",
+        "path": ".claude/commands/team/team-workload-balancer.md",
+        "description": "",
+        "content": "",
+        "size": 24532,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "add-mutation-testing",
+        "path": ".claude/commands/test/add-mutation-testing.md",
+        "description": "",
+        "content": "",
+        "size": 3613,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "add-property-based-testing",
+        "path": ".claude/commands/test/add-property-based-testing.md",
+        "description": "",
+        "content": "",
+        "size": 3754,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "e2e-setup",
+        "path": ".claude/commands/test/e2e-setup.md",
+        "description": "",
+        "content": "",
+        "size": 7157,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "generate-test-cases",
+        "path": ".claude/commands/test/generate-test-cases.md",
+        "description": "",
+        "content": "",
+        "size": 3461,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-comprehensive-testing",
+        "path": ".claude/commands/test/setup-comprehensive-testing.md",
+        "description": "",
+        "content": "",
+        "size": 3231,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-load-testing",
+        "path": ".claude/commands/test/setup-load-testing.md",
+        "description": "",
+        "content": "",
+        "size": 3924,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-visual-testing",
+        "path": ".claude/commands/test/setup-visual-testing.md",
+        "description": "",
+        "content": "",
+        "size": 3657,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "test-changelog-automation",
+        "path": ".claude/commands/test/test-changelog-automation.md",
+        "description": "",
+        "content": "",
+        "size": 229,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "test-coverage",
+        "path": ".claude/commands/test/test-coverage.md",
+        "description": "",
+        "content": "",
+        "size": 6164,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "write-tests",
+        "path": ".claude/commands/test/write-tests.md",
+        "description": "",
+        "content": "",
+        "size": 5387,
+        "local_exists": false,
+        "selected": false
+      }
+    ],
+    "last_fetched": "2025-08-04T12:01:30.135638-07:00"
+  },
+  "commands": [
+    {
+      "name": "add-changelog",
+      "path": ".claude/commands/deploy/add-changelog.md",
+      "description": "",
+      "content": "",
+      "size": 1880,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "changelog-demo-command",
+      "path": ".claude/commands/deploy/changelog-demo-command.md",
+      "description": "",
+      "content": "",
+      "size": 219,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "ci-setup",
+      "path": ".claude/commands/deploy/ci-setup.md",
+      "description": "",
+      "content": "",
+      "size": 8591,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "containerize-application",
+      "path": ".claude/commands/deploy/containerize-application.md",
+      "description": "",
+      "content": "",
+      "size": 3261,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "hotfix-deploy",
+      "path": ".claude/commands/deploy/hotfix-deploy.md",
+      "description": "",
+      "content": "",
+      "size": 8566,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "prepare-release",
+      "path": ".claude/commands/deploy/prepare-release.md",
+      "description": "",
+      "content": "",
+      "size": 8973,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "rollback-deploy",
+      "path": ".claude/commands/deploy/rollback-deploy.md",
+      "description": "",
+      "content": "",
+      "size": 10636,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-automated-releases",
+      "path": ".claude/commands/deploy/setup-automated-releases.md",
+      "description": "",
+      "content": "",
+      "size": 4005,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-kubernetes-deployment",
+      "path": ".claude/commands/deploy/setup-kubernetes-deployment.md",
+      "description": "",
+      "content": "",
+      "size": 3279,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "all-tools",
+      "path": ".claude/commands/dev/all-tools.md",
+      "description": "",
+      "content": "",
+      "size": 1064,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "architecture-scenario-explorer",
+      "path": ".claude/commands/dev/architecture-scenario-explorer.md",
+      "description": "",
+      "content": "",
+      "size": 15652,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "clean-branches",
+      "path": ".claude/commands/dev/clean-branches.md",
+      "description": "",
+      "content": "",
+      "size": 7366,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "code-permutation-tester",
+      "path": ".claude/commands/dev/code-permutation-tester.md",
+      "description": "",
+      "content": "",
+      "size": 13397,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "code-review",
+      "path": ".claude/commands/dev/code-review.md",
+      "description": "",
+      "content": "",
+      "size": 2134,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "code-to-task",
+      "path": ".claude/commands/dev/code-to-task.md",
+      "description": "",
+      "content": "",
+      "size": 16329,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "debug-error",
+      "path": ".claude/commands/dev/debug-error.md",
+      "description": "",
+      "content": "",
+      "size": 4692,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "directory-deep-dive",
+      "path": ".claude/commands/dev/directory-deep-dive.md",
+      "description": "",
+      "content": "",
+      "size": 1210,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "explain-code",
+      "path": ".claude/commands/dev/explain-code.md",
+      "description": "",
+      "content": "",
+      "size": 6671,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "fix-issue",
+      "path": ".claude/commands/dev/fix-issue.md",
+      "description": "",
+      "content": "",
+      "size": 3237,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "generate-linear-worklog",
+      "path": ".claude/commands/dev/generate-linear-worklog.md",
+      "description": "",
+      "content": "",
+      "size": 4238,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "git-status",
+      "path": ".claude/commands/dev/git-status.md",
+      "description": "",
+      "content": "",
+      "size": 1343,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "prime",
+      "path": ".claude/commands/dev/prime.md",
+      "description": "",
+      "content": "",
+      "size": 1593,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "refactor-code",
+      "path": ".claude/commands/dev/refactor-code.md",
+      "description": "",
+      "content": "",
+      "size": 4411,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "ultra-think",
+      "path": ".claude/commands/dev/ultra-think.md",
+      "description": "",
+      "content": "",
+      "size": 4717,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "create-architecture-documentation",
+      "path": ".claude/commands/docs/create-architecture-documentation.md",
+      "description": "",
+      "content": "",
+      "size": 3622,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "create-onboarding-guide",
+      "path": ".claude/commands/docs/create-onboarding-guide.md",
+      "description": "",
+      "content": "",
+      "size": 3374,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "doc-api",
+      "path": ".claude/commands/docs/doc-api.md",
+      "description": "",
+      "content": "",
+      "size": 7006,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "generate-api-documentation",
+      "path": ".claude/commands/docs/generate-api-documentation.md",
+      "description": "",
+      "content": "",
+      "size": 3633,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "migration-guide",
+      "path": ".claude/commands/docs/migration-guide.md",
+      "description": "",
+      "content": "",
+      "size": 7418,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "troubleshooting-guide",
+      "path": ".claude/commands/docs/troubleshooting-guide.md",
+      "description": "",
+      "content": "",
+      "size": 8890,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "commit",
+      "path": ".claude/commands/orchestration/commit.md",
+      "description": "",
+      "content": "",
+      "size": 6227,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "find",
+      "path": ".claude/commands/orchestration/find.md",
+      "description": "",
+      "content": "",
+      "size": 5134,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "log",
+      "path": ".claude/commands/orchestration/log.md",
+      "description": "",
+      "content": "",
+      "size": 7074,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "move",
+      "path": ".claude/commands/orchestration/move.md",
+      "description": "",
+      "content": "",
+      "size": 4762,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "remove",
+      "path": ".claude/commands/orchestration/remove.md",
+      "description": "",
+      "content": "",
+      "size": 6532,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "report",
+      "path": ".claude/commands/orchestration/report.md",
+      "description": "",
+      "content": "",
+      "size": 6420,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "resume",
+      "path": ".claude/commands/orchestration/resume.md",
+      "description": "",
+      "content": "",
+      "size": 6905,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "start",
+      "path": ".claude/commands/orchestration/start.md",
+      "description": "",
+      "content": "",
+      "size": 4426,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "status",
+      "path": ".claude/commands/orchestration/status.md",
+      "description": "",
+      "content": "",
+      "size": 4754,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync",
+      "path": ".claude/commands/orchestration/sync.md",
+      "description": "",
+      "content": "",
+      "size": 6315,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "add-performance-monitoring",
+      "path": ".claude/commands/performance/add-performance-monitoring.md",
+      "description": "",
+      "content": "",
+      "size": 35155,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "implement-caching-strategy",
+      "path": ".claude/commands/performance/implement-caching-strategy.md",
+      "description": "",
+      "content": "",
+      "size": 15549,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-build",
+      "path": ".claude/commands/performance/optimize-build.md",
+      "description": "",
+      "content": "",
+      "size": 5041,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-bundle-size",
+      "path": ".claude/commands/performance/optimize-bundle-size.md",
+      "description": "",
+      "content": "",
+      "size": 10216,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-database-performance",
+      "path": ".claude/commands/performance/optimize-database-performance.md",
+      "description": "",
+      "content": "",
+      "size": 18550,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "performance-audit",
+      "path": ".claude/commands/performance/performance-audit.md",
+      "description": "",
+      "content": "",
+      "size": 2955,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-cdn-optimization",
+      "path": ".claude/commands/performance/setup-cdn-optimization.md",
+      "description": "",
+      "content": "",
+      "size": 19777,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "system-behavior-simulator",
+      "path": ".claude/commands/performance/system-behavior-simulator.md",
+      "description": "",
+      "content": "",
+      "size": 17470,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "add-package",
+      "path": ".claude/commands/project/add-package.md",
+      "description": "",
+      "content": "",
+      "size": 3664,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "create-feature",
+      "path": ".claude/commands/project/create-feature.md",
+      "description": "",
+      "content": "",
+      "size": 4231,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "init-project",
+      "path": ".claude/commands/project/init-project.md",
+      "description": "",
+      "content": "",
+      "size": 3459,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "milestone-tracker",
+      "path": ".claude/commands/project/milestone-tracker.md",
+      "description": "",
+      "content": "",
+      "size": 10100,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "pac-configure",
+      "path": ".claude/commands/project/pac-configure.md",
+      "description": "",
+      "content": "",
+      "size": 4781,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "pac-create-epic",
+      "path": ".claude/commands/project/pac-create-epic.md",
+      "description": "",
+      "content": "",
+      "size": 4320,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "pac-create-ticket",
+      "path": ".claude/commands/project/pac-create-ticket.md",
+      "description": "",
+      "content": "",
+      "size": 5130,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "pac-update-status",
+      "path": ".claude/commands/project/pac-update-status.md",
+      "description": "",
+      "content": "",
+      "size": 5065,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "pac-validate",
+      "path": ".claude/commands/project/pac-validate.md",
+      "description": "",
+      "content": "",
+      "size": 5210,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "project-health-check",
+      "path": ".claude/commands/project/project-health-check.md",
+      "description": "",
+      "content": "",
+      "size": 7375,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "project-timeline-simulator",
+      "path": ".claude/commands/project/project-timeline-simulator.md",
+      "description": "",
+      "content": "",
+      "size": 16947,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "project-to-linear",
+      "path": ".claude/commands/project/project-to-linear.md",
+      "description": "",
+      "content": "",
+      "size": 5136,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "add-authentication-system",
+      "path": ".claude/commands/security/add-authentication-system.md",
+      "description": "",
+      "content": "",
+      "size": 3507,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "dependency-audit",
+      "path": ".claude/commands/security/dependency-audit.md",
+      "description": "",
+      "content": "",
+      "size": 3619,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "security-audit",
+      "path": ".claude/commands/security/security-audit.md",
+      "description": "",
+      "content": "",
+      "size": 2528,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "security-hardening",
+      "path": ".claude/commands/security/security-hardening.md",
+      "description": "",
+      "content": "",
+      "size": 3468,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "create-database-migrations",
+      "path": ".claude/commands/setup/create-database-migrations.md",
+      "description": "",
+      "content": "",
+      "size": 45657,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "design-database-schema",
+      "path": ".claude/commands/setup/design-database-schema.md",
+      "description": "",
+      "content": "",
+      "size": 26646,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "design-rest-api",
+      "path": ".claude/commands/setup/design-rest-api.md",
+      "description": "",
+      "content": "",
+      "size": 41150,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "implement-graphql-api",
+      "path": ".claude/commands/setup/implement-graphql-api.md",
+      "description": "",
+      "content": "",
+      "size": 45863,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "migrate-to-typescript",
+      "path": ".claude/commands/setup/migrate-to-typescript.md",
+      "description": "",
+      "content": "",
+      "size": 3469,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "modernize-deps",
+      "path": ".claude/commands/setup/modernize-deps.md",
+      "description": "",
+      "content": "",
+      "size": 1228,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-development-environment",
+      "path": ".claude/commands/setup/setup-development-environment.md",
+      "description": "",
+      "content": "",
+      "size": 3633,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-formatting",
+      "path": ".claude/commands/setup/setup-formatting.md",
+      "description": "",
+      "content": "",
+      "size": 1278,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-linting",
+      "path": ".claude/commands/setup/setup-linting.md",
+      "description": "",
+      "content": "",
+      "size": 1719,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-monitoring-observability",
+      "path": ".claude/commands/setup/setup-monitoring-observability.md",
+      "description": "",
+      "content": "",
+      "size": 3554,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-monorepo",
+      "path": ".claude/commands/setup/setup-monorepo.md",
+      "description": "",
+      "content": "",
+      "size": 3607,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-rate-limiting",
+      "path": ".claude/commands/setup/setup-rate-limiting.md",
+      "description": "",
+      "content": "",
+      "size": 59860,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "business-scenario-explorer",
+      "path": ".claude/commands/simulation/business-scenario-explorer.md",
+      "description": "",
+      "content": "",
+      "size": 10409,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "constraint-modeler",
+      "path": ".claude/commands/simulation/constraint-modeler.md",
+      "description": "",
+      "content": "",
+      "size": 14882,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "decision-tree-explorer",
+      "path": ".claude/commands/simulation/decision-tree-explorer.md",
+      "description": "",
+      "content": "",
+      "size": 14462,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "digital-twin-creator",
+      "path": ".claude/commands/simulation/digital-twin-creator.md",
+      "description": "",
+      "content": "",
+      "size": 13851,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "future-scenario-generator",
+      "path": ".claude/commands/simulation/future-scenario-generator.md",
+      "description": "",
+      "content": "",
+      "size": 13235,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "market-response-modeler",
+      "path": ".claude/commands/simulation/market-response-modeler.md",
+      "description": "",
+      "content": "",
+      "size": 15713,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "simulation-calibrator",
+      "path": ".claude/commands/simulation/simulation-calibrator.md",
+      "description": "",
+      "content": "",
+      "size": 13706,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "timeline-compressor",
+      "path": ".claude/commands/simulation/timeline-compressor.md",
+      "description": "",
+      "content": "",
+      "size": 15554,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:a11y",
+      "path": ".claude/commands/svelte/svelte:a11y.md",
+      "description": "",
+      "content": "",
+      "size": 2552,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:component",
+      "path": ".claude/commands/svelte/svelte:component.md",
+      "description": "",
+      "content": "",
+      "size": 1829,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:debug",
+      "path": ".claude/commands/svelte/svelte:debug.md",
+      "description": "",
+      "content": "",
+      "size": 1681,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:migrate",
+      "path": ".claude/commands/svelte/svelte:migrate.md",
+      "description": "",
+      "content": "",
+      "size": 1985,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:optimize",
+      "path": ".claude/commands/svelte/svelte:optimize.md",
+      "description": "",
+      "content": "",
+      "size": 2563,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:scaffold",
+      "path": ".claude/commands/svelte/svelte:scaffold.md",
+      "description": "",
+      "content": "",
+      "size": 2337,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook-migrate",
+      "path": ".claude/commands/svelte/svelte:storybook-migrate.md",
+      "description": "",
+      "content": "",
+      "size": 4372,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook-mock",
+      "path": ".claude/commands/svelte/svelte:storybook-mock.md",
+      "description": "",
+      "content": "",
+      "size": 5391,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook-setup",
+      "path": ".claude/commands/svelte/svelte:storybook-setup.md",
+      "description": "",
+      "content": "",
+      "size": 2852,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook-story",
+      "path": ".claude/commands/svelte/svelte:storybook-story.md",
+      "description": "",
+      "content": "",
+      "size": 3552,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook-troubleshoot",
+      "path": ".claude/commands/svelte/svelte:storybook-troubleshoot.md",
+      "description": "",
+      "content": "",
+      "size": 4425,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:storybook",
+      "path": ".claude/commands/svelte/svelte:storybook.md",
+      "description": "",
+      "content": "",
+      "size": 1529,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:test-coverage",
+      "path": ".claude/commands/svelte/svelte:test-coverage.md",
+      "description": "",
+      "content": "",
+      "size": 1966,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:test-fix",
+      "path": ".claude/commands/svelte/svelte:test-fix.md",
+      "description": "",
+      "content": "",
+      "size": 2302,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:test-setup",
+      "path": ".claude/commands/svelte/svelte:test-setup.md",
+      "description": "",
+      "content": "",
+      "size": 2274,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "svelte:test",
+      "path": ".claude/commands/svelte/svelte:test.md",
+      "description": "",
+      "content": "",
+      "size": 1782,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "bidirectional-sync",
+      "path": ".claude/commands/sync/bidirectional-sync.md",
+      "description": "",
+      "content": "",
+      "size": 7200,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "bulk-import-issues",
+      "path": ".claude/commands/sync/bulk-import-issues.md",
+      "description": "",
+      "content": "",
+      "size": 11294,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "cross-reference-manager",
+      "path": ".claude/commands/sync/cross-reference-manager.md",
+      "description": "",
+      "content": "",
+      "size": 4871,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "issue-to-linear-task",
+      "path": ".claude/commands/sync/issue-to-linear-task.md",
+      "description": "",
+      "content": "",
+      "size": 7102,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "linear-task-to-issue",
+      "path": ".claude/commands/sync/linear-task-to-issue.md",
+      "description": "",
+      "content": "",
+      "size": 7724,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-automation-setup",
+      "path": ".claude/commands/sync/sync-automation-setup.md",
+      "description": "",
+      "content": "",
+      "size": 15876,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-conflict-resolver",
+      "path": ".claude/commands/sync/sync-conflict-resolver.md",
+      "description": "",
+      "content": "",
+      "size": 5405,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-issues-to-linear",
+      "path": ".claude/commands/sync/sync-issues-to-linear.md",
+      "description": "",
+      "content": "",
+      "size": 4443,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-linear-to-issues",
+      "path": ".claude/commands/sync/sync-linear-to-issues.md",
+      "description": "",
+      "content": "",
+      "size": 5383,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-pr-to-task",
+      "path": ".claude/commands/sync/sync-pr-to-task.md",
+      "description": "",
+      "content": "",
+      "size": 8331,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sync-status",
+      "path": ".claude/commands/sync/sync-status.md",
+      "description": "",
+      "content": "",
+      "size": 10597,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "task-from-pr",
+      "path": ".claude/commands/sync/task-from-pr.md",
+      "description": "",
+      "content": "",
+      "size": 5351,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "architecture-review",
+      "path": ".claude/commands/team/architecture-review.md",
+      "description": "",
+      "content": "",
+      "size": 3923,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "decision-quality-analyzer",
+      "path": ".claude/commands/team/decision-quality-analyzer.md",
+      "description": "",
+      "content": "",
+      "size": 13256,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "dependency-mapper",
+      "path": ".claude/commands/team/dependency-mapper.md",
+      "description": "",
+      "content": "",
+      "size": 9593,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "estimate-assistant",
+      "path": ".claude/commands/team/estimate-assistant.md",
+      "description": "",
+      "content": "",
+      "size": 12765,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "issue-triage",
+      "path": ".claude/commands/team/issue-triage.md",
+      "description": "",
+      "content": "",
+      "size": 11959,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "memory-spring-cleaning",
+      "path": ".claude/commands/team/memory-spring-cleaning.md",
+      "description": "",
+      "content": "",
+      "size": 1307,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "migration-assistant",
+      "path": ".claude/commands/team/migration-assistant.md",
+      "description": "",
+      "content": "",
+      "size": 6813,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "retrospective-analyzer",
+      "path": ".claude/commands/team/retrospective-analyzer.md",
+      "description": "",
+      "content": "",
+      "size": 8393,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "session-learning-capture",
+      "path": ".claude/commands/team/session-learning-capture.md",
+      "description": "",
+      "content": "",
+      "size": 2250,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "sprint-planning",
+      "path": ".claude/commands/team/sprint-planning.md",
+      "description": "",
+      "content": "",
+      "size": 4348,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "standup-report",
+      "path": ".claude/commands/team/standup-report.md",
+      "description": "",
+      "content": "",
+      "size": 5446,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "team-workload-balancer",
+      "path": ".claude/commands/team/team-workload-balancer.md",
+      "description": "",
+      "content": "",
+      "size": 24532,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "add-mutation-testing",
+      "path": ".claude/commands/test/add-mutation-testing.md",
+      "description": "",
+      "content": "",
+      "size": 3613,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "add-property-based-testing",
+      "path": ".claude/commands/test/add-property-based-testing.md",
+      "description": "",
+      "content": "",
+      "size": 3754,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "e2e-setup",
+      "path": ".claude/commands/test/e2e-setup.md",
+      "description": "",
+      "content": "",
+      "size": 7157,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "generate-test-cases",
+      "path": ".claude/commands/test/generate-test-cases.md",
+      "description": "",
+      "content": "",
+      "size": 3461,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-comprehensive-testing",
+      "path": ".claude/commands/test/setup-comprehensive-testing.md",
+      "description": "",
+      "content": "",
+      "size": 3231,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-load-testing",
+      "path": ".claude/commands/test/setup-load-testing.md",
+      "description": "",
+      "content": "",
+      "size": 3924,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-visual-testing",
+      "path": ".claude/commands/test/setup-visual-testing.md",
+      "description": "",
+      "content": "",
+      "size": 3657,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "test-changelog-automation",
+      "path": ".claude/commands/test/test-changelog-automation.md",
+      "description": "",
+      "content": "",
+      "size": 229,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "test-coverage",
+      "path": ".claude/commands/test/test-coverage.md",
+      "description": "",
+      "content": "",
+      "size": 6164,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "write-tests",
+      "path": ".claude/commands/test/write-tests.md",
+      "description": "",
+      "content": "",
+      "size": 5387,
+      "local_exists": false,
+      "selected": false
+    }
+  ],
+  "cached_at": "2025-08-04T12:01:30.13566-07:00",
+  "expires_at": "2025-08-05T12:01:30.13566-07:00",
+  "last_checked": "2025-08-04T12:01:30.13566-07:00",
+  "size_bytes": 0
+}

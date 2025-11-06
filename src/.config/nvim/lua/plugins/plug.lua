@@ -3,11 +3,9 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 
--- "Dashboard"
-Plug 'github/copilot.vim'
 
 -- "Devdocs"
-Plug 'luckasRanarison/nvim-devdocs'
+-- Plug 'luckasRanarison/nvim-devdocs'
 
 Plug 'nvim-lua/plenary.nvim'
 
@@ -17,10 +15,11 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'nvim-neotest/neotest'
 Plug 'jfpedroza/neotest-elixir'
+Plug 'luckasRanarison/tailwind-tools.nvim'
 
 -- "UI"
-Plug 'glepnir/dashboard-nvim'
-Plug 'rcarriga/nvim-notify'
+-- Plug 'glepnir/dashboard-nvim'
+-- Plug 'rcarriga/nvim-notify'
 
 -- "Fzf.lua"
 Plug('ibhagwan/fzf-lua', { branch = 'main' })
@@ -29,10 +28,11 @@ Plug('ibhagwan/fzf-lua', { branch = 'main' })
 Plug 'APZelos/blamer.nvim'
 
 -- "Telescope"
-Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 
 -- "LLM"
+-- Plug 'github/copilot.vim'
+-- Plug 'milanglacier/minuet-ai.nvim'
 Plug 'ravitemer/codecompanion-history.nvim'
 Plug 'olimorris/codecompanion.nvim'
 Plug 'ravitemer/mcphub.nvim'
@@ -58,7 +58,7 @@ Plug 'jiaoshijie/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'knsh14/vim-github-link'
 Plug 'MeanderingProgrammer/render-markdown.nvim'
-Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
+-- Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
 
 -- "LSP"
 Plug 'neovim/nvim-lspconfig'
@@ -101,12 +101,10 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
+Plug 'echasnovski/mini.completion'
 
 -- "AutoCloseTags for react and html"
 Plug 'alvan/vim-closetag'
-
--- " Org Mode"
-Plug 'nvim-orgmode/orgmode'
 
 -- "Github"
 Plug 'ldelossa/litee.nvim'

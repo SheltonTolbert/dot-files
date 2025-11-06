@@ -143,26 +143,60 @@ function M.switch_project(config_path, name, auto_save)
     vim.cmd("silent tabonly") -- Close all other windows in the current tab
     local active_win_id_to_set = nil
 
-    for i, pane_info in ipairs(project.last_opened_panes) do
+    local previous_pane_restored_win_id = nil
+    local previous_pane_info = nil
+
+    for i, pane_info in ipairs(project.last_opened_panes) do -- Panes are sorted by win_nr from save
       local path_to_open = pane_info.buffer_path
       if not (path_to_open:sub(1,1) == "/" or path_to_open:match("^[A-Za-z]:\\")) then
         path_to_open = project.path .. "/" .. path_to_open
       end
       path_to_open = vim.fn.simplify(path_to_open)
 
-      if i > 1 then -- For subsequent panes, create a split
-        vim.cmd("silent split") -- Default to horizontal split, can be made smarter
+      local current_win_for_pane = vim.api.nvim_get_current_win()
+
+      if i > 1 and previous_pane_info then
+        -- Determine split direction based on relative positions of saved pane_info data
+        -- This compares the *intended* positions from the saved session.
+        local row_diff = pane_info.row - previous_pane_info.row
+        local col_diff = pane_info.col - previous_pane_info.col
+
+        -- Heuristic: if it starts on a new row, it's likely a horizontal split.
+        -- If it's on the same row but a new column, it's a vertical split.
+        -- This assumes a somewhat top-to-bottom, left-to-right layout scan during save.
+        if row_diff > 0 and math.abs(col_diff) < (previous_pane_info.width / 2) then -- New row, likely horizontal
+          vim.cmd("silent split")
+        elseif col_diff > 0 and math.abs(row_diff) < (previous_pane_info.height / 2) then -- New col, likely vertical
+          vim.cmd("silent vsplit")
+        else -- Default or ambiguous, or if the previous window was tiny
+          vim.cmd("silent split") 
+        end
+        current_win_for_pane = vim.api.nvim_get_current_win() -- New split is now current
+      elseif i == 1 then -- First pane, resize the initial window
+        pcall(vim.api.nvim_win_set_width, current_win_for_pane, pane_info.width)
+        pcall(vim.api.nvim_win_set_height, current_win_for_pane, pane_info.height)
       end
 
       if vim.fn.filereadable(path_to_open) == 1 then
         vim.cmd("silent edit " .. vim.fn.fnameescape(path_to_open))
         if pane_info.is_active then
-          active_win_id_to_set = vim.api.nvim_get_current_win()
+          active_win_id_to_set = current_win_for_pane
         end
       else
         require("plugins.hubworld.hubworld").notify("Hubworld: Could not find buffer for pane: " .. path_to_open, vim.log.levels.WARN)
         vim.cmd("silent enew") -- Open an empty buffer in the split if file not found
       end
+
+      -- Attempt to set dimensions for the newly focused/created window
+      -- This happens after loading the buffer, as buffer loading might affect window dimensions.
+      -- For the first window, it was already attempted. For splits, set dimensions after creation.
+      if i > 1 then 
+        pcall(vim.api.nvim_win_set_width, current_win_for_pane, pane_info.width)
+        pcall(vim.api.nvim_win_set_height, current_win_for_pane, pane_info.height)
+      end
+
+      previous_pane_restored_win_id = current_win_for_pane -- Keep track of the actual window ID
+      previous_pane_info = pane_info -- Keep track of the saved info for the next comparison
     end
 
     if active_win_id_to_set then

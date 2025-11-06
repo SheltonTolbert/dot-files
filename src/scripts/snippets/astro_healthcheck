@@ -1,0 +1,1 @@
+docker exec -it astro /bin/bash -c "poetry run python -c \"from app.pipelines.health_check.health_check import analyze; print(analyze({'meta': {'prefix': 's3://test-bucket/test-path'}}))\"; exit"

@@ -7,12 +7,52 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "context_servers": {
+    "shelcp": {
+      "command": {
+        "path": "node",
+        "args": [
+          "/Users/sheltontolbert/repos/shel-mcp/dist/index.js",
+          "--config",
+          "/Users/sheltontolbert/repos/shel-mcp/config-custom"
+        ],
+        "env": null
+      },
+      "settings": {}
+    }
+  },
   "agent": {
+    "default_profile": "shelcp",
+    "profiles": {
+      "shelcp": {
+        "name": "Shelcp",
+        "tools": {
+                    "list_directory": true,
+                    "grep": true,
+                    "find_path": true,
+                    "fetch": true,
+                    "edit_file": true,
+                    "diagnostics": true,
+                    "delete_path": true,
+                    "create_directory": true,
+                    "copy_path": true
+                },
+        "enable_all_context_servers": false,
+        "context_servers": {
+                    "shelcp": {
+                        "tools": {
+                            "git-helper": true,
+                            "code-analyzer": true
+                        }
+                    }
+                }
+      }
+    },
     "always_allow_tool_actions": true,
     "model_parameters": [],
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-thinking-latest"
+      "provider": "copilot_chat",
+      "model": "gemini-2.5-pro"
     },
     "version": "2"
   },

@@ -1,6 +1,6 @@
 -- Override default Neovim nofity with a notify.nvim
 -- vim.notify = require("notify")
--- vim.lsp.set_log_level("info")
+-- vim.lsp.set_log_level("DEBUG")
 
 vim.diagnostic.config({virtual_text = true, source = false})
 -- Set line numbers
@@ -38,6 +38,9 @@ vim.opt.undofile = true
 
 -- Enable incremental search
 vim.opt.incsearch = true
+
+-- Set inccommand to split to avoid conflicts with cmp cmdline
+vim.opt.inccommand = "split"
 
 -- Set scroll offset
 vim.opt.scrolloff = 24

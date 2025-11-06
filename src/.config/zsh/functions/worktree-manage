@@ -1,0 +1,224 @@
+#!/usr/bin/env zsh
+
+worktree-manage() {
+    local config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/worktree"
+    local config_file="$config_dir/projects.json"
+    
+    if [[ ! -f "$config_file" ]]; then
+        echo "No registered projects found. Use 'worktree-register' first."
+        return 1
+    fi
+
+    # Helper function to get all checked out branches for a repo
+    _get_checked_out_branches() {
+        local repo_path="$1"
+        local branches=()
+        
+        # Get main repo branch
+        local main_branch=$(cd "$repo_path" 2>/dev/null && git branch --show-current 2>/dev/null)
+        [[ -n "$main_branch" ]] && branches+=("$main_branch")
+        
+        # Get worktree branches
+        cd "$repo_path" 2>/dev/null && git worktree list --porcelain | while read -r line; do
+            if [[ $line =~ ^branch\ refs/heads/(.+)$ ]]; then
+                branches+=("${match[1]}")
+            fi
+        done 2>/dev/null
+        
+        printf '%s\n' "${branches[@]}" | sort -u
+    }
+    
+    # Helper function to resolve repo from selection
+    _resolve_repo_info() {
+        local selected="$1"
+        local temp_paths="$2"
+        
+        if [[ "$selected" =~ ^\t ]]; then
+            # It's a worktree, find parent repo
+            local worktree_path=$(grep -F "$selected" "$temp_paths" | cut -d'|' -f2)
+            local parent_repo=$(cd "$worktree_path" 2>/dev/null && git rev-parse --show-toplevel)
+            local project_name=$(jq -r --arg path "$parent_repo" 'to_entries[] | select(.value.path == $path) | .key' "$config_file")
+            echo "$project_name|$parent_repo|worktree|$worktree_path"
+        else
+            # It's a main repo
+            local repo_path=$(grep -F "$selected" "$temp_paths" | cut -d'|' -f2)
+            local project_name=$(echo "$selected" | sed 's/ (.*)$//')
+            echo "$project_name|$repo_path|repo|$repo_path"
+        fi
+    }
+    
+    # Helper function to delete worktree
+    _delete_worktree() {
+        local selected="$1"
+        local temp_paths="$2"
+        
+        if [[ ! "$selected" =~ ^\t ]]; then
+            echo "Cannot delete main repository. Select a worktree instead."
+            return 1
+        fi
+        
+        local worktree_path=$(grep -F "$selected" "$temp_paths" | cut -d'|' -f2)
+        local worktree_name=$(echo "$selected" | sed -e 's/^\t//' -e 's/ (.*)$//')
+        
+        echo "Delete worktree '$worktree_name' at '$worktree_path'? (y/N)"
+        read -r confirm
+        
+        if [[ "$confirm" =~ ^[Yy]$ ]]; then
+            local parent_repo=$(cd "$worktree_path" 2>/dev/null && git rev-parse --show-toplevel)
+            if cd "$parent_repo" 2>/dev/null && git worktree remove "$worktree_path" 2>/dev/null; then
+                echo "Worktree '$worktree_name' deleted successfully."
+                # Update config
+                source functions/worktree-register && cd "$parent_repo" && worktree-register
+                return 0
+            else
+                echo "Failed to delete worktree '$worktree_name'."
+                return 1
+            fi
+        fi
+        return 1
+    }
+    
+    # Helper function to create worktree
+    _create_worktree() {
+        local selected="$1"
+        local temp_paths="$2"
+        
+        local repo_info=$(_resolve_repo_info "$selected" "$temp_paths")
+        local project_name=$(echo "$repo_info" | cut -d'|' -f1)
+        local repo_path=$(echo "$repo_info" | cut -d'|' -f2)
+        
+        echo "Creating new worktree for '$project_name'"
+        echo "Repository path: $repo_path"
+        
+        # Get available branches
+        local checked_out_branches=($(_get_checked_out_branches "$repo_path"))
+        echo "Currently checked out branches: ${checked_out_branches[*]}"
+        
+        # Get all branches
+        local all_branches=($(cd "$repo_path" 2>/dev/null && git branch -a --format='%(refname:short)' | grep -v '^origin/HEAD' | sed 's|^origin/||' | sort -u))
+        
+        echo "Enter branch name for new worktree:"
+        echo "Available branches: ${all_branches[*]}"
+        read -r branch_name
+        
+        if [[ -z "$branch_name" ]]; then
+            echo "Branch name cannot be empty."
+            return 1
+        fi
+        
+        # Check if branch is already checked out
+        if printf '%s\n' "${checked_out_branches[@]}" | grep -q "^${branch_name}$"; then
+            echo "Error: Branch '$branch_name' is already checked out in another worktree."
+            return 1
+        fi
+        
+        echo "Enter worktree directory name (default: $branch_name):"
+        read -r worktree_name
+        [[ -z "$worktree_name" ]] && worktree_name="$branch_name"
+        
+        local worktree_path="${repo_path}-${worktree_name}"
+        
+        if [[ -d "$worktree_path" ]]; then
+            echo "Error: Directory '$worktree_path' already exists."
+            return 1
+        fi
+        
+        echo "Creating worktree at: $worktree_path"
+        
+        if cd "$repo_path" 2>/dev/null; then
+            # Check if branch exists
+            if git show-ref --verify --quiet "refs/heads/$branch_name" || git show-ref --verify --quiet "refs/remotes/origin/$branch_name"; then
+                git worktree add "$worktree_path" "$branch_name"
+            else
+                echo "Branch '$branch_name' doesn't exist. Create new branch? (y/N)"
+                read -r create_branch
+                if [[ "$create_branch" =~ ^[Yy]$ ]]; then
+                    git worktree add -b "$branch_name" "$worktree_path"
+                else
+                    return 1
+                fi
+            fi
+            
+            if [[ $? -eq 0 ]]; then
+                echo "Worktree created successfully at: $worktree_path"
+                # Update config
+                source functions/worktree-register && worktree-register
+                return 0
+            else
+                echo "Failed to create worktree."
+                return 1
+            fi
+        else
+            echo "Error: Could not access repository at '$repo_path'."
+            return 1
+        fi
+    }
+    
+    # Main function loop
+    while true; do
+        local temp_output=$(mktemp)
+        local temp_paths=$(mktemp)
+        
+        # Build output and path mapping (same as worktree-list)
+        jq -r 'to_entries[] | "\(.key)|\(.value.path)|\(.value.worktrees | @json)"' "$config_file" | while IFS='|' read -r project_name repo_path worktrees_json; do
+            local main_branch=$(cd "$repo_path" 2>/dev/null && git branch --show-current 2>/dev/null || echo "unknown")
+            
+            echo "${project_name} (${main_branch})" >> "$temp_output"
+            echo "${project_name} (${main_branch})|${repo_path}" >> "$temp_paths"
+            
+            echo "$worktrees_json" | jq -r '.[]' 2>/dev/null | while read -r worktree_path; do
+                if [[ -n "$worktree_path" && "$worktree_path" != "$repo_path" ]]; then
+                    local wt_branch=$(cd "$worktree_path" 2>/dev/null && git branch --show-current 2>/dev/null || echo "unknown")
+                    local wt_name=$(basename "$worktree_path")
+                    echo -e "\t${wt_name} (${wt_branch})" >> "$temp_output"
+                    echo -e "\t${wt_name} (${wt_branch})|${worktree_path}" >> "$temp_paths"
+                fi
+            done
+        done
+        
+        # Use fzf with key bindings
+        local selected=$(cat "$temp_output" | fzf \
+            --ansi \
+            --header="Worktree Manager - ENTER: navigate, d: delete worktree, c: create worktree, q: quit" \
+            --bind="d:execute-silent(echo delete > /tmp/wt_action && echo {} > /tmp/wt_selected)+abort" \
+            --bind="c:execute-silent(echo create > /tmp/wt_action && echo {} > /tmp/wt_selected)+abort" \
+            --bind="q:abort")
+        
+        if [[ -n "$selected" ]]; then
+            # Regular navigation
+            local target_path=$(grep -F "$selected" "$temp_paths" | cut -d'|' -f2)
+            if [[ -n "$target_path" && -d "$target_path" ]]; then
+                cd "$target_path"
+                echo "Changed to: $target_path"
+                rm -f "$temp_output" "$temp_paths"
+                break
+            fi
+        elif [[ -f /tmp/wt_action ]]; then
+            # Handle key binding actions
+            local action=$(cat /tmp/wt_action)
+            local wt_selected=$(cat /tmp/wt_selected)
+            rm -f /tmp/wt_action /tmp/wt_selected
+            
+            case "$action" in
+                "delete")
+                    if _delete_worktree "$wt_selected" "$temp_paths"; then
+                        echo "Refreshing list..."
+                        sleep 1
+                    fi
+                    ;;
+                "create")
+                    if _create_worktree "$wt_selected" "$temp_paths"; then
+                        echo "Refreshing list..."
+                        sleep 1
+                    fi
+                    ;;
+            esac
+        else
+            # User quit or cancelled
+            rm -f "$temp_output" "$temp_paths"
+            break
+        fi
+        
+        rm -f "$temp_output" "$temp_paths"
+    done
+}

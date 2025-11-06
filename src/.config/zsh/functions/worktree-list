@@ -1,0 +1,53 @@
+#!/usr/bin/env zsh
+
+worktree-list() {
+    local config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/worktree"
+    local config_file="$config_dir/projects.json"
+    
+    if [[ ! -f "$config_file" ]]; then
+        echo "No registered projects found. Use 'worktree-register' first."
+        return 1
+    fi
+    
+    local temp_output=$(mktemp)
+    local temp_paths=$(mktemp)
+    
+    # Build output and path mapping
+    jq -r 'to_entries[] | "\(.key)|\(.value.path)|\(.value.worktrees | @json)"' "$config_file" | while IFS='|' read -r project_name repo_path worktrees_json; do
+        # Get current branch for main repo
+        local main_branch=$(cd "$repo_path" 2>/dev/null && git branch --show-current 2>/dev/null || echo "unknown")
+        
+        # Add repo line to both files
+        echo "${project_name} (${main_branch})" >> "$temp_output"
+        echo "${project_name} (${main_branch})|${repo_path}" >> "$temp_paths"
+        
+        # Process worktrees
+        echo "$worktrees_json" | jq -r '.[]' 2>/dev/null | while read -r worktree_path; do
+            if [[ -n "$worktree_path" && "$worktree_path" != "$repo_path" ]]; then
+                local wt_branch=$(cd "$worktree_path" 2>/dev/null && git branch --show-current 2>/dev/null || echo "unknown")
+                local wt_name=$(basename "$worktree_path")
+                echo -e "\t${wt_name} (${wt_branch})" >> "$temp_output"
+                echo -e "\t${wt_name} (${wt_branch})|${worktree_path}" >> "$temp_paths"
+            fi
+        done
+    done
+    
+    # Use fzf to select and cd
+    local selected=$(cat "$temp_output" | fzf --ansi --header="Select repository or worktree to navigate")
+    
+    if [[ -n "$selected" ]]; then
+        # Find the corresponding path
+        local target_path=$(grep -F "$selected" "$temp_paths" | cut -d'|' -f2)
+        
+        if [[ -n "$target_path" && -d "$target_path" ]]; then
+            cd "$target_path"
+            echo "Changed to: $target_path"
+        else
+            echo "Error: Could not find path for selection"
+            rm -f "$temp_output" "$temp_paths"
+            return 1
+        fi
+    fi
+    
+    rm -f "$temp_output" "$temp_paths"
+}

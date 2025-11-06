@@ -2,8 +2,17 @@
 alias karma_focus="~/.dotfiles/scripts/karma_focus.sh"
 alias cache="~/.dotfiles/scripts/cache.sh"
 alias notes="vim ~/.vaults/Primary/Work"
+alias snippets="~/.dotfiles/src/scripts/snippets.sh"
+alias create_snippet="~/.dotfiles/src/scripts/create_snippet.sh"
+# alias ccm="/Users/sheltontolbert/repos/claude_command_manager/ccm"
+alias parkwt="cd ~/repos/worktrees/dscout; co parked-branch; cd -"
 
 # AI stuff =========================================================
+# "claude review write"
+alias crw="python3 ~/.config/claude/hooks/review.py"
+# "claude review read"
+alias crr="vim ~/.local/reviews/"
+
 alias chat="vim -c \"CodeCompanionChat gemini\" -c \"silent bd1\""
 alias gcm="vim -c \"CodeCompanion /commit\" -c \"silent bd1\""
 alias suggest="gh copilot suggest"
@@ -20,12 +29,14 @@ alias dendra="$DSCOUT_DIR/bin/dendra"
 
 # OS =========================================================
 alias screenshots="open ~/Documents/Screenshots"
+alias repos="cd ~/repos"
 
 # Terminal ===================================================
 alias c="clear"
 alias config="~/.dotfiles/src/scripts/config.sh"
 alias statuskey="echo '\nconflicted: 󰈸\nahead: \nbehind: \ndiverged: 󰓁\nup_to_date: \nuntracked: \nstashed: 󰸐\nmodified: 󰧼\nrenamed: 󱀐\ndeleted: '"
 alias tmuxinit="ls ~/.config/tmuxinator | sed 's/\.[^.]*$//' | xargs -I{} -n1 tmuxinator s {} --attach false"
+alias ch="command_history"
 
 # Services
 alias issues='jira issues list -a$(jira me) -s"To Do"'

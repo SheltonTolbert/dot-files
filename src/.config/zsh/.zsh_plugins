@@ -1,0 +1,2 @@
+# Source all zsh plugins
+source ~/.config/zsh/plugins/zoxide

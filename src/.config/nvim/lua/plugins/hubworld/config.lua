@@ -156,11 +156,19 @@ function M.save_project_session(config_path, project_name)
         table.insert(panes_info, {
           buffer_path = path_to_store,
           is_active = (win_id == active_win_id),
+          width = vim.api.nvim_win_get_width(win_id),
+          height = vim.api.nvim_win_get_height(win_id),
+          row = vim.api.nvim_win_get_position(win_id)[1],
+          col = vim.api.nvim_win_get_position(win_id)[2],
+          win_nr = vim.api.nvim_win_get_number(win_id), -- 1-indexed window number in tab
         })
       end
     end
   end
   -- This would require more complex window/layout capturing
+
+  -- Sort panes by their original window number to process them in order during restore
+  table.sort(panes_info, function(a, b) return a.win_nr < b.win_nr end)
 
   -- Update project data
   data.projects[project_name].last_opened_buffers = buffers

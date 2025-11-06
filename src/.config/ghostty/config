@@ -1,6 +1,6 @@
 cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
-theme = gruvbox-material
+theme = gruvbox-material-hard-dark
 palette = 0=#ea6926
 palette = 8=#ea6926

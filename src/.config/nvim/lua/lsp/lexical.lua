@@ -1,28 +1,39 @@
-local util = require 'lspconfig/util'
+-- Define the on_attach function once. This will be called by the LSP handler
+-- when the lexical server attaches to a buffer.
+local on_attach = function(client, bufnr)
+  -- Use vim.keymap.set for a cleaner and more modern keymapping API.
+  -- The `buffer = bufnr` option ensures the keymaps are local to the current buffer.
+  local opts = { buffer = bufnr, noremap = true, silent = true }
 
-local elixir_on_attach = function(client, bufnr)
-  local opts = { noremap=true, silent=true }
+  -- LSP-related keymaps
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<leader>cr', vim.lsp.buf.rename, opts)
+  vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts) -- Set for both normal and visual mode
 
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cd', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  -- NOTE: vim.lsp.buf.formatting() is deprecated.
+  -- Use vim.lsp.buf.format() instead. It is asynchronous by default.
+  vim.keymap.set('n', '<leader>cf', function()
+    vim.lsp.buf.format { async = true }
+  end, opts)
+
+  -- Diagnostic keymaps
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, opts) -- Uncommented as it's a useful mapping
 end
 
+-- This is the main setup.
+-- Instead of calling setup() directly, you would typically place this inside the
+-- `handlers` table of mason-lspconfig or configure it with vim.lsp.enable().
 require('lspconfig').lexical.setup {
-  cmd = { os.getenv("HOME").."/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-  root_dir = function(fname)
-    return util.root_pattern("mix.exs", ".git")(fname) or vim.loop.cwd()
-  end,
+  -- Your custom command to start the server is still perfectly valid.
+  cmd = { os.getenv("HOME") .. "/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
+  root_dir = require('lspconfig.util').root_pattern("mix.exs", ".git"),
   filetypes = { "elixir", "eelixir", "heex" },
-  -- optional settings
+  on_attach = on_attach,
   settings = {},
-  on_attach = elixir_on_attach
 }

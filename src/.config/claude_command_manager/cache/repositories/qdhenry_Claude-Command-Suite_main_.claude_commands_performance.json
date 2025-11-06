@@ -1,0 +1,162 @@
+{
+  "repository": {
+    "owner": "qdhenry",
+    "repo": "Claude-Command-Suite",
+    "branch": "main",
+    "path": ".claude/commands/performance",
+    "url": "https://github.com/qdhenry/Claude-Command-Suite/tree/main/.claude/commands/performance",
+    "commands": [
+      {
+        "name": "add-performance-monitoring",
+        "path": ".claude/commands/performance/add-performance-monitoring.md",
+        "description": "",
+        "content": "",
+        "size": 35155,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "implement-caching-strategy",
+        "path": ".claude/commands/performance/implement-caching-strategy.md",
+        "description": "",
+        "content": "",
+        "size": 15549,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-build",
+        "path": ".claude/commands/performance/optimize-build.md",
+        "description": "",
+        "content": "",
+        "size": 5041,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-bundle-size",
+        "path": ".claude/commands/performance/optimize-bundle-size.md",
+        "description": "",
+        "content": "",
+        "size": 10216,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "optimize-database-performance",
+        "path": ".claude/commands/performance/optimize-database-performance.md",
+        "description": "",
+        "content": "",
+        "size": 18550,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "performance-audit",
+        "path": ".claude/commands/performance/performance-audit.md",
+        "description": "",
+        "content": "",
+        "size": 2955,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "setup-cdn-optimization",
+        "path": ".claude/commands/performance/setup-cdn-optimization.md",
+        "description": "",
+        "content": "",
+        "size": 19777,
+        "local_exists": false,
+        "selected": false
+      },
+      {
+        "name": "system-behavior-simulator",
+        "path": ".claude/commands/performance/system-behavior-simulator.md",
+        "description": "",
+        "content": "",
+        "size": 17470,
+        "local_exists": false,
+        "selected": false
+      }
+    ],
+    "last_fetched": "2025-08-04T19:50:53.137152-07:00"
+  },
+  "commands": [
+    {
+      "name": "add-performance-monitoring",
+      "path": ".claude/commands/performance/add-performance-monitoring.md",
+      "description": "",
+      "content": "",
+      "size": 35155,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "implement-caching-strategy",
+      "path": ".claude/commands/performance/implement-caching-strategy.md",
+      "description": "",
+      "content": "",
+      "size": 15549,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-build",
+      "path": ".claude/commands/performance/optimize-build.md",
+      "description": "",
+      "content": "",
+      "size": 5041,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-bundle-size",
+      "path": ".claude/commands/performance/optimize-bundle-size.md",
+      "description": "",
+      "content": "",
+      "size": 10216,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "optimize-database-performance",
+      "path": ".claude/commands/performance/optimize-database-performance.md",
+      "description": "",
+      "content": "",
+      "size": 18550,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "performance-audit",
+      "path": ".claude/commands/performance/performance-audit.md",
+      "description": "",
+      "content": "",
+      "size": 2955,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "setup-cdn-optimization",
+      "path": ".claude/commands/performance/setup-cdn-optimization.md",
+      "description": "",
+      "content": "",
+      "size": 19777,
+      "local_exists": false,
+      "selected": false
+    },
+    {
+      "name": "system-behavior-simulator",
+      "path": ".claude/commands/performance/system-behavior-simulator.md",
+      "description": "",
+      "content": "",
+      "size": 17470,
+      "local_exists": false,
+      "selected": false
+    }
+  ],
+  "cached_at": "2025-08-04T19:50:53.137161-07:00",
+  "expires_at": "2025-08-05T19:50:53.137161-07:00",
+  "last_checked": "2025-08-04T19:50:53.137161-07:00",
+  "size_bytes": 0
+}

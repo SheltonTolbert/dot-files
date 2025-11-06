@@ -1,0 +1,259 @@
+- link:
+    ~/.config: 
+      path: src/.config
+      force: true
+    ~/.zshrc: 
+      path: src/.zshrc
+      force: true
+    ~/.gitconfig: 
+      path: src/.gitconfig
+      force: true
+    ~/.gitignore: 
+      path: src/.gitignore
+      force: true
+    ~/.tmux.conf: 
+      path: src/.tmux.conf
+      force: true
+    ~/.aerospace.toml: 
+      path: src/.aerospace.toml
+      force: true
+
+- shell:
+  -
+    command: xcode-select --install
+    stdout: true
+  -
+    command: brew update
+    stdout: true
+  -
+    command: brew tap homebrew/cask-fonts
+    stdout: true
+  -
+    command: brew tap shel-corp/claude
+    stdout: true
+  -
+    command: brew tap felixkratz/formulae
+    stdout: true
+  -
+    command: brew install --cask font-hack-nerd-font
+    stdout: true
+  -
+    command: brew install --cask 1password-cli
+    stdout: true
+  -
+    command: brew install --cask betterdisplay
+    stdout: true
+  -
+    command: brew install --cask chromedriver
+    stdout: true
+  -
+    command: brew install --cask ghostty
+    stdout: true
+  -
+    command: brew install --cask scroll-reverser
+    stdout: true
+  -
+    command: brew install --cask zulu@17
+    stdout: true
+  -
+    command: brew install asdf
+    stdout: true
+  -
+    command: brew install automake
+    stdout: true
+  -
+    command: brew install btop
+    stdout: true
+  -
+    command: brew install circleci
+    stdout: true
+  -
+    command: brew install cmake
+    stdout: true
+  -
+    command: brew install codex
+    stdout: true
+  -
+    command: brew install command_library
+    stdout: true
+  -
+    command: brew install curl
+    stdout: true
+  -
+    command: brew install fd
+    stdout: true
+  -
+    command: brew install felixkratz/formulae/sketchybar
+    stdout: true
+  -
+    command: brew install ffmpeg@6
+    stdout: true
+  -
+    command: brew install fswatch
+    stdout: true
+  -
+    command: brew install fzf
+    stdout: true
+  -
+    command: brew install gh
+    stdout: true
+  -
+    command: brew install git-delta
+    stdout: true
+  -
+    command: brew install git-lfs
+    stdout: true
+  -
+    command: brew install glow
+    stdout: true
+  -
+    command: brew install hadolint
+    stdout: true
+  -
+    command: brew install htop
+    stdout: true
+  -
+    command: brew install httpie
+    stdout: true
+  -
+    command: brew install jira-cli
+    stdout: true
+  -
+    command: brew install jq
+    stdout: true
+  -
+    command: brew install lazygit
+    stdout: true
+  -
+    command: brew install lua
+    stdout: true
+  -
+    command: brew install lua-language-server
+    stdout: true
+  -
+    command: brew install miller
+    stdout: true
+  -
+    command: brew install mkcert
+    stdout: true
+  -
+    command: brew install neovim
+    stdout: true
+  -
+    command: brew install ninja
+    stdout: true
+  -
+    command: brew install nmap
+    stdout: true
+  -
+    command: brew install node
+    stdout: true
+  -
+    command: brew install oxker
+    stdout: true
+  -
+    command: brew install pgcli
+    stdout: true
+  -
+    command: brew install pipx
+    stdout: true
+  -
+    command: brew install postgresql@17
+    stdout: true
+  -
+    command: brew install prettier
+    stdout: true
+  -
+    command: brew install python@3.12
+    stdout: true
+  -
+    command: brew install redis
+    stdout: true
+  -
+    command: brew install ripgrep
+    stdout: true
+  -
+    command: brew install shel-corp/claude/ccm
+    stdout: true
+  -
+    command: brew install shellcheck
+    stdout: true
+  -
+    command: brew install starship
+    stdout: true
+  -
+    command: brew install tldr
+    stdout: true
+  -
+    command: brew install tmux
+    stdout: true
+    description: Installing tmux
+  -
+    command: brew install tmuxinator
+    stdout: true
+  -
+    command: brew install tree
+    stdout: true
+  -
+    command: brew install vips
+    stdout: true
+  -
+    command: brew install watchman
+    stdout: true
+  -
+    command: brew install websocat
+    stdout: true
+  -
+    command: brew install wrk
+    stdout: true
+  -
+    command: brew install wxwidgets
+    stdout: true
+  -
+    command: brew install yamllint
+    stdout: true
+  -
+    command: brew install yarn
+    stdout: true
+  -
+    command: brew install yq
+    stdout: true
+  -
+    command: brew install zoxide
+    stdout: true
+  -
+    command: brew install zsh-autosuggestions
+    stdout: true
+  -
+    command: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    stdout: true
+    description: Installing tmux plugin manager !Remember to install plugins with prefix + I
+  -
+    command: brew install --cask raycast
+    stdout: true
+    description: Installing raycast
+  -
+    command: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    stdout: true
+    description: Installing oh-my-zsh
+  -
+    command: npm i -g vscode-langservers-extracted
+    stdout: true
+    description: Installing vscode language server
+  -
+    command: npm install -g typescript typescript-language-server
+    stdout: true
+    description: Installing typescript language server
+  -
+    command: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    stdout: true
+    description: Installing Vim Plug for nvim
+  -
+    command: brew install --cask nikitabobko/tap/aerospace
+    stdout: true
+    description: Installing Aerospace for macos
+  -
+    command: curl -sfL https://raw.githubusercontent.com/ducaale/xh/master/install.sh | sh
+    stdout: true
+    description: Installing curl replacement xh

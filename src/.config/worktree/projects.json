@@ -1,0 +1,14 @@
+{
+  ".dotfiles": {
+    "path": "/Users/sheltontolbert/.dotfiles",
+    "worktrees": [
+      "/Users/sheltontolbert/.dotfiles"
+    ]
+  },
+  "dscout": {
+    "path": "/Users/sheltontolbert/repos/dscout",
+    "worktrees": [
+      "/Users/sheltontolbert/repos/dscout"
+    ]
+  }
+}

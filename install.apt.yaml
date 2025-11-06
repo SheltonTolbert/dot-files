@@ -1,0 +1,125 @@
+- link:
+    ~/.config:
+      path: src/.config
+      force: true
+    ~/.zshrc:
+      path: src/.zshrc
+      force: true
+    ~/.gitconfig:
+      path: src/.gitconfig
+      force: true
+    ~/.gitignore:
+      path: src/.gitignore
+      force: true
+    ~/.tmux.conf:
+      path: src/.tmux.conf
+      force: true
+    ~/.aerospace.toml:
+      path: src/.aerospace.toml
+      force: true
+
+- shell:
+  -
+    command: sudo apt update
+    stdout: true
+  -
+    command: sudo apt install -y software-properties-common apt-transport-https ca-certificates curl gnupg lsb-release unzip build-essential
+    stdout: true
+  -
+    command: curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
+    stdout: true
+  -
+    command: echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/nodesource.list
+    stdout: true
+  -
+    command: curl -fsSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /usr/share/keyrings/yarnkey.gpg
+    stdout: true
+  -
+    command: echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    stdout: true
+  -
+    command: curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /usr/share/keyrings/githubcli-archive-keyring.gpg >/dev/null
+    stdout: true
+  -
+    command: sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+    stdout: true
+  -
+    command: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list
+    stdout: true
+  -
+    command: curl -fsSL https://packagecloud.io/install/repositories/circleci/cli/script.deb.sh | sudo bash
+    stdout: true
+  -
+    command: curl -fsSL https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor | sudo tee /usr/share/keyrings/1password-archive-keyring.gpg >/dev/null
+    stdout: true
+  -
+    command: echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main" | sudo tee /etc/apt/sources.list.d/1password.list
+    stdout: true
+  -
+    command: sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22 /usr/share/debsig/keyrings/AC2D62742012EA22
+    stdout: true
+  -
+    command: curl -fsSL https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol >/dev/null
+    stdout: true
+  -
+    command: curl -fsSL https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor | sudo tee /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg >/dev/null
+    stdout: true
+  -
+    command: curl -fsSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo gpg --dearmor -o /usr/share/keyrings/pgdg.gpg
+    stdout: true
+  -
+    command: echo "deb [signed-by=/usr/share/keyrings/pgdg.gpg] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+    stdout: true
+  -
+    command: sudo add-apt-repository -y ppa:deadsnakes/ppa
+    stdout: true
+  -
+    command: sudo add-apt-repository -y ppa:lazygit-team/release
+    stdout: true
+  -
+    command: sudo apt update
+    stdout: true
+  -
+    command: sudo apt install -y fonts-hack-ttf
+    stdout: true
+  -
+    command: sudo apt install -y 1password-cli chromium-chromedriver openjdk-17-jdk
+    stdout: true
+  -
+    command: sudo apt install -y automake btop circleci-cli cmake curl fd-find ffmpeg fswatch fzf gh git-delta git-lfs glow htop httpie jq lazygit lua5.4 lua-language-server miller mkcert neovim ninja-build nmap nodejs pgcli pipx postgresql-17 postgresql-client-17 postgresql-contrib node-prettier python3.12 python3.12-venv redis-server ripgrep shellcheck starship tealdeer tmux tmuxinator tree libvips-tools websocat wrk libwxgtk3.0-gtk3-dev yamllint yarn yq zoxide zsh-autosuggestions
+    stdout: true
+  -
+    command: sudo ln -sf /usr/bin/fdfind /usr/local/bin/fd
+    stdout: true
+  -
+    command: sudo ln -sf /usr/bin/tealdeer /usr/local/bin/tldr
+    stdout: true
+  -
+    command: git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.14.0
+    stdout: true
+    description: Installing asdf version manager
+  -
+    command: git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    stdout: true
+    description: Installing tmux plugin manager !Remember to install plugins with prefix + I
+  # macOS-specific tools not available on Ubuntu: ghostty, raycast, scroll-reverser, aerospace, betterdisplay, sketchybar, command_library, codex, ccm, oxker.
+  -
+    command: sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    stdout: true
+    description: Installing oh-my-zsh
+  -
+    command: npm i -g vscode-langservers-extracted
+    stdout: true
+    description: Installing vscode language server
+  -
+    command: npm install -g typescript typescript-language-server
+    stdout: true
+    description: Installing typescript language server
+  -
+    command: sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+    stdout: true
+    description: Installing Vim Plug for nvim
+  -
+    command: curl -sfL https://raw.githubusercontent.com/ducaale/xh/master/install.sh | sh
+    stdout: true
+    description: Installing curl replacement xh

@@ -8,6 +8,7 @@ source ~/.config/zsh/.zsh_aliases
 
 ## Look into autoload and setopt
 source ~/.config/zsh/.zsh_functions
+source ~/.config/zsh/.zsh_plugins
 
 eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/ffmpeg@6/bin:$PATH"
@@ -18,3 +19,5 @@ fpath=(/Users/sheltontolbert/.docker/completions $fpath)
 autoload -Uz compinit
 compinit
 # End of Docker CLI completions
+
+alias claude="/Users/sheltontolbert/.claude/local/claude"

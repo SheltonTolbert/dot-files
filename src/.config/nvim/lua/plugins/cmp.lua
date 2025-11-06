@@ -1,6 +1,9 @@
 local cmp = require'cmp'
 
 cmp.setup({
+  performance = {
+    fetching_timeout = 2000,
+  },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)
@@ -22,6 +25,7 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
+    -- { name = 'minuet' },
     { name = 'nvim_lsp' },
     { name = 'vsnip' }, -- For vsnip users.
   }, {

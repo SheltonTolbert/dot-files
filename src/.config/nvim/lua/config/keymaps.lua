@@ -11,7 +11,7 @@ local quickfix = require("telescope.builtin").quickfix
 -- Normal mode mappings
 map("n", "<leader>o", ":vertical :G<CR>", opts)
 
-map("n", "<leader>p", ":Files<CR>", opts)
+map("n", "<leader>p", '<cmd>lua require("telescope.builtin").find_files({hidden = true})<CR>', opts)
 map("n", "<leader>v", ":vsp<CR>", opts)
 map("n", "<leader>h", ":sp<CR>", opts)
 map("n", "<leader>hw", ":Hubworld<CR>", opts)

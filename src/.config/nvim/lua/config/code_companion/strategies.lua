@@ -3,7 +3,7 @@ local slash_commands = require("config.code_companion.slash_commands")
 
 local strategies = {
   chat = {
-    adapter = "copilot",
+    adapter = "anthropic",
     keymaps = {
       send = {
         modes = {
@@ -20,6 +20,7 @@ local strategies = {
     tools = tools.chat_tools,
   },
   inline = {
+    adapter = "anthropic",
     keymaps = {
       accept_change = {
         modes = { n = "ga" },

@@ -1,4 +1,29 @@
+function add_snippet() {
+  local snippet_name="$1"
+  local snippet_content="$2"
+
+  if [ -z "$snippet_name" ] || [ -z "$snippet_content" ]; then
+    echo "Usage: add_snippet <name> <content>"
+    return 1
+  fi
+
+  echo "$snippet_content" > ~/.dotfiles/scr/scripts/snippets/"$snippet_name"
+  echo "Snippet '$snippet_name' added successfully."
+}
+
 # Robots =======================================================================
+function explain() {
+  local input
+  if [ -t 0 ]; then
+    input="$1"
+  else
+    echo "Please provide input as an argument or pipe it in."
+    return 1
+  fi
+
+  claude "/explain $input" -p | glow
+}
+
 function ask() {
   local input
   if [ -t 0 ]; then
@@ -9,14 +34,14 @@ function ask() {
 
   input=$(echo "$input" | sed 's/"/\\"/g')
 
-#  curl -s http://192.168.0.126:11434/api/generate -d "{
-#  \"model\": \"llama3.2\",
-#  \"stream\": false,
-#  \"prompt\": \"$input\",
-#  \"options\": {
-#    \"num_ctx\": 4096
-#  }
-#}" | jq -j ".response" | glow
+  curl -s http://192.168.0.152:11434/api/generate -d "{
+  \"model\": \"llama3.2\",
+  \"stream\": true,
+  \"prompt\": \"$input\",
+  \"options\": {
+    \"num_ctx\": 4096
+  }
+}" | jq -j ".response" | glow
 
   $input | ssh shell@192.168.126 -t "ollama run deepseek-r1 \"$input\"" | glow
 }
@@ -190,3 +215,102 @@ function chpwd() {
     emulate -L zsh
     clear
 }
+
+# Command History ============================================================
+
+# Helper function to show most frequent commands
+function _frequent_commands() {
+  local count="${1:-10}"
+  local history_file="$HOME/.zsh_history"
+
+  if [[ ! -f "$history_file" ]]; then
+    echo "Error: History file not found at $history_file"
+    return 1
+  fi
+
+  # Extract commands, count frequencies, and get top N
+  local frequent_commands=$(grep -v '^#' "$history_file" | \
+    cut -d';' -f2- | \
+    LC_ALL=C sort | \
+    uniq -c | \
+    LC_ALL=C sort -rn | \
+    head -n "$count" | \
+    sed -E 's/^[[:space:]]*[0-9]+[[:space:]]*//')
+
+  local selected_command=$(echo "$frequent_commands" | fzf --scheme=history --tiebreak=index)
+
+  if [[ -n "$selected_command" ]]; then
+    echo "Executing: $selected_command"
+    eval "$selected_command"
+  fi
+}
+
+# command_history: Search command history with fzf and execute the selected command
+# If a query is provided and only one match is found, execute it immediately
+# Usage: ch [-f [N]] [query]
+#   -f [N]  Show top N most frequent commands (default: 10)
+function command_history() {
+  local query=""
+  local history_file="$HOME/.zsh_history"
+
+  # Check for -f flag
+  if [[ "$1" == "-f" ]]; then
+    shift
+    local count=10
+    if [[ $1 =~ ^[0-9]+$ ]]; then
+      count=$1
+    fi
+    _frequent_commands "$count"
+    return $?
+  fi
+
+  # Regular history search
+  query="$1"
+
+  # Check if history file exists
+  if [[ ! -f "$history_file" ]]; then
+    echo "Error: History file not found at $history_file"
+    return 1
+  fi
+
+  # Extract commands from history file (zsh history format: : timestamp:0;command)
+  # Remove duplicates (keeping most recent occurrence)
+  local history_commands=$(cat "$history_file" | sed -E 's/^: [0-9]+:[0-9]+;//' | awk '!seen[$0]++')
+
+  if [[ -n "$query" ]]; then
+    # Filter history with the query
+    local matches=$(echo "$history_commands" | fzf --filter="$query")
+    local match_count=$(echo "$matches" | grep -c '^' 2>/dev/null || echo 0)
+
+    if [[ $match_count -eq 1 ]]; then
+      # Only one match found, execute it immediately
+      local selected_command="$matches"
+      echo "Executing: $selected_command"
+      eval "$selected_command"
+      return $?
+    elif [[ $match_count -eq 0 ]]; then
+      # No matches found
+      echo "No matches found for: $query"
+      return 1
+    else
+      # Multiple matches, show fzf interface with the query
+      local selected_command=$(echo "$matches" | fzf --tac --query="$query" --scheme=history --tiebreak=index)
+    fi
+  else
+    # No query provided, show full fzf interface
+    local selected_command=$(echo "$history_commands" | fzf --tac --scheme=history --tiebreak=index)
+  fi
+
+  # If a command was selected, execute it
+  if [[ -n "$selected_command" ]]; then
+    echo "Executing: $selected_command"
+    eval "$selected_command"
+  fi
+}
+
+# Worktree Management Functions ==============================================
+
+# Source worktree management functions
+source ~/.dotfiles/src/.config/zsh/functions/worktree-register
+source ~/.dotfiles/src/.config/zsh/functions/worktree-list
+source ~/.dotfiles/src/.config/zsh/functions/worktree-manage
