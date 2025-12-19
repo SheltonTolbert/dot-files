@@ -1,0 +1,185 @@
+#!/usr/bin/env bash
+#
+# Creates symlinks from shared folders into git worktrees.
+# - .claude-shared/* -> <worktree>/.claude/*
+# - apps-shared/* -> <worktree>/apps/*
+#
+# Usage:
+#   setup-worktree-symlinks [worktree...]
+#
+# If no worktrees specified, operates on all worktrees found.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+WT_ROOT="$(dirname "$SCRIPT_DIR")"
+
+CLAUDE_SHARED="$WT_ROOT/.claude-shared"
+APPS_SHARED="$WT_ROOT/apps-shared"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+
+log_info() {
+  echo -e "${GREEN}✓${NC} $1"
+}
+
+log_warn() {
+  echo -e "${YELLOW}⚠${NC} $1"
+}
+
+log_error() {
+  echo -e "${RED}✗${NC} $1"
+}
+
+# Find all worktrees (directories that aren't special folders)
+find_worktrees() {
+  for dir in "$WT_ROOT"/*/; do
+    dir_name=$(basename "$dir")
+    # Skip special directories
+    case "$dir_name" in
+      .bare|bin|.claude-shared|apps-shared)
+        continue
+        ;;
+      .*)
+        continue
+        ;;
+    esac
+    # Check if it looks like a worktree (has a .git file)
+    if [[ -e "$dir/.git" ]]; then
+      echo "$dir_name"
+    fi
+  done
+}
+
+# Create symlinks for files from a shared folder to a target folder
+# Args: $1 = shared_folder, $2 = target_folder_name, $3 = worktree_path
+create_symlinks() {
+  local shared_folder="$1"
+  local target_name="$2"
+  local worktree="$3"
+  local target_folder="$worktree/$target_name"
+
+  if [[ ! -d "$shared_folder" ]]; then
+    log_warn "Shared folder not found: $shared_folder"
+    return
+  fi
+
+  # Find all files recursively in the shared folder
+  while IFS= read -r -d '' file; do
+    # Get relative path from shared folder
+    local rel_path="${file#$shared_folder/}"
+    local target_path="$target_folder/$rel_path"
+    local target_dir="$(dirname "$target_path")"
+
+    # Create parent directory if needed
+    if [[ ! -d "$target_dir" ]]; then
+      mkdir -p "$target_dir"
+    fi
+
+    # Check if target already exists
+    if [[ -L "$target_path" ]]; then
+      # It's a symlink - check if it points to the right place
+      local current_target
+      current_target=$(readlink "$target_path")
+      if [[ "$current_target" == "$file" ]]; then
+        log_info "Already linked: $rel_path"
+        continue
+      else
+        log_warn "Updating symlink: $rel_path (was: $current_target)"
+        rm "$target_path"
+      fi
+    elif [[ -e "$target_path" ]]; then
+      log_warn "Skipping (file exists): $target_path"
+      continue
+    fi
+
+    # Create the symlink
+    ln -s "$file" "$target_path"
+    log_info "Created symlink: $target_name/$rel_path -> $file"
+  done < <(find "$shared_folder" -type f -print0 2>/dev/null)
+
+  # Also handle symlinks in the shared folder (like .env files)
+  while IFS= read -r -d '' link; do
+    local rel_path="${link#$shared_folder/}"
+    local target_path="$target_folder/$rel_path"
+    local target_dir="$(dirname "$target_path")"
+
+    # Create parent directory if needed
+    if [[ ! -d "$target_dir" ]]; then
+      mkdir -p "$target_dir"
+    fi
+
+    # Check if target already exists
+    if [[ -L "$target_path" ]]; then
+      local current_target
+      current_target=$(readlink "$target_path")
+      local link_target
+      link_target=$(readlink "$link")
+      if [[ "$current_target" == "$link_target" ]]; then
+        log_info "Already linked: $rel_path"
+        continue
+      else
+        log_warn "Updating symlink: $rel_path"
+        rm "$target_path"
+      fi
+    elif [[ -e "$target_path" ]]; then
+      log_warn "Skipping (file exists): $target_path"
+      continue
+    fi
+
+    # Copy the symlink (preserve the link target)
+    cp -P "$link" "$target_path"
+    log_info "Created symlink: $target_name/$rel_path -> $(readlink "$link")"
+  done < <(find "$shared_folder" -type l -print0 2>/dev/null)
+}
+
+setup_worktree() {
+  local worktree_name="$1"
+  local worktree_path="$WT_ROOT/$worktree_name"
+
+  if [[ ! -d "$worktree_path" ]]; then
+    log_error "Worktree not found: $worktree_path"
+    return 1
+  fi
+
+  echo ""
+  echo "Setting up worktree: $worktree_name"
+  echo "─────────────────────────────────────"
+
+  # Create symlinks for .claude-shared -> .claude
+  create_symlinks "$CLAUDE_SHARED" ".claude" "$worktree_path"
+
+  # Create symlinks for apps-shared -> apps
+  create_symlinks "$APPS_SHARED" "apps" "$worktree_path"
+}
+
+main() {
+  local worktrees=()
+
+  if [[ $# -gt 0 ]]; then
+    worktrees=("$@")
+  else
+    mapfile -t worktrees < <(find_worktrees)
+  fi
+
+  if [[ ${#worktrees[@]} -eq 0 ]]; then
+    log_error "No worktrees found in $WT_ROOT"
+    exit 1
+  fi
+
+  echo "Worktree root: $WT_ROOT"
+  echo "Found worktrees: ${worktrees[*]}"
+
+  for wt in "${worktrees[@]}"; do
+    setup_worktree "$wt"
+  done
+
+  echo ""
+  echo "Done!"
+}
+
+main "$@"
