@@ -7,4 +7,10 @@ src/.config/yarn
 src/.config/containers
 src/.config/gcloud
 src/.config/.jira
+src/.config/graphite/user_config
+src/.config/nvim/.nvimlog
+src/.config/nvim/tmp/
+src/.config/op/
+github
+github.pub
 *.DS_Store
