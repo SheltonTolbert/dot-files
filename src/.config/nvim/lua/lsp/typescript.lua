@@ -1,11 +1,9 @@
-require("typescript").setup({
-     --disable_commands = false, -- prevent the plugin from creating Vim commands
-     --debug = false, -- enable debug logging for commands
-    server = { -- pass options to lspconfig's setup method
-        on_attach = function()
-            --vim.keymap.set("n", "K", vim.lsp.buf.hover, {buffer = 0})
-        end,
-    },
-  capabilities = capabilities
-})
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
+vim.lsp.config('tsserver', {
+  capabilities = capabilities,
+  on_attach = function()
+    -- vim.keymap.set("n", "K", vim.lsp.buf.hover, { buffer = 0 })
+  end,
+})
+vim.lsp.enable('tsserver')

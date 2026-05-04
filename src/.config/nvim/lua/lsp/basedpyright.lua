@@ -1,6 +1,10 @@
-require'lspconfig'.basedpyright.setup{
+local function root_dir(fname)
+  return vim.fs.root(fname, { "pyproject.toml", "pyrightconfig.json", ".git" })
+end
+
+vim.lsp.config('basedpyright', {
   cmd = { "uv", "run", "basedpyright-langserver", "--stdio" },
-  root_dir = require('lspconfig.util').root_pattern("pyproject.toml", "pyrightconfig.json", ".git"),
+  root_dir = root_dir,
   settings = {
     basedpyright = {
       analysis = {
@@ -28,4 +32,5 @@ require'lspconfig'.basedpyright.setup{
       }
     }
   }
-}
+})
+vim.lsp.enable('basedpyright')

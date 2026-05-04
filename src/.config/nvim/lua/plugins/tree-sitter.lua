@@ -1,5 +1,5 @@
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "yaml", "html" },
+require('nvim-treesitter').setup {
+  ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "yaml", "html", "elixir", "heex", "eex" },
   sync_install = false,
   auto_install = false,
   highlight = {
@@ -14,3 +14,10 @@ require'nvim-treesitter.configs'.setup {
     additional_vim_regex_highlighting = false,
   },
 }
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'elixir', 'eelixir', 'heex' },
+  callback = function()
+    vim.treesitter.start()
+  end,
+})

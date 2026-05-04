@@ -15,7 +15,9 @@ Plug 'antoinemadec/FixCursorHold.nvim'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'nvim-neotest/neotest'
 Plug 'jfpedroza/neotest-elixir'
-Plug 'luckasRanarison/tailwind-tools.nvim'
+
+-- "AI"
+Plug 'https://github.com/ThePrimeagen/99.git'
 
 -- "UI"
 -- Plug 'glepnir/dashboard-nvim'
@@ -33,9 +35,9 @@ Plug 'nvim-telescope/telescope.nvim'
 -- "LLM"
 -- Plug 'github/copilot.vim'
 -- Plug 'milanglacier/minuet-ai.nvim'
-Plug 'ravitemer/codecompanion-history.nvim'
-Plug 'olimorris/codecompanion.nvim'
-Plug 'ravitemer/mcphub.nvim'
+-- Plug 'ravitemer/codecompanion-history.nvim'
+-- Plug 'olimorris/codecompanion.nvim'
+-- Plug 'ravitemer/mcphub.nvim'
 
 -- "Octo"
 -- Plug 'pwntester/octo.nvim'
@@ -58,15 +60,15 @@ Plug 'jiaoshijie/undotree'
 Plug 'tpope/vim-fugitive'
 Plug 'knsh14/vim-github-link'
 Plug 'MeanderingProgrammer/render-markdown.nvim'
+Plug 'rmagatti/auto-session'
+Plug 'rmagatti/session-lens'
 -- Plug('ThePrimeagen/harpoon', { branch = 'harpoon2' })
+Plug 'yousefakbar/notmuch.nvim'
 
 -- "LSP"
 Plug 'neovim/nvim-lspconfig'
 
 -- "js/ts"
-Plug 'jose-elias-alvarez/null-ls.nvim'
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'jose-elias-alvarez/typescript.nvim'
 Plug 'pmizio/typescript-tools.nvim'
 
 -- "File Tree"
@@ -94,7 +96,7 @@ Plug 'sbdchd/neoformat'
 Plug 'mhinz/vim-mix-format'
 
 -- "Completion Engine & Snippet Engine"
-Plug 'hrsh7th/vim-vsnip'
+-- -Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/cmp-vsnip'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
@@ -102,6 +104,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'echasnovski/mini.completion'
+
 
 -- "AutoCloseTags for react and html"
 Plug 'alvan/vim-closetag'
@@ -126,5 +129,3 @@ Plug 'ray-x/navigator.lua'
 Plug('shortcuts/no-neck-pain.nvim', { ['tag'] = '*' })
 
 vim.call('plug#end')
-
-local lspconfig = require("lspconfig")

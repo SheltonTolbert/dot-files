@@ -1,4 +1,4 @@
-require'lspconfig'.ts_ls.setup{
+vim.lsp.config('ts_ls', {
   init_options = {
     plugins = {
       {
@@ -12,4 +12,5 @@ require'lspconfig'.ts_ls.setup{
     "javascript",
     "typescript",
   },
-}
+})
+vim.lsp.enable('ts_ls')

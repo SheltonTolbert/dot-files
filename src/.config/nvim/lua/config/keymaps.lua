@@ -4,8 +4,6 @@ vim.g.mapleader = " "
 -- Define key mappings
 local map = vim.api.nvim_set_keymap
 local opts = {noremap = true, silent = true}
-local quickfix = require("telescope.builtin").quickfix
-
 -- local copilotChatActions = require("CopilotChat.actions")
 
 -- Normal mode mappings
@@ -39,24 +37,40 @@ map("n", "<leader>ff", '<cmd>lua require("telescope.builtin").live_grep()<CR>', 
 map("n", "<leader>fw", '<cmd>lua require("telescope.builtin").grep_string()<CR>', opts)
 map("n", "<leader>fb", '<cmd>lua require("telescope.builtin").buffers()<CR>', opts)
 map("n", "<leader>fh", '<cmd>lua require("telescope.builtin").help_tags()<CR>', opts)
-map(
-    "n",
-    "<leader>cp",
-    '<cmd>lua require("CodeCompanion.integrations.telescope").pick(require("CodeCompanion.actions").prompt_actions())<CR>',
-    {noremap = true, silent = true, desc = "CodeCompanionChat - Prompt actions"}
-)
-
+map("n", "<leader>ss", "<cmd>Telescope session-lens<CR>", opts)
+vim.keymap.set("n", "<leader>sn", function()
+  vim.ui.input({ prompt = "Session name: " }, function(name)
+    if not name or name == "" then
+      return
+    end
+    vim.cmd("AutoSession save " .. vim.fn.fnameescape(name))
+  end)
+end, { silent = true })
 --
 map("n", "<leader>ft", ":NvimTreeToggle<CR>", opts)
 map("n", "<leader>fc", ":lua vim.lsp.buf.format()<CR>", opts)
 map("n", "<leader>k", ":lua custom_diagnostics()<CR>", opts)
 map("n", "<leader>K", ":lua pretty_diagnostics()<CR>", opts)
-map("n", "<leader>sss", "luafile ~/.config/nvim/lua/config/functions.lua<CR>", opts)
+map("n", "<leader>sss", ":luafile ~/.config/nvim/lua/config/functions.lua<CR>", opts)
 map("n", "<Leader>yy", ':let @+=getline(".")<CR>', opts)
 map("n", "<leader>yfp", ':let @+ = expand("%:p")<CR>', opts)
 
 -- LLM
-map("n", "<leader>ai", ":CodeCompanionActions<CR>", opts)
+vim.keymap.set("n", "<leader>ais", function()
+  require("99").search()
+end, { desc = "99 search" })
+
+vim.keymap.set("n", "<leader>aix", function()
+  require("99").stop_all_requests()
+end, { desc = "99 stop all requests" })
+
+vim.keymap.set("n", "<leader>ail", function()
+  require("99").view_logs()
+end, { desc = "99 logs" })
+
+vim.keymap.set("n", "<leader>aiq", function()
+  require("99").previous_requests_to_qfix()
+end, { desc = "99 previous requests" })
 
 map("n", "gf", ":lua better_gf()<CR>", opts)
 map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -64,16 +78,9 @@ map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 -- Visual mode mappings
 map("v", "<Leader>y", '"+y', opts)
 map("v", "<leader>lg", ":lua git_log_list()<CR>", opts)
-map(
-    "v",
-    "<leader>cp",
-    ":CodeCompanionChat<CR>",
-    {noremap = true, silent = true, desc = "CopilotChat - Prompt actions (with selection)"}
-)
-
-vim.keymap.set('v', '<leader>ai', function()
-  vim.api.nvim_feedkeys(':CodeCompanion #buffer', 'n', false)
-end, { desc = 'CodeCompanion for current buffer' })
+vim.keymap.set("v", "<leader>aiv", function()
+  require("99").visual()
+end, { desc = "99 visual" })
 
 -- Insert mode mappings
 map("i", "jj", "<esc>", opts)

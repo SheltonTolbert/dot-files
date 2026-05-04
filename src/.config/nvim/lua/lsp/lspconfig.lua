@@ -1,8 +1,13 @@
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-require'lspconfig'.eslint.setup{}
-require'lspconfig'.rust_analyzer.setup{}
-require'lspconfig'.lua_ls.setup {
+vim.lsp.config('eslint', { capabilities = capabilities })
+vim.lsp.enable('eslint')
+
+vim.lsp.config('rust_analyzer', { capabilities = capabilities })
+vim.lsp.enable('rust_analyzer')
+
+vim.lsp.config('lua_ls', {
+  capabilities = capabilities,
   on_init = function(client)
     local path = client.workspace_folders[1].name
     if vim.loop.fs_stat(path..'/.luarc.json') or vim.loop.fs_stat(path..'/.luarc.jsonc') then
@@ -32,4 +37,5 @@ require'lspconfig'.lua_ls.setup {
   settings = {
     Lua = {}
   }
-}
+})
+vim.lsp.enable('lua_ls')

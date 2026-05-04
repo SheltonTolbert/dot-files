@@ -1,21 +1,10 @@
-local util = require 'lspconfig.util'
+local function root_dir(fname)
+  return vim.fs.root(fname, { "package.json" })
+end
 
-return {
-  default_config = {
-    cmd = { 'cssmodules-language-server' },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-    root_dir = util.find_package_json_ancestor,
-  },
-  docs = {
-    description = [[
-https://github.com/antonk52/cssmodules-language-server
-
-Language server for autocompletion and go-to-definition functionality for CSS modules.
-
-You can install cssmodules-language-server via npm:
-```sh
-npm install -g cssmodules-language-server
-```
-    ]],
-  },
-}
+vim.lsp.config('cssmodules_ls', {
+  cmd = { 'cssmodules-language-server' },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+  root_dir = root_dir,
+})
+vim.lsp.enable('cssmodules_ls')

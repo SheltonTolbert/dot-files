@@ -26,14 +26,16 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, opts) -- Uncommented as it's a useful mapping
 end
 
--- This is the main setup.
--- Instead of calling setup() directly, you would typically place this inside the
--- `handlers` table of mason-lspconfig or configure it with vim.lsp.enable().
-require('lspconfig').lexical.setup {
+local function root_dir(fname)
+  return vim.fs.root(fname, { "mix.exs", ".git" })
+end
+
+vim.lsp.config('lexical', {
   -- Your custom command to start the server is still perfectly valid.
   cmd = { os.getenv("HOME") .. "/repos/lexical/_build/dev/package/lexical/bin/start_lexical.sh" },
-  root_dir = require('lspconfig.util').root_pattern("mix.exs", ".git"),
+  root_dir = root_dir,
   filetypes = { "elixir", "eelixir", "heex" },
   on_attach = on_attach,
   settings = {},
-}
+})
+vim.lsp.enable('lexical')

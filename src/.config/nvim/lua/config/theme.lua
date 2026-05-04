@@ -15,7 +15,7 @@ vim.opt.termguicolors = true
 
 -- Transparent background settings
 function extend_hl(name, def)
-    local current_def = vim.api.nvim_get_hl_by_name(name, true)
+    local current_def = vim.api.nvim_get_hl(0, { name = name, link = false })
     local new_def = vim.tbl_extend('force', {}, current_def, def)
 
     vim.api.nvim_set_hl(0, name, new_def)
@@ -33,8 +33,8 @@ extend_hl('CursorLine', { bg = '#323e54', ctermbg = 235 })
 -- extend_hl('GitGutterAdd', { bg = 'none', ctermbg = 'none' })
 -- extend_hl('GitGutterChange', { bg = 'none', ctermbg = 'none' })
 -- extend_hl('GitGutterDelete', { bg = 'none', ctermbg = 'none' })
-extend_hl('NormalFloat', { bg = itermBgColorWithTransparancy })
-extend_hl('FloatBorder', { bg = itermBgColorWithTransparancy })
+extend_hl('NormalFloat', { bg = 'none', ctermbg = 'none' })
+extend_hl('FloatBorder', { fg = '#343d46', bg = 'none', ctermbg = 'none' })
 
 -- Specific settings for the oceanic next theme
 extend_hl('LspReferenceRead', { link = 'Visual' })

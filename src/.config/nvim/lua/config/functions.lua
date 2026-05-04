@@ -1,5 +1,5 @@
 local M = {}
-  function BranchIssue()
+  function M.BranchIssue()
   local output = vim.fn.system("zsh -i -c 'issue'")
   local buf = vim.api.nvim_create_buf(false, true)
 
@@ -36,7 +36,7 @@ local M = {}
     local path = vim.fn.finddir(file_string)
 
     -- use getfile to get the full path of the file, if there is one
-    local file = get_file(file_string)
+    local file = M.get_file(file_string)
 
     -- get list of all files in path, filter out files that do not contain path as a substring
     local dir_files = vim.fn.globpath(path, "**/*", true, true)
@@ -95,7 +95,7 @@ function M.git_log_list()
     local bufnr = vim.api.nvim_create_buf(false, true)  -- Create a new buffer
 
     -- Set buffer filetype to git
-    vim.api.nvim_buf_set_option(bufnr, 'filetype', 'diff')
+    vim.bo[bufnr].filetype = 'diff'
 
     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, output)  -- Set the buffer content
     local width = vim.o.columns * 0.8  -- Width of the floating window
@@ -218,7 +218,7 @@ local function unmark_file(file)
 end
 
 local function list_marked_files()
-  if #MARKED_FILES == 0 then
+  if #MARKED_FILES[CURRENT_MARKED_GROUP] == 0 then
     print("No marked files")
     return
   end
