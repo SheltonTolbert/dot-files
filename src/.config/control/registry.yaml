@@ -1,0 +1,152 @@
+- name: workspace-setup
+  desc: Reset workspace layout for Slack/Arc/Ghostty
+  type: script
+  cmd: ~/.dot-files/src/scripts/aerospace/workspace_setup.sh
+  args: none
+  exec: shell
+  tags: [aerospace, workspace]
+
+- name: config
+  desc: Open ~/.config selector (fzf)
+  type: script
+  cmd: ~/.dot-files/src/scripts/config.sh
+  args: optional
+  exec: shell
+  tags: [config]
+
+# Auto-added script entries
+- name: aerospace/workspace_layouts.sh
+  desc: Auto: aerospace/workspace_layouts.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/aerospace/workspace_layouts.sh
+  args: optional
+  exec: shell
+  tags: [aerospace]
+
+- name: aerospace/workspace_setup.sh
+  desc: Auto: aerospace/workspace_setup.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/aerospace/workspace_setup.sh
+  args: optional
+  exec: shell
+  tags: [aerospace]
+
+- name: cache.sh
+  desc: Auto: cache.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/cache.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: config.sh
+  desc: Auto: config.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/config.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: create_snippet.sh
+  desc: Auto: create_snippet.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/create_snippet.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: delete_snippet.sh
+  desc: Auto: delete_snippet.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/delete_snippet.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: dfm/dfm.sh
+  desc: Auto: dfm/dfm.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/dfm/dfm.sh
+  args: optional
+  exec: shell
+  tags: [dfm]
+
+- name: dfm/fix_credo.sh
+  desc: Auto: dfm/fix_credo.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/dfm/fix_credo.sh
+  args: optional
+  exec: shell
+  tags: [dfm]
+
+- name: dfm/suggest_commit.sh
+  desc: Auto: dfm/suggest_commit.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/dfm/suggest_commit.sh
+  args: optional
+  exec: shell
+  tags: [dfm]
+
+- name: dfm/utils.sh
+  desc: Auto: dfm/utils.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/dfm/utils.sh
+  args: optional
+  exec: shell
+  tags: [dfm]
+
+- name: karma_focus.sh
+  desc: Auto: karma_focus.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/karma_focus.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: mix_test.sh
+  desc: Auto: mix_test.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/mix_test.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: recursive-command.js
+  desc: Auto: recursive-command.js
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/recursive-command.js
+  args: optional
+  exec: shell
+  tags: []
+
+- name: setup-worktree-symlinks
+  desc: Auto: setup-worktree-symlinks
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/setup-worktree-symlinks
+  args: optional
+  exec: shell
+  tags: []
+
+- name: snippets.sh
+  desc: Auto: snippets.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/snippets.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: staging_db_connect.sh
+  desc: Auto: staging_db_connect.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/staging_db_connect.sh
+  args: optional
+  exec: shell
+  tags: []
+
+- name: startup.sh
+  desc: Auto: startup.sh
+  type: script
+  cmd: /Users/sheltontolbert/.dot-files/src/scripts/startup.sh
+  args: optional
+  exec: shell
+  tags: []
