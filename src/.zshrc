@@ -10,14 +10,18 @@ source ~/.config/zsh/.zsh_aliases
 source ~/.config/zsh/.zsh_functions
 source ~/.config/zsh/.zsh_plugins
 
+eval "$(mise activate zsh)"
+
 eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/ffmpeg@6/bin:$PATH"
 autoload -U compinit; compinit
 
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/sheltontolbert/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
-# End of Docker CLI completions
 
-alias claude="/Users/sheltontolbert/.claude/local/claude"
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/sheltontolbert/.tmp/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sheltontolbert/.tmp/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/sheltontolbert/.tmp/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sheltontolbert/.tmp/google-cloud-sdk/completion.zsh.inc'; fi

@@ -1,11 +1,10 @@
 # scripts ======================================================
-alias karma_focus="~/.dotfiles/scripts/karma_focus.sh"
-alias cache="~/.dotfiles/scripts/cache.sh"
+alias karma_focus="~/.dot-files/scripts/karma_focus.sh"
+alias cache="~/.dot-files/scripts/cache.sh"
 alias notes="vim ~/.vaults/Primary/Work"
-alias snippets="~/.dotfiles/src/scripts/snippets.sh"
-alias create_snippet="~/.dotfiles/src/scripts/create_snippet.sh"
+alias snippets="~/.dot-files/src/scripts/snippets.sh"
+alias create_snippet="~/.dot-files/src/scripts/create_snippet.sh"
 # alias ccm="/Users/sheltontolbert/repos/claude_command_manager/ccm"
-alias parkwt="cd ~/repos/worktrees/dscout; co parked-branch; cd -"
 
 # AI stuff =========================================================
 # "claude review write"
@@ -20,23 +19,17 @@ alias suggest="gh copilot suggest"
 # SHELCORP =========================================================
 alias shel="~/repos/shel_os/apps/control/main.sh"
 
-# Work =========================================================
-DSCOUT_DIR="~/repos/dscout"
-alias dscout="cd $DSCOUT_DIR"
-alias axon="$DSCOUT_DIR/bin/axon"
-alias axong="$DSCOUT_DIR/bin/axon"
-alias dendra="$DSCOUT_DIR/bin/dendra"
-
 # OS =========================================================
 alias screenshots="open ~/Documents/Screenshots"
 alias repos="cd ~/repos"
 
 # Terminal ===================================================
 alias c="clear"
-alias config="~/.dotfiles/src/scripts/config.sh"
+alias config="~/.dot-files/src/scripts/config.sh"
 alias statuskey="echo '\nconflicted: 󰈸\nahead: \nbehind: \ndiverged: 󰓁\nup_to_date: \nuntracked: \nstashed: 󰸐\nmodified: 󰧼\nrenamed: 󱀐\ndeleted: '"
 alias tmuxinit="ls ~/.config/tmuxinator | sed 's/\.[^.]*$//' | xargs -I{} -n1 tmuxinator s {} --attach false"
 alias ch="command_history"
+mtc() { mix test "$@" --color | tee /dev/tty | pbcopy }
 
 # Services
 alias issues='jira issues list -a$(jira me) -s"To Do"'
@@ -49,7 +42,7 @@ alias co="git checkout"
 alias gpopc="git reset --soft HEAD^"
 
 # scripts ======================================================
-alias cache="~/.dotfiles/scripts/cache.sh"
+alias cache="~/.dot-files/scripts/cache.sh"
 
 # AI stuff =========================================================
 alias chat="vim -c \"CodeCompanionChat gemini\" -c \"silent bd1\""
@@ -61,4 +54,3 @@ alias screenshots="open ~/Documents/Screenshots"
 # Services
 alias gpt="~/repos/gpt-cli/gpt.py"
 alias issues='jira issues list -a$(jira me) -s"To Do"'
-

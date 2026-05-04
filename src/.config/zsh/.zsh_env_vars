@@ -5,6 +5,7 @@ export PATH=/opt/homebrew/bin:$PATH
 ASDF_DIR="$HOME/.bin"
 ASDF_DATA_DIR=/Users/sheltontolbert/.asdf
 
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
 
@@ -31,4 +32,3 @@ export ML_PATH=~/repos/handson-ml/ml
 if [[ "$TERM_PROGRAM" == "ghostty" ]]; then
     export TERM=xterm-256color
 fi
-

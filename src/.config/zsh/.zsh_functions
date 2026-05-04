@@ -197,6 +197,16 @@ function sbranch() {
   | xargs -t -I {} git checkout {}
 }
 
+# Neovim sessions
+function nvs() {
+  if [ -z "$1" ]; then
+    echo "Usage: nvs <session_name>"
+    return 1
+  fi
+
+  nvim +"AutoSession restore $1"
+}
+
 # migrated
 function commit() {
   git commit -m "$*"
@@ -308,9 +318,45 @@ function command_history() {
   fi
 }
 
-# Worktree Management Functions ==============================================
+# Jump tasks helper: pick a task via fzf and run it
+function jump_tasks() {
+  local tasks_script="/Users/sheltontolbert/.dot-files/scripts/jump_tasks/jump_tasks.sh"
 
-# Source worktree management functions
-source ~/.dotfiles/src/.config/zsh/functions/worktree-register
-source ~/.dotfiles/src/.config/zsh/functions/worktree-list
-source ~/.dotfiles/src/.config/zsh/functions/worktree-manage
+  if [[ ! -x "$tasks_script" ]]; then
+    echo "Missing jump tasks script: $tasks_script" >&2
+    return 1
+  fi
+
+  if ! command -v fzf >/dev/null 2>&1; then
+    echo "Missing required command: fzf" >&2
+    return 1
+  fi
+
+  local -a tasks=(
+    "Migrate Jump.Repo (dev)\t${tasks_script} migrate dev"
+    "Migrate Jump.LogsRepo (logs)\t${tasks_script} migrate logs"
+    "Migrate Jump.VectorsRepo (vectors)\t${tasks_script} migrate vectors"
+    "Migrate Jump.VectorsNextRepo (vectors_next)\t${tasks_script} migrate vectors_next"
+    "Connect psql to dev db\t${tasks_script} psql dev"
+    "Connect psql to logs db\t${tasks_script} psql logs"
+    "Connect to staging db\t${tasks_script} staging"
+    "List jump commands\t${tasks_script} list"
+  )
+
+  local selection command
+  selection=$(printf '%s\n' "${tasks[@]}" | fzf --prompt="Jump tasks: " --delimiter=$'\t' --with-nth=1)
+  command=$(printf '%s' "$selection" | awk -F$'\t' '{print $2}')
+
+  if [[ -n "$command" ]]; then
+    echo "Executing: $command"
+    eval "$command"
+  fi
+}
+
+# Downloads ====================================================================
+
+function cpdl() {
+  ls -t ~/Downloads | head -1 | xargs -I{} echo "$HOME/Downloads/{}" | pbcopy && echo "Copied: $(pbpaste)"
+}
+
+# Worktree Management Functions ==============================================
