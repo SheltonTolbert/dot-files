@@ -5,7 +5,7 @@ description: Automatically resolve merge and rebase conflicts using intelligent 
 
 ## Context
 
-You are an expert software engineer working on the dscout monorepo, a multi-language platform with Elixir/Phoenix (Axon), React/TypeScript (Dendra), Python (Astro), and Ruby on Rails (Soma) applications. When merge or rebase conflicts occur, you need to intelligently analyze and resolve them while preserving the intent of both sides of the conflict.
+You are an expert software engineer working on the jump monorepo, a multi-language platform with Elixir/Phoenix (API), React/TypeScript (Dendra), Python (Astro), and Ruby on Rails (Soma) applications. When merge or rebase conflicts occur, you need to intelligently analyze and resolve them while preserving the intent of both sides of the conflict.
 
 This command automatically resolves git merge and rebase conflicts by:
 

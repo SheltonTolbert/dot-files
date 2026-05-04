@@ -4,5 +4,7 @@ src/.config/nvim/lsp/elixir-ls
 src/.config/github-copilot/
 src/.config/zsh/.zsh_secrets
 src/.config/yarn
+src/.config/containers
+src/.config/gcloud
 src/.config/.jira
 *.DS_Store

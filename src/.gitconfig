@@ -6,6 +6,7 @@
 [core]
   pager = delta
 	excludesfile = /Users/sheltontolbert/.gitignore
+	hooksPath = /Users/sheltontolbert/.git-hooks
 
 [interactive]
     diffFilter = delta --color-only
@@ -24,7 +25,7 @@
 	enabled = true
 
 [maintenance]
-	repo = /Users/sheltontolbert/repos/dscout
+	repo = /Users/sheltontolbert/repos/jump
 [filter "lfs"]
 	required = true
 	clean = git-lfs clean -- %f
