@@ -11,6 +11,25 @@ src/.config/graphite/user_config
 src/.config/nvim/.nvimlog
 src/.config/nvim/tmp/
 src/.config/op/
+
+# tmux plugin checkouts and resurrect/continuum generated state
+src/.tmux/plugins/
+src/.local/share/tmux/resurrect/
+
+# Local/generated logs, histories, caches, and app state
+src/.config/btop/*.log
+src/.config/erl_crash.dump
+src/.config/gpt-cli/history
+src/.config/pgcli/history
+src/.config/pgcli/log
+src/.config/claude_command_manager/cache/
+.claude/settings.local.json
+src/.config/.claude/settings.local.json
+src/.config/nvim/.claude/settings.local.json
+src/scripts/.claude/settings.local.json
+
+# Local auth/secrets
+src/.config/gh/hosts.yml
 github
 github.pub
 *.DS_Store
